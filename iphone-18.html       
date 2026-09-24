@@ -79,7 +79,6 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Image styling */
         .post-image-container {
             margin: 2rem 0;
             border: 2px solid #121214;
@@ -91,7 +90,8 @@
 
         .post-featured-image {
             width: 100%;
-            height: auto;
+            max-height: 450px;
+            object-fit: cover;
             display: block;
         }
 
@@ -155,7 +155,6 @@
             
             <h2>Is the iPhone 18 Worth It? Probably Not, and Here's the Math</h2>
             
-            <!-- Your uploaded image integrated cleanly -->
             <div class="post-image-container">
                 <img src="iphone18.jpg" alt="iPhone 18 Concept Lineup" class="post-featured-image">
                 <p class="image-caption">The rumored iPhone 18 Pro lineup concept. Photo: TechWither Archives</p>
