@@ -8,7 +8,7 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-6DJ4EE6ZR6');
+      gtag('config', 'G-FX6490W6T7');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,43 +16,53 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <style>
         :root {
-            --accent: #A2234D; /* Deep pink / maroon vibe */
+            --accent: #FF007F; /* Your requested Bright Pink */
+            --dark: #121214;
+            --light-bg: #fdfdfd;
         }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 4rem 1.5rem;
-            background-color: #faf9f6;
-            color: #121214;
+            padding: 2rem 1.5rem;
+            background-color: var(--light-bg);
+            color: var(--dark);
             line-height: 1.6;
         }
 
-        .site-header {
-            margin-bottom: 3.5rem;
-            border-bottom: 2px solid #121214;
-            padding-bottom: 2rem;
+        /* Wired-Style Top Bar */
+        .top-ticker {
+            background-color: var(--dark);
+            color: #fff;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.5rem 1rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent);
         }
 
-        .brand-badge {
-            display: inline-block;
-            background-color: var(--accent);
-            color: #fff;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
+        .top-ticker span {
+            color: var(--accent);
+        }
+
+        .site-header {
+            border-bottom: 2px solid var(--dark);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .site-header h1 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             margin: 0;
             font-weight: 900;
             letter-spacing: -2px;
+            text-transform: uppercase;
         }
 
         .site-header h1 span {
@@ -60,28 +70,36 @@
         }
 
         .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: #55555d;
             margin-top: 0.5rem;
             font-weight: 400;
         }
 
+        /* Wired Category Nav Bar with Pink Accent Lines */
         .categories {
             margin-top: 1.5rem;
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
             flex-wrap: wrap;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 0.75rem 0;
         }
 
         .category-tag {
-            background: #121214;
-            color: #fff;
+            background: transparent;
+            color: var(--dark);
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-weight: 600;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .category-tag:hover {
+            color: var(--accent);
         }
 
         .latest-drop {
@@ -93,6 +111,8 @@
             align-items: center;
             gap: 0.75rem;
             margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--dark);
+            padding-bottom: 0.5rem;
         }
 
         .live-dot {
@@ -100,42 +120,63 @@
             height: 10px;
             background-color: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
+            box-shadow: 0 0 8px var(--accent);
         }
 
         .drop-header h2 {
-            font-size: 1.25rem;
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             margin: 0;
+            font-weight: 800;
         }
 
+        /* Featured Card with Wired Border & Pink Shadow Accent */
         .featured-card {
             background: #ffffff;
-            border: 2px solid #121214;
-            border-radius: 12px;
+            border: 2px solid var(--dark);
+            border-radius: 4px;
             padding: 2.5rem;
-            box-shadow: 6px 6px 0px #121214;
+            box-shadow: 6px 6px 0px var(--dark);
+            position: relative;
             transition: transform 0.2s ease;
         }
 
+        /* Subtle pink accent border line on the left side of card */
+        .featured-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 6px;
+            background-color: var(--accent);
+        }
+
         .featured-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .card-meta {
             font-size: 0.85rem;
             color: #666;
             margin-bottom: 1rem;
-            font-weight: 500;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-meta span.highlight {
+            color: var(--accent);
         }
 
         .featured-card h2 a {
-            color: #121214;
+            color: var(--dark);
             text-decoration: none;
-            font-size: 2rem;
-            line-height: 1.25;
+            font-size: 2.2rem;
+            line-height: 1.15;
             letter-spacing: -1px;
+            font-weight: 800;
         }
 
         .featured-card h2 a:hover {
@@ -145,44 +186,60 @@
         .card-snippet {
             color: #44444d;
             font-size: 1.05rem;
-            margin: 1rem 0 1.5rem 0;
+            margin: 1.2rem 0 1.5rem 0;
         }
 
         .read-more-btn {
             display: inline-block;
-            font-weight: 700;
-            color: var(--accent);
+            font-weight: 800;
+            color: #fff;
+            background-color: var(--dark);
+            padding: 0.5rem 1.2rem;
             text-decoration: none;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.9rem;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            border-radius: 2px;
+            transition: background-color 0.2s ease;
         }
 
         .read-more-btn:hover {
-            text-decoration: underline;
+            background-color: var(--accent);
         }
 
         footer {
             margin-top: 5rem;
             padding-top: 1.5rem;
-            border-top: 1px solid #ddd;
+            border-top: 2px solid var(--dark);
             font-size: 0.85rem;
             color: #666;
-            font-weight: 500;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        footer span {
+            color: var(--accent);
         }
     </style>
 </head>
 <body>
     <div class="site-wrapper">
+        <!-- Wired-Style Top Ticker Bar -->
+        <div class="top-ticker">
+            <span>TECHWITHER JOURNAL</span>
+            <div>LIVE ANALYTICS ACTIVE &bull; <span>EST. 2026</span></div>
+        </div>
+
         <header class="site-header">
-            <div class="brand-badge">EST. 2026</div>
             <h1>TechWither<span>.</span></h1>
             <p class="subtitle">The unapologetic digital journal on tech, science, and how it actually messes with our lives.</p>
             
             <nav class="categories">
-                <span class="category-tag">Gadgets & AI</span>
-                <span class="category-tag">Society & Life</span>
-                <span class="category-tag">Deep Dives</span>
+                <a href="#" class="category-tag">Gadgets & AI</a>
+                <a href="#" class="category-tag">Society & Life</a>
+                <a href="#" class="category-tag">Deep Dives</a>
+                <a href="#" class="category-tag">Reviews</a>
             </nav>
         </header>
 
@@ -195,7 +252,7 @@
 
                 <div class="featured-card">
                     <div class="card-meta">
-                        <span class="category-tag">Gadgets & AI</span> • <span class="date">September 24, 2026</span>
+                        <span class="highlight">Gadgets & AI</span> &bull; <span class="date">September 24, 2026</span>
                     </div>
                     <h2><a href="iphone-18.html">Is the iPhone 18 Worth It? Probably Not, and Here's the Math</a></h2>
                     <p class="card-snippet">Every September, Apple acts like a slightly faster chip is a religious awakening. Let's look past the marketing hype and do the real math on annual upgrades.</p>
@@ -206,6 +263,7 @@
 
         <footer>
             <p>&copy; 2026 TechWither. Built different, owned by us.</p>
+            <p>Styled with <span>&hearts;</span> and Bright Pink</p>
         </footer>
     </div>
 </body>
