@@ -1,5 +1,5 @@
 :root {
-    --accent: #FF007F; /* Your Bright Pink */
+    --accent: #c90d0d; /* Your custom newsroom red */
     --dark: #121214;
     --light-bg: #ffffff;
 }
@@ -14,7 +14,6 @@ body {
     line-height: 1.6;
 }
 
-/* Wired-Style Top Bar */
 .top-ticker {
     background-color: var(--dark);
     color: #fff;
@@ -40,7 +39,6 @@ body {
     margin-bottom: 2.5rem;
 }
 
-/* Wired Boxed Logo Effect */
 .brand-box {
     display: inline-block;
     background-color: var(--dark);
@@ -50,6 +48,7 @@ body {
     letter-spacing: -1px;
     padding: 0.2rem 1rem;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
 .brand-box span {
@@ -63,7 +62,6 @@ body {
     font-weight: 400;
 }
 
-/* Wired Category Nav Bar */
 .categories {
     margin-top: 1.5rem;
     display: flex;
@@ -89,7 +87,6 @@ body {
     color: var(--accent);
 }
 
-/* Wired Two-Column Main Grid Layout */
 .main-grid {
     display: grid;
     grid-template-columns: 2.2fr 1fr;
@@ -128,13 +125,13 @@ body {
     font-weight: 900;
 }
 
-/* Featured Card Styling */
 .featured-card {
     background: #ffffff;
     border: 2px solid var(--dark);
     padding: 2.5rem;
     box-shadow: 5px 5px 0px var(--dark);
     position: relative;
+    margin-bottom: 2.5rem;
 }
 
 .featured-card::before {
@@ -196,11 +193,11 @@ body {
     background-color: var(--accent);
 }
 
-/* Sidebar Styling */
 .sidebar-card {
     border: 2px solid var(--dark);
     padding: 1.5rem;
     background: #fcfcfc;
+    margin-bottom: 1.5rem;
 }
 
 .sidebar-tag {

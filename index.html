@@ -18,50 +18,70 @@
 </head>
 <body>
     <div class="site-wrapper">
-        <!-- Wired-Style Top Ticker Bar -->
         <div class="top-ticker">
             <span>TECHWITHER JOURNAL</span>
             <div>LIVE ANALYTICS ACTIVE &bull; <span>EST. 2026</span></div>
         </div>
 
         <header class="site-header">
-            <div class="brand-box">TECHWITHER<span>.</span></div>
+            <a href="index.html" class="brand-box">TECHWITHER<span>.</span></a>
             <p class="subtitle">The unapologetic digital journal on tech, science, and how it actually messes with our lives.</p>
             
             <nav class="categories">
+                <a href="index.html" class="category-tag">Home</a>
+                <a href="archive.html" class="category-tag">Full Archive</a>
                 <a href="#" class="category-tag">Gadgets & AI</a>
                 <a href="#" class="category-tag">Society & Life</a>
-                <a href="#" class="category-tag">Deep Dives</a>
                 <a href="#" class="category-tag">Reviews</a>
             </nav>
         </header>
 
-        <!-- Wired-Style Two-Column Grid Layout -->
+        <!-- Main Layout Grid -->
         <main class="main-grid">
-            <section class="latest-drop">
+            <section class="latest-section">
                 <div class="drop-header">
                     <span class="live-dot"></span>
                     <h2>Latest Drop</h2>
                 </div>
 
+                <!-- Featured Article -->
                 <div class="featured-card">
                     <div class="card-meta">
-                        <span class="highlight">Gadgets & AI</span> &bull; <span class="date">September 24, 2026</span>
+                        <span class="highlight">Gadgets & AI</span> &bull; <span class="date">September 27, 2026</span>
                     </div>
-                    <h2><a href="iphone-18.html">Is the iPhone 18 Worth It? Probably Not, and Here's the Math</a></h2>
-                    <p class="card-snippet">Every September, Apple acts like a slightly faster chip is a religious awakening. Let's look past the marketing hype and do the real math on annual upgrades.</p>
-                    <a href="iphone-18.html" class="read-more-btn">Read Full Article &rarr;</a>
+                    <h2><a href="ai-trends-2026.html">Why We Need to Embrace AI: A Decade of Innovation (2016 vs. 2026)</a></h2>
+                    <p class="card-snippet">From data center water myths to remote work freedom: breaking down why embracing AI technology is transforming lives for the better over the last decade.</p>
+                    <a href="ai-trends-2026.html" class="read-more-btn">Read Full Article &rarr;</a>
+                </div>
+
+                <!-- Recent Lineup Grid (Scrollable past posts) -->
+                <div class="drop-header" style="margin-top: 3rem;">
+                    <h2>Recent Lineup</h2>
+                </div>
+                <div class="featured-card" style="padding: 1.5rem; box-shadow: 3px 3px 0px var(--dark);">
+                    <div class="card-meta">
+                        <span class="highlight">Reviews</span> &bull; <span class="date">September 24, 2026</span>
+                    </div>
+                    <h3 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 0.5rem;">
+                        <a href="iphone-18.html" style="color: var(--dark); text-decoration: none;">Is the iPhone 18 Worth It? Probably Not, and Here's the Math</a>
+                    </h3>
+                    <p class="card-snippet" style="font-size: 0.95rem; margin-bottom: 1rem;">Let's look past the marketing hype and do the real math on annual upgrades.</p>
+                    <a href="iphone-18.html" class="read-more-btn" style="padding: 0.4rem 1rem; font-size: 0.75rem;">Read Article &rarr;</a>
                 </div>
             </section>
 
-            <!-- Wired-Style Trending Stories Sidebar -->
+            <!-- Sidebar -->
             <aside class="sidebar">
                 <div class="drop-header">
                     <h2>Trending Stories</h2>
                 </div>
                 <div class="sidebar-card">
-                    <span class="sidebar-tag">Coming Soon</span>
-                    <h3>Next article drop loading... Check back as we publish our next 3 pieces.</h3>
+                    <span class="sidebar-tag">Gadgets & AI</span>
+                    <h3><a href="ai-trends-2026.html" style="color: var(--dark); text-decoration: none;">Why We Need to Embrace AI: A Decade of Innovation</a></h3>
+                </div>
+                <div class="sidebar-card">
+                    <span class="sidebar-tag">Reviews</span>
+                    <h3><a href="iphone-18.html" style="color: var(--dark); text-decoration: none;">Is the iPhone 18 Worth It? Probably Not</a></h3>
                 </div>
             </aside>
         </main>
