@@ -1,12 +1,12 @@
 :root {
-    --accent: #FF007F; /* Your requested Bright Pink */
+    --accent: #FF007F; /* Your Bright Pink */
     --dark: #121214;
-    --light-bg: #fdfdfd;
+    --light-bg: #ffffff;
 }
 
 body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
     padding: 2rem 1.5rem;
     background-color: var(--light-bg);
@@ -21,7 +21,7 @@ body {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 2px;
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1rem;
     font-weight: 700;
     margin-bottom: 2rem;
     display: flex;
@@ -40,43 +40,47 @@ body {
     margin-bottom: 2.5rem;
 }
 
-.site-header h1 {
-    font-size: 3.8rem;
-    margin: 0;
+/* Wired Boxed Logo Effect */
+.brand-box {
+    display: inline-block;
+    background-color: var(--dark);
+    color: #fff;
+    font-size: 3rem;
     font-weight: 900;
-    letter-spacing: -2px;
+    letter-spacing: -1px;
+    padding: 0.2rem 1rem;
     text-transform: uppercase;
 }
 
-.site-header h1 span {
+.brand-box span {
     color: var(--accent);
 }
 
 .subtitle {
     font-size: 1.1rem;
     color: #55555d;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     font-weight: 400;
 }
 
-/* Wired Category Nav Bar with Pink Accent Lines */
+/* Wired Category Nav Bar */
 .categories {
     margin-top: 1.5rem;
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     flex-wrap: wrap;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border-top: 1px solid var(--dark);
+    border-bottom: 1px solid var(--dark);
     padding: 0.75rem 0;
 }
 
 .category-tag {
     background: transparent;
     color: var(--dark);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;
-    font-weight: 700;
+    font-weight: 800;
     text-decoration: none;
     transition: color 0.2s ease;
 }
@@ -85,8 +89,18 @@ body {
     color: var(--accent);
 }
 
-.latest-drop {
-    margin-top: 2rem;
+/* Wired Two-Column Main Grid Layout */
+.main-grid {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .drop-header {
@@ -107,25 +121,22 @@ body {
 }
 
 .drop-header h2 {
-    font-size: 1rem;
+    font-size: 0.95rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin: 0;
-    font-weight: 800;
+    font-weight: 900;
 }
 
-/* Featured Card with Wired Border & Pink Shadow Accent */
+/* Featured Card Styling */
 .featured-card {
     background: #ffffff;
     border: 2px solid var(--dark);
-    border-radius: 4px;
     padding: 2.5rem;
-    box-shadow: 6px 6px 0px var(--dark);
+    box-shadow: 5px 5px 0px var(--dark);
     position: relative;
-    transition: transform 0.2s ease;
 }
 
-/* Subtle pink accent border line on the left side of card */
 .featured-card::before {
     content: '';
     position: absolute;
@@ -136,15 +147,11 @@ body {
     background-color: var(--accent);
 }
 
-.featured-card:hover {
-    transform: translateY(-2px);
-}
-
 .card-meta {
     font-size: 0.85rem;
     color: #666;
     margin-bottom: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
@@ -159,7 +166,7 @@ body {
     font-size: 2.2rem;
     line-height: 1.15;
     letter-spacing: -1px;
-    font-weight: 800;
+    font-weight: 900;
 }
 
 .featured-card h2 a:hover {
@@ -177,17 +184,40 @@ body {
     font-weight: 800;
     color: #fff;
     background-color: var(--dark);
-    padding: 0.5rem 1.2rem;
+    padding: 0.6rem 1.4rem;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
     font-size: 0.8rem;
-    border-radius: 2px;
     transition: background-color 0.2s ease;
 }
 
 .read-more-btn:hover {
     background-color: var(--accent);
+}
+
+/* Sidebar Styling */
+.sidebar-card {
+    border: 2px solid var(--dark);
+    padding: 1.5rem;
+    background: #fcfcfc;
+}
+
+.sidebar-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--dark);
 }
 
 footer {
@@ -199,8 +229,4 @@ footer {
     font-weight: 600;
     display: flex;
     justify-content: space-between;
-}
-
-footer span {
-    color: var(--accent);
 }
