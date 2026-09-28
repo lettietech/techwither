@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?",
+    "filename": "articles/neo-robot.html",
+    "category": "Gadgets & AI",
+    "date": "2026-09-28",
+    "snippet": "It promises to fold your laundry and tidy your home — but is 1X's NEO humanoid robot ready yet?",
+    "thumbnail": "photos/neo-robot.jpg"
+  },
+  {
+    "title": "Does AI Finish Water? Here's the Truth",
+    "filename": "articles/does-ai-finish-water.html",
+    "category": "Gadgets & AI",
+    "date": "2026-09-27",
+    "snippet": "Separating water myths from facts: looking at data center consumption and the global water cycle.",
+    "thumbnail": "photos/ai pic.jpg"
+  },
+  {
+    "title": "Why We Need to Embrace AI: A Decade of Innovation (2016 vs. 2026)",
+    "filename": "articles/ai-trends-2026.html",
+    "category": "Gadgets & AI",
+    "date": "2026-09-27",
+    "snippet": "From data center water myths to remote work freedom: breaking down why embracing AI transforms lives.",
+    "thumbnail": "photos/ai pic.jpg"
+  },
+  {
+    "title": "Is the iPhone 18 Worth It? Probably Not, and Here's the Math",
+    "filename": "articles/iphone-18.html",
+    "category": "Reviews",
+    "date": "2026-09-24",
+    "snippet": "Let's look past the marketing hype and do the real math on annual upgrades.",
+    "thumbnail": "photos/iphone18.jpg"
+  }
+]
