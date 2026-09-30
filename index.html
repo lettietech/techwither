@@ -70,7 +70,7 @@
             color: var(--tw-red);
         }
 
-        /* Category Nav Bar (Wired Style) */
+        /* Category Nav Bar - Exactly 5 Locked Pillars */
         .nav-bar {
             border-bottom: 1px solid var(--tw-border);
             background: #fff;
@@ -98,31 +98,6 @@
             color: var(--tw-red);
         }
 
-        /* Search Bar Banner */
-        .search-strip {
-            background: var(--tw-light-gray);
-            border-bottom: 1px solid #ddd;
-            padding: 0.8rem 2rem;
-        }
-        .search-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .search-inner input {
-            width: 100%;
-            padding: 0.6rem 1rem;
-            font-size: 0.9rem;
-            border: 1px solid #ccc;
-            outline: none;
-            background: #fff;
-        }
-        .search-inner input:focus {
-            border-color: var(--tw-red);
-        }
-
         /* Layout Grids */
         .container {
             max-width: 1400px;
@@ -142,7 +117,7 @@
             .wire-grid-lead { grid-template-columns: 1fr; }
         }
 
-        /* Article Card Styles (Clean, Editorial, No Boxes) */
+        /* Article Card Styles */
         .article-card {
             margin-bottom: 1.8rem;
             padding-bottom: 1.8rem;
@@ -176,15 +151,11 @@
         }
 
         .lead-headline {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             line-height: 1.1;
         }
-        @media (max-width: 600px) {
-            .lead-headline { font-size: 1.8rem; }
-        }
-
         .sub-headline {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             line-height: 1.25;
         }
 
@@ -195,7 +166,41 @@
             line-height: 1.4;
         }
 
-        /* Section Headings (Wired style dark bars) */
+        /* Thumbnails */
+        .thumb-container {
+            width: 100%;
+            height: 220px;
+            background: #111;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .thumb-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .thumb-small {
+            width: 90px;
+            height: 70px;
+            background: #111;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .thumb-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .flex-with-thumb {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        /* Section Headings */
         .section-header-bar {
             background: var(--tw-black);
             color: #fff;
@@ -231,21 +236,6 @@
         }
         footer p { margin: 0.4rem 0; color: #aaa; }
     </style>
-    <script>
-        function filterArticles() {
-            let input = document.getElementById('repoSearch').value.toLowerCase();
-            let cards = document.getElementsByClassName('searchable-item');
-            
-            for (let i = 0; i < cards.length; i++) {
-                let text = cards[i].innerText.toLowerCase();
-                if (text.includes(input)) {
-                    cards[i].style.display = "";
-                } else {
-                    cards[i].style.display = "none";
-                }
-            }
-        }
-    </script>
 </head>
 <body>
 
@@ -265,7 +255,7 @@
         </div>
     </header>
 
-    <!-- Navigation / Locked Core Pillars -->
+    <!-- Navigation Bar - Exact 5 Locked Pillars -->
     <nav class="nav-bar">
         <div class="nav-container">
             <a href="index.html" class="active" style="color: var(--tw-red);">Master Index</a>
@@ -277,24 +267,19 @@
         </div>
     </nav>
 
-    <!-- Search Strip -->
-    <div class="search-strip">
-        <div class="search-inner">
-            <span style="font-size: 0.75rem; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">Search Index:</span>
-            <input type="text" id="repoSearch" onkeyup="filterArticles()" placeholder="Search headlines, topics, or keywords (e.g., AI, iPhone, Robot, Privacy)...">
-        </div>
-    </div>
-
     <!-- Main Content Layout -->
     <main class="container">
 
         <!-- Lead Story + Sidebar Grid -->
         <div class="wire-grid-lead">
             
-            <!-- Lead Article (Robotics & Future Tech) -->
+            <!-- Lead Article with Large Thumbnail -->
             <div>
                 <div class="section-header-bar">Lead Feature</div>
-                <div class="article-card searchable-item" style="border: none; padding: 0; margin: 0;">
+                <div class="article-card" style="border: none; padding: 0; margin: 0;">
+                    <div class="thumb-container">
+                        <img src="photos/neo-robot.jpg" alt="1X NEO Humanoid Robot">
+                    </div>
                     <a href="categories/robotics-future-tech.html" class="tag-meta">Robotics & Future Tech <span>&bull; 2026-09-28</span></a>
                     <h2 class="lead-headline">
                         <a href="neo-robot.html">Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?</a>
@@ -306,24 +291,36 @@
                 </div>
             </div>
 
-            <!-- Secondary Column / Today's Picks -->
+            <!-- Latest Drop Sidebar Column -->
             <div>
-                <div class="section-header-bar">Trending Wire</div>
+                <div class="section-header-bar">Latest Drop</div>
                 
-                <div class="article-card searchable-item">
-                    <a href="categories/ai-machine-learning.html" class="tag-meta">AI & Machine Learning <span>&bull; 2026-09-27</span></a>
-                    <h3 style="font-size: 1.1rem;">
-                        <a href="ai-trends-2026.html">AI Trends 2026: What's Actually Changing in Software Architecture</a>
-                    </h3>
-                    <p class="snippet">How developer tooling, agentic workflows, and model context protocols are shifting engineering.</p>
+                <div class="article-card">
+                    <div class="flex-with-thumb">
+                        <div class="thumb-small">
+                            <img src="photos/ai pic.jpg" alt="AI Trends">
+                        </div>
+                        <div>
+                            <a href="categories/ai-machine-learning.html" class="tag-meta">AI & Machine Learning <span>&bull; 2026-09-27</span></a>
+                            <h3 style="font-size: 1rem; line-height: 1.2;">
+                                <a href="ai-trends-2026.html">AI Trends 2026: What's Actually Changing in Software Architecture</a>
+                            </h3>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="article-card searchable-item">
-                    <a href="categories/gadgets-hardware.html" class="tag-meta">Gadgets & Hardware <span>&bull; 2026-09-28</span></a>
-                    <h3 style="font-size: 1.1rem;">
-                        <a href="iphone-18.html">Inside the iPhone 18 Spec Sheet: Incremental Upgrades or Hardware Leaps?</a>
-                    </h3>
-                    <p class="snippet">Breaking down solid-state battery rumors and thermal engineering.</p>
+                <div class="article-card">
+                    <div class="flex-with-thumb">
+                        <div class="thumb-small">
+                            <img src="photos/iphone18.jpg" alt="iPhone 18">
+                        </div>
+                        <div>
+                            <a href="categories/gadgets-hardware.html" class="tag-meta">Gadgets & Hardware <span>&bull; 2026-09-28</span></a>
+                            <h3 style="font-size: 1rem; line-height: 1.2;">
+                                <a href="iphone-18.html">Inside the iPhone 18 Spec Sheet: Incremental Upgrades or Hardware Leaps?</a>
+                            </h3>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -333,9 +330,12 @@
         <div class="three-col-grid">
             
             <!-- Column 1: Software & Digital Life -->
-            <div class="searchable-item">
+            <div>
                 <div class="section-header-bar">Software & Digital Life</div>
                 <div class="article-card">
+                    <div class="thumb-container" style="height: 140px;">
+                        <img src="photos/phone watching.jpg" alt="Digital Tracking">
+                    </div>
                     <a href="categories/software-digital-life.html" class="tag-meta">Software & Digital Life <span>&bull; 2026-09-29</span></a>
                     <h3 class="sub-headline">
                         <a href="phone-privacy.html">Is Your Phone Watching You? The Reality of Digital Tracking</a>
@@ -346,9 +346,12 @@
             </div>
 
             <!-- Column 2: AI & Machine Learning -->
-            <div class="searchable-item">
-                <div class="section-header-bar">Sustainability & Infrastructure</div>
+            <div>
+                <div class="section-header-bar">AI & Machine Learning</div>
                 <div class="article-card">
+                    <div class="thumb-container" style="height: 140px;">
+                        <img src="photos/ai water.jpg" alt="Data Centers">
+                    </div>
                     <a href="categories/ai-machine-learning.html" class="tag-meta">AI & Machine Learning <span>&bull; 2026-09-27</span></a>
                     <h3 class="sub-headline">
                         <a href="does-ai-finish-water.html">Does AI Finish Water? Here's the Truth Behind Data Centers</a>
@@ -359,9 +362,12 @@
             </div>
 
             <!-- Column 3: Reviews & Verdicts -->
-            <div class="searchable-item">
+            <div>
                 <div class="section-header-bar">Reviews & Verdicts</div>
                 <div class="article-card">
+                    <div class="thumb-container" style="height: 140px;">
+                        <img src="photos/iphone vs andriod.jpg" alt="Review Verdict">
+                    </div>
                     <a href="categories/reviews-verdicts.html" class="tag-meta">Reviews & Verdicts <span>&bull; 2026-09-29</span></a>
                     <h3 class="sub-headline">
                         <a href="iphone-vs-android.html">Android vs. iPhone 2026: Does Apple Innovate, or Are We Paying for Status?</a>
