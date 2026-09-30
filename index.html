@@ -11,129 +11,167 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechWitHer | Modern Tech, Science & Culture</title>
+    <title>TechWitHer | Modern Tech Repository & Journal</title>
     <link rel="icon" type="image/svg+xml" href="techwither.svg">
     <link rel="stylesheet" href="style.css">
+    <script>
+        // Instant Client-Side Search Filtering for the Master Index
+        function filterArticles() {
+            let input = document.getElementById('repoSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('repo-card');
+            
+            for (let i = 0; i < cards.length; i++) {
+                let text = cards[i].innerText.toLowerCase();
+                if (text.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="site-wrapper">
         <div class="top-ticker">
-            <span>TECHWITHER JOURNAL</span>
+            <span>TECHWITHER REPOSITORY</span>
             <div>LIVE ANALYTICS ACTIVE &bull; <span>EST. 2026</span></div>
         </div>
 
         <header class="site-header">
             <a href="index.html" class="brand-box">TECHWITHER<span>.</span></a>
-            <p class="subtitle">The unapologetic digital journal on tech, science, and how it actually messes with our lives.</p>
+            <p class="subtitle">The uncompromising digital repository on tech, intelligence, and how engineering shapes modern reality.</p>
             
-            <nav class="categories">
-                <a href="index.html" class="category-tag">Home</a>
-                <a href="archive.html" class="category-tag">Full Archive</a>
-                <a href="archive.html#ai" class="category-tag">Gadgets & AI</a>
-                <a href="archive.html#society" class="category-tag">Society & Life</a>
-                <a href="archive.html#reviews" class="category-tag">Reviews</a>
+            <!-- Locked 5 Core Pillars Navigation -->
+            <nav class="categories" style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem;">
+                <a href="index.html" class="category-tag" style="background: var(--dark); color: #fff;">Master Index</a>
+                <a href="categories/ai-machine-learning.html" class="category-tag">AI & Machine Learning</a>
+                <a href="categories/gadgets-hardware.html" class="category-tag">Gadgets & Hardware</a>
+                <a href="categories/software-digital-life.html" class="category-tag">Software & Digital Life</a>
+                <a href="categories/robotics-future-tech.html" class="category-tag">Robotics & Future Tech</a>
+                <a href="categories/reviews-verdicts.html" class="category-tag">Reviews & Verdicts</a>
             </nav>
         </header>
+
+        <!-- Search Bar & Repository Bar -->
+        <div style="background: #fdfdfd; border: 2px solid var(--dark); padding: 1.5rem; margin: 2rem 0; box-shadow: 4px 4px 0px var(--dark);">
+            <h2 style="font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; margin-bottom: 0.8rem;">Repository Search & Index</h2>
+            <input type="text" id="repoSearch" onkeyup="filterArticles()" placeholder="Search articles by title, topic, or keyword (e.g., AI, iPhone, Robot, Privacy)..." style="width: 100%; padding: 0.8rem 1rem; font-size: 1rem; border: 2px solid var(--dark); outline: none; font-family: inherit; background: #fff;">
+        </div>
 
         <main class="main-grid">
             <section class="latest-section">
                 <div class="drop-header">
                     <span class="live-dot"></span>
-                    <h2>Latest Drop</h2>
+                    <h2>Complete Article Repository</h2>
                 </div>
 
-                <!-- Latest Article (Phone Privacy) -->
-                <article class="featured-card" style="padding: 1.5rem; margin-bottom: 2.5rem; box-shadow: 5px 5px 0px var(--dark); display: flex; gap: 1.5rem; align-items: center;">
-                    <img src="photos/phone watching.jpg" alt="Is Your Phone Watching You?" style="width: 140px; height: 100px; object-fit: cover; border: 1px solid var(--dark); flex-shrink: 0;" onerror="this.style.display='none'">
-                    <div>
+                <div id="articleIndexGrid" style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+                    <!-- 1. AI & Machine Learning -->
+                    <div class="repo-card featured-card" style="padding: 1.5rem; box-shadow: 3px 3px 0px var(--dark);">
                         <div class="card-meta">
-                            <span class="highlight">Digital Privacy</span> &bull; 2026-09-29
+                            <a href="categories/ai-machine-learning.html" class="highlight" style="text-decoration: none;">AI & Machine Learning</a> &bull; 2026-09-27
                         </div>
-                        <h2 style="font-size: 1.4rem; font-weight: 900; margin-bottom: 0.4rem;">
-                            <a href="phone-privacy.html" style="color: var(--dark); text-decoration: none;">Is Your Phone Watching You?</a>
-                        </h2>
+                        <h3 style="font-size: 1.3rem; font-weight: 900; margin: 0.4rem 0;">
+                            <a href="ai-trends-2026.html" style="color: var(--dark); text-decoration: none;">AI Trends 2026: What's Actually Changing in Software Architecture</a>
+                        </h3>
                         <p class="card-snippet" style="font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.4;">
-                            Let's break down what your phone actually knows, address the microphone myth, and cover what you can actually do about your privacy.
+                            A deep dive into how developer tooling, agentic workflows, and model context protocols are shifting the software engineering landscape.
                         </p>
-                        <a href="phone-privacy.html" class="read-more-btn" style="padding: 0.4rem 1rem; font-size: 0.75rem;">Read Full Article &rarr;</a>
+                        <a href="ai-trends-2026.html" class="read-more-btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Read Article &rarr;</a>
                     </div>
-                </article>
 
-                <!-- Recent Lineup -->
-                <div class="drop-header" style="margin-top: 1rem;">
-                    <h2>Recent Lineup</h2>
-                </div>
-
-                <div class="featured-card" style="padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 3px 3px 0px var(--dark); display: flex; gap: 1.5rem; align-items: center;">
-                    <img src="photos/iphone vs andriod.jpg" alt="Android vs. iPhone" style="width: 120px; height: 80px; object-fit: cover; border: 1px solid var(--dark); flex-shrink: 0;" onerror="this.style.display='none'">
-                    <div>
+                    <div class="repo-card featured-card" style="padding: 1.5rem; box-shadow: 3px 3px 0px var(--dark);">
                         <div class="card-meta">
-                            <span class="highlight">Reviews</span> &bull; <span class="date">2026-09-29</span>
+                            <a href="categories/ai-machine-learning.html" class="highlight" style="text-decoration: none;">AI & Machine Learning</a> &bull; 2026-09-27
                         </div>
-                        <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 0.4rem;">
-                            <a href="iphone-vs-android.html" style="color: var(--dark); text-decoration: none;">Android vs. iPhone 2026: Does Apple Actually Innovate, or Are We Just Paying for Status?</a>
-                        </h3>
-                        <p class="card-snippet" style="font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.4;">Setting tribalism aside to look at what each platform does better in 2026 — from charging speeds to video processing and the ecosystem trap.</p>
-                        <a href="iphone-vs-android.html" class="read-more-btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Read Article &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="featured-card" style="padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 3px 3px 0px var(--dark); display: flex; gap: 1.5rem; align-items: center;">
-                    <img src="photos/neo-robot.jpg" alt="1X NEO Robot" style="width: 120px; height: 80px; object-fit: cover; border: 1px solid var(--dark); flex-shrink: 0;" onerror="this.style.display='none'">
-                    <div>
-                        <div class="card-meta">
-                            <span class="highlight">Gadgets & AI</span> &bull; <span class="date">2026-09-28</span>
-                        </div>
-                        <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 0.4rem;">
-                            <a href="neo-robot.html" style="color: var(--dark); text-decoration: none;">Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?</a>
-                        </h3>
-                        <p class="card-snippet" style="font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.4;">It promises to fold your laundry and tidy your home — but is 1X's NEO humanoid robot ready yet?</p>
-                        <a href="neo-robot.html" class="read-more-btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Read Article &rarr;</a>
-                    </div>
-                </div>
-
-                <div class="featured-card" style="padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 3px 3px 0px var(--dark); display: flex; gap: 1.5rem; align-items: center;">
-                    <img src="photos/ai pic.jpg" alt="AI Water" style="width: 120px; height: 80px; object-fit: cover; border: 1px solid var(--dark); flex-shrink: 0;" onerror="this.style.display='none'">
-                    <div>
-                        <div class="card-meta">
-                            <span class="highlight">Gadgets & AI</span> &bull; <span class="date">2026-09-27</span>
-                        </div>
-                        <h3 style="font-size: 1.3rem; font-weight: 900; margin-bottom: 0.4rem;">
+                        <h3 style="font-size: 1.3rem; font-weight: 900; margin: 0.4rem 0;">
                             <a href="does-ai-finish-water.html" style="color: var(--dark); text-decoration: none;">Does AI Finish Water? Here's the Truth</a>
                         </h3>
-                        <p class="card-snippet" style="font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.4;">Separating water myths from facts: looking at data center consumption and the global water cycle.</p>
+                        <p class="card-snippet" style="font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.4;">
+                            Separating data center consumption myths from facts regarding water usage and global infrastructure footprints.
+                        </p>
                         <a href="does-ai-finish-water.html" class="read-more-btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Read Article &rarr;</a>
                     </div>
-                </div>
 
+                    <!-- 2. Gadgets & Hardware -->
+                    <div class="repo-card featured-card" style="padding: 1.5rem; box-shadow: 3px 3px 0px var(--dark);">
+                        <div class="card-meta">
+                            <a href="categories/gadgets-hardware.html" class="highlight" style="text-decoration: none;">Gadgets & Hardware</a> &bull; 2026-09-28
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 900; margin: 0.4rem 0;">
+                            <a href="iphone-18.html" style="color: var(--dark); text-decoration: none;">Inside the iPhone 18 Spec Sheet: Incremental Upgrades or True Hardware Leaps?</a>
+                        </h3>
+                        <p class="card-snippet" style="font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.4;">
+                            Breaking down thermal engineering, solid-state battery rumors, and whether next year's flagship justifies the hardware hype.
+                        </p>
+                        <a href="iphone-18.html" class="read-more-btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Read Article &rarr;</a>
+                    </div>
+
+                    <!-- 3. Software & Digital Life -->
+                    <div class="repo-card featured-card" style="padding: 1.5rem; box-shadow: 3px 3px 0px var(--dark);">
+                        <div class="card-meta">
+                            <a href="categories/software-digital-life.html" class="highlight" style="text-decoration: none;">Software & Digital Life</a> &bull; 2026-09-29
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 900; margin: 0.4rem 0;">
+                            <a href="phone-privacy.html" style="color: var(--dark); text-decoration: none;">Is Your Phone Watching You? The Reality of Digital Tracking</a>
+                        </h3>
+                        <p class="card-snippet" style="font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.4;">
+                            Debunking the microphone myth while exposing how cross-app profiling and household data matching predict your habits.
+                        </p>
+                        <a href="phone-privacy.html" class="read-more-btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Read Article &rarr;</a>
+                    </div>
+
+                    <!-- 4. Robotics & Future Tech -->
+                    <div class="repo-card featured-card" style="padding: 1.5rem; box-shadow: 3px 3px 0px var(--dark);">
+                        <div class="card-meta">
+                            <a href="categories/robotics-future-tech.html" class="highlight" style="text-decoration: none;">Robotics & Future Tech</a> &bull; 2026-09-28
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 900; margin: 0.4rem 0;">
+                            <a href="neo-robot.html" style="color: var(--dark); text-decoration: none;">Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?</a>
+                        </h3>
+                        <p class="card-snippet" style="font-size: 0.95rem; margin-bottom: 0.8rem; line-height: 1.4;">
+                            An unvarnished look at humanoid home robotics, expert-mode teleoperation, and the path to true domestic autonomy.
+                        </p>
+                        <a href="neo-robot.html" class="read-more-btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Read Article &rarr;</a>
+                    </div>
+
+                    <!-- 5. Reviews & Verdicts -->
+                    <div class="repo-card featured-card" style="padding: 1.5rem; box-shadow: 3px 3px 0px var(--dark);">
+                        <div class="card-meta">
+                            <a href="categories/reviews-verdicts.html" class="highlight" style="text-decoration: none;">Reviews & Verdicts</a> &bull; 2026-09-29
+                        </div>
+                        <h3 style="font-size: 1.3rem; font-weight: 900; margin: 0.4rem 0;">
+                            <a href="iphone-vs-android.html" style="color: var(--dark); text-decoration: none;">Android vs. iPhone 2026: Does Apple Actually Innovate, or Are We Just Paying for Status?</a>
+                        </h3>
+                        <p class="card-snippet" style="font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.4;">
+                            A rigorous comparison setting tribalism aside to evaluate charging speeds, video processing, and ecosystem lock-in.
+                        </p>
+                        <a href="iphone-vs-android.html" class="read-more-btn" style="padding: 0.3rem 0.8rem; font-size: 0.7rem;">Read Article &rarr;</a>
+                    </div>
+
+                </div>
             </section>
 
-            <!-- Sidebar -->
+            <!-- Sidebar / Pillar Quick Navigation -->
             <aside class="sidebar">
                 <div class="drop-header">
-                    <h2>Trending Stories</h2>
+                    <h2>Focus Pillars</h2>
                 </div>
-
-                <div class="sidebar-card">
-                    <span class="sidebar-tag">Digital Privacy</span>
-                    <h3><a href="phone-privacy.html" style="color: var(--dark); text-decoration: none;">Is Your Phone Watching You?</a></h3>
-                </div>
-
-                <div class="sidebar-card">
-                    <span class="sidebar-tag">Reviews</span>
-                    <h3><a href="iphone-vs-android.html" style="color: var(--dark); text-decoration: none;">Android vs. iPhone 2026: Does Apple Actually Innovate, or Are We Just Paying for Status?</a></h3>
-                </div>
-
-                <div class="sidebar-card">
-                    <span class="sidebar-tag">Gadgets & AI</span>
-                    <h3><a href="neo-robot.html" style="color: var(--dark); text-decoration: none;">Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?</a></h3>
+                <div class="sidebar-card" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <a href="categories/ai-machine-learning.html" style="color: var(--dark); text-decoration: none; font-weight: 700;">&bull; AI & Machine Learning</a>
+                    <a href="categories/gadgets-hardware.html" style="color: var(--dark); text-decoration: none; font-weight: 700;">&bull; Gadgets & Hardware</a>
+                    <a href="categories/software-digital-life.html" style="color: var(--dark); text-decoration: none; font-weight: 700;">&bull; Software & Digital Life</a>
+                    <a href="categories/robotics-future-tech.html" style="color: var(--dark); text-decoration: none; font-weight: 700;">&bull; Robotics & Future Tech</a>
+                    <a href="categories/reviews-verdicts.html" style="color: var(--dark); text-decoration: none; font-weight: 700;">&bull; Reviews & Verdicts</a>
                 </div>
             </aside>
         </main>
 
         <footer>
             <p>&copy; 2026 TechWitHer. All rights reserved.</p>
-            <p>Independent Tech Journalism</p>
+            <p>Independent Tech Repository & Journalism</p>
         </footer>
     </div>
 </body>
