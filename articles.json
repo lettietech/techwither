@@ -2,7 +2,7 @@
   {
     "title": "Is Your Phone Watching You?",
     "filename": "articles/phone-privacy.html",
-    "category": "Digital Privacy",
+    "category": "Software & Digital Life",
     "date": "2026-09-29",
     "snippet": "Let's break down what your phone actually knows, address the microphone myth, and cover what you can actually do about your privacy.",
     "thumbnail": "photos/phone watching.jpg"
@@ -10,7 +10,7 @@
   {
     "title": "Android vs. iPhone 2026: Does Apple Actually Innovate, or Are We Just Paying for Status?",
     "filename": "articles/iphone-vs-android.html",
-    "category": "Reviews",
+    "category": "Reviews & Verdicts",
     "date": "2026-09-29",
     "snippet": "Setting tribalism aside to look at what each platform does better in 2026 — from charging speeds to video processing and the ecosystem trap.",
     "thumbnail": "photos/iphone vs andriod.jpg"
@@ -18,7 +18,7 @@
   {
     "title": "Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?",
     "filename": "articles/neo-robot.html",
-    "category": "Gadgets & AI",
+    "category": "Robotics & Future Tech",
     "date": "2026-09-28",
     "snippet": "It promises to fold your laundry and tidy your home — but is 1X's NEO humanoid robot ready yet?",
     "thumbnail": "photos/neo-robot.jpg"
@@ -26,7 +26,7 @@
   {
     "title": "Does AI Finish Water? Here's the Truth",
     "filename": "articles/does-ai-finish-water.html",
-    "category": "Gadgets & AI",
+    "category": "AI & Machine Learning",
     "date": "2026-09-27",
     "snippet": "Separating water myths from facts: looking at data center consumption and the global water cycle.",
     "thumbnail": "photos/ai pic.jpg"
@@ -34,7 +34,7 @@
   {
     "title": "Why We Need to Embrace AI: A Decade of Innovation (2016 vs. 2026)",
     "filename": "articles/ai-trends-2026.html",
-    "category": "Gadgets & AI",
+    "category": "AI & Machine Learning",
     "date": "2026-09-27",
     "snippet": "From data center water myths to remote work freedom: breaking down why embracing AI transforms lives.",
     "thumbnail": "photos/ai pic.jpg"
@@ -42,7 +42,7 @@
   {
     "title": "Is the iPhone 18 Worth It? Probably Not, and Here's the Math",
     "filename": "articles/iphone-18.html",
-    "category": "Reviews",
+    "category": "Reviews & Verdicts",
     "date": "2026-09-24",
     "snippet": "Let's look past the marketing hype and do the real math on annual upgrades.",
     "thumbnail": "photos/iphone18.jpg"

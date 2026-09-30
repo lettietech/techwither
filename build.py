@@ -63,9 +63,11 @@ def build_site():
             <nav class="categories">
                 <a href="index.html" class="category-tag">Home</a>
                 <a href="archive.html" class="category-tag">Full Archive</a>
-                <a href="#" class="category-tag">Gadgets & AI</a>
-                <a href="#" class="category-tag">Society & Life</a>
-                <a href="#" class="category-tag">Reviews</a>
+                <a href="archive.html#ai" class="category-tag">AI & Machine Learning</a>
+                <a href="archive.html#gadgets" class="category-tag">Gadgets & Hardware</a>
+                <a href="archive.html#software" class="category-tag">Software & Digital Life</a>
+                <a href="archive.html#robotics" class="category-tag">Robotics & Future Tech</a>
+                <a href="archive.html#reviews" class="category-tag">Reviews & Verdicts</a>
             </nav>
         </header>
 
@@ -150,7 +152,7 @@ def build_site():
         f.write(index_html)
     print("index.html generated successfully.")
 
-    # 4. Generate archive.html
+    # 4. Generate archive.html (Structured by category pillars)
     archive_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,24 +191,43 @@ def build_site():
             <section class="latest-section">
                 <div class="drop-header">
                     <span class="live-dot"></span>
-                    <h2>Complete Article Archive</h2>
+                    <h2>Complete Article Archive & Categorized Repository</h2>
                 </div>
-
-                <div class="featured-card" style="padding: 2rem;">
-                    <ul style="list-style-type: none; padding: 0; line-height: 2.2;">
 """
 
-    for art in published_articles:
+    # Group articles by category pillars
+    pillars = [
+        "AI & Machine Learning",
+        "Gadgets & Hardware",
+        "Software & Digital Life",
+        "Robotics & Future Tech",
+        "Reviews & Verdicts"
+    ]
+
+    for pillar in pillars:
+        pillar_slug = pillar.lower().replace(" & ", "-").replace(" ", "-")
+        pillar_articles = [art for art in published_articles if art.get('category') == pillar]
+        
         archive_html += f"""
+                <div id="{pillar_slug}" class="featured-card" style="padding: 2rem; margin-bottom: 2rem;">
+                    <h3 style="font-size: 1.4rem; font-weight: 900; border-bottom: 2px solid var(--dark); padding-bottom: 0.5rem; margin-bottom: 1rem; color: var(--dark);">{pillar}</h3>
+"""
+        if pillar_articles:
+            archive_html += '<ul style="list-style-type: none; padding: 0; line-height: 2.2;">'
+            for art in pillar_articles:
+                archive_html += f"""
                         <li style="border-bottom: 1px solid #eee; padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
                             <span class="date" style="font-weight: 700; color: #666; margin-right: 1rem;">{art['date']}</span> 
                             <a href="{art['filename']}" style="color: var(--dark); font-weight: 800; text-decoration: none;">{art['title']}</a>
                         </li>
 """
+            archive_html += '</ul>'
+        else:
+            archive_html += '<p style="color: #666; font-style: italic;">No articles published in this category yet. Stay tuned.</p>'
+
+        archive_html += '</div>'
 
     archive_html += """
-                    </ul>
-                </div>
             </section>
         </main>
 
@@ -221,7 +242,7 @@ def build_site():
 
     with open("archive.html", "w", encoding="utf-8") as f:
         f.write(archive_html)
-    print("archive.html generated successfully.")
+    print("archive.html generated successfully with strict pillar sections.")
 
 if __name__ == "__main__":
     build_site()
