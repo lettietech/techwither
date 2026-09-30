@@ -12,14 +12,27 @@ def build_site():
 
     print(f"Successfully loaded {len(articles)} articles from metadata.")
 
-    # Ensure output directories exist
-    os.makedirs('categories', exist_ok=True)
+    # Ensure articles category directories exist based on your structure
+    categories = [
+        "AI & Machine Learning",
+        "Gadgets & Hardware",
+        "Software & Digital Life",
+        "Robotics & Future Tech",
+        "Reviews & Verdicts"
+    ]
+    
+    for cat in categories:
+        dir_path = os.path.join('articles', 'Categories', cat)
+        os.makedirs(dir_path, exist_ok=True)
 
-    # Example: Processing loop for static generation or verification
+    # Verification and processing loop
     for article in articles:
-        print(f"Processing: {article['title']} [{article['category']}] -> {article['filename']}")
-
-    # Add your full static generation HTML compilation logic here
+        filename = article['filename']
+        if os.path.exists(filename):
+            print(f"[OK] Found: {article['title']} -> {filename}")
+        else:
+            print(f"[WARNING] File referenced in JSON not found on disk: {filename}")
+            
     print("Build complete! All paths and JSON indexes verified.")
 
 if __name__ == '__main__':

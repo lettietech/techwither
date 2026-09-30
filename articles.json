@@ -1,7 +1,7 @@
 [
   {
     "title": "Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?",
-    "filename": "articles/neo-robot.html",
+    "filename": "articles/Categories/Robotics & Future Tech/neo-robot.html",
     "thumbnail": "photos/neo-robot.jpg",
     "category": "Robotics & Future Tech",
     "date": "2026-09-28",
@@ -9,35 +9,35 @@
   },
   {
     "title": "AI Trends 2026: What's Actually Changing in Software Architecture",
-    "filename": "articles/ai-trends-2026.html",
+    "filename": "articles/Categories/AI & Machine Learning/ai-trends-2026.html",
     "thumbnail": "photos/ai pic.jpg",
     "category": "AI & Machine Learning",
     "date": "2026-09-27"
   },
   {
     "title": "Inside the iPhone 18 Spec Sheet: Incremental Upgrades or Hardware Leaps?",
-    "filename": "articles/iphone-18.html",
+    "filename": "articles/Categories/Gadgets & Hardware/iphone-18.html",
     "thumbnail": "photos/iphone18.jpg",
     "category": "Gadgets & Hardware",
     "date": "2026-09-28"
   },
   {
     "title": "Is Your Phone Watching You? The Reality of Digital Tracking",
-    "filename": "articles/phone-privacy.html",
+    "filename": "articles/Categories/Software & Digital Life/phone-privacy.html",
     "thumbnail": "photos/phone watching.jpg",
     "category": "Software & Digital Life",
     "date": "2026-09-29"
   },
   {
     "title": "Does AI Finish Water? Here's the Truth Behind Data Centers",
-    "filename": "articles/does-ai-finish-water.html",
+    "filename": "articles/Categories/AI & Machine Learning/does-ai-finish-water.html",
     "thumbnail": "photos/ai water.jpg",
     "category": "AI & Machine Learning",
     "date": "2026-09-27"
   },
   {
     "title": "Android vs. iPhone 2026: Does Apple Innovate, or Are We Paying for Status?",
-    "filename": "articles/iphone-vs-android.html",
+    "filename": "articles/Categories/Reviews & Verdicts/iphone-vs-android.html",
     "thumbnail": "photos/iphone vs andriod.jpg",
     "category": "Reviews & Verdicts",
     "date": "2026-09-29"
