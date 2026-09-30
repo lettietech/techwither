@@ -5,82 +5,293 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FX6490W6T7"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){{dataLayer.push(arguments);}}
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-FX6490W6T7');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Full Archive | TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="techwither.svg">
-    <link rel="stylesheet" href="style.css">
+    <title>Archive &bull; TechWitHer</title>
+    <link rel="icon" type="image/svg+xml" href="../techwither.svg">
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        :root {
+            --tw-red: #e60000;
+            --tw-black: #000000;
+            --tw-gray: #757575;
+            --tw-light-gray: #f4f4f4;
+            --tw-border: #111111;
+        }
+
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--tw-black);
+            background: #ffffff;
+            line-height: 1.5;
+        }
+
+        /* Top Ticker Bar */
+        .top-ticker {
+            background: var(--tw-black);
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 6px 20px;
+            display: flex;
+            justify-content: space-between;
+            text-transform: uppercase;
+        }
+        .top-ticker span { color: var(--tw-red); }
+
+        /* Main Masthead Header */
+        .site-header {
+            border-bottom: 3px solid var(--tw-border);
+            padding: 1.2rem 2rem 0.8rem 2rem;
+            background: #fff;
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+        .brand-logo {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            text-decoration: none;
+            color: var(--tw-black);
+            font-family: monospace, sans-serif;
+        }
+        .brand-logo span { color: var(--tw-red); }
+
+        /* Category Nav Bar - Exactly 5 Locked Pillars */
+        .nav-bar {
+            border-bottom: 1px solid var(--tw-border);
+            background: #fff;
+            padding: 0 2rem;
+        }
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0.7rem 0;
+        }
+        .nav-container a {
+            text-decoration: none;
+            color: var(--tw-black);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: color 0.1s ease;
+        }
+        .nav-container a:hover, .nav-container a.active {
+            color: var(--tw-red);
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .archive-header {
+            border-bottom: 2px solid var(--tw-border);
+            padding-bottom: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .archive-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin: 0 0 0.5rem 0;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+        .archive-header p {
+            color: var(--tw-gray);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* Archive Item Styling */
+        .archive-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .archive-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eaeaea;
+            gap: 2rem;
+        }
+        .archive-item:last-child {
+            border-bottom: none;
+        }
+        .archive-meta-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex: 1;
+        }
+        .tag-meta {
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--tw-red);
+            text-decoration: none;
+        }
+        .tag-meta span { color: var(--tw-gray); font-weight: 600; }
+
+        .archive-item h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .archive-item h3 a {
+            color: var(--tw-black);
+            text-decoration: none;
+            transition: color 0.1s ease;
+        }
+        .archive-item h3 a:hover {
+            color: var(--tw-red);
+        }
+        .archive-date {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--tw-gray);
+            white-space: nowrap;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .archive-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: var(--tw-black);
+            color: #fff;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        footer p { margin: 0.4rem 0; color: #aaa; }
+    </style>
 </head>
 <body>
-    <div class="site-wrapper">
-        <div class="top-ticker">
-            <span>TECHWITHER JOURNAL</span>
-            <div>LIVE ANALYTICS ACTIVE &bull; <span>EST. 2026</span></div>
+
+    <!-- Top Ticker -->
+    <div class="top-ticker">
+        <div>TECHWITHER REPOSITORY &bull; <span>COMPLETE ARCHIVE</span></div>
+        <div>EST. 2026</div>
+    </div>
+
+    <!-- Masthead Header -->
+    <header class="site-header">
+        <div class="header-container">
+            <a href="../index.html" class="brand-logo">TECHWITHER<span>.</span></a>
+            <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; display: none; @media(min-width: 768px){display: block;}">
+                The Uncompromising Digital Repository on Tech & Future Engineering
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Bar - Exact 5 Locked Pillars -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="../index.html">Home</a>
+            <a href="ai-machine-learning.html">AI & Machine Learning</a>
+            <a href="gadgets-hardware.html">Gadgets & Hardware</a>
+            <a href="software-digital-life.html">Software & Digital Life</a>
+            <a href="robotics-future-tech.html">Robotics & Future Tech</a>
+            <a href="reviews-verdicts.html">Reviews & Verdicts</a>
+        </div>
+    </nav>
+
+    <!-- Main Archive Content -->
+    <main class="container">
+        <div class="archive-header">
+            <h1>Repository Archive</h1>
+            <p>A complete chronological index of all published dispatches, guides, and engineering reviews.</p>
         </div>
 
-        <header class="site-header">
-            <a href="index.html" class="brand-box">TECHWITHER<span>.</span></a>
-            <p class="subtitle">The unapologetic digital journal on tech, science, and how it actually messes with our lives.</p>
+        <div class="archive-list">
             
-            <nav class="categories">
-                <a href="index.html" class="category-tag">&larr; Back to Home</a>
-                <a href="archive.html" class="category-tag" style="color: var(--accent);">Full Archive</a>
-            </nav>
-        </header>
-
-        <main class="main-grid" style="grid-template-columns: 1fr;">
-            <section class="latest-section">
-                <div class="drop-header">
-                    <span class="live-dot"></span>
-                    <h2>Complete Article Archive</h2>
+            <div class="archive-item">
+                <div class="archive-meta-group">
+                    <a href="reviews-verdicts.html" class="tag-meta">Reviews & Verdicts</a>
+                    <h3><a href="../articles/iphone-vs-android.html">Android vs. iPhone 2026: Does Apple Innovate, or Are We Paying for Status?</a></h3>
                 </div>
+                <div class="archive-date">2026-09-29</div>
+            </div>
 
-                <div class="featured-card" style="padding: 2rem;">
-                    <ul style="list-style-type: none; padding: 0; line-height: 2.2;">
-
-                        <li style="border-bottom: 1px solid #eee; padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
-                            <span class="date" style="font-weight: 700; color: #666; margin-right: 1rem;">2026-09-29</span> 
-                            <a href="articles/phone-privacy.html" style="color: var(--dark); font-weight: 800; text-decoration: none;">Is Your Phone Watching You?</a>
-                        </li>
-
-                        <li style="border-bottom: 1px solid #eee; padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
-                            <span class="date" style="font-weight: 700; color: #666; margin-right: 1rem;">2026-09-29</span> 
-                            <a href="articles/iphone-vs-android.html" style="color: var(--dark); font-weight: 800; text-decoration: none;">Android vs. iPhone 2026: Does Apple Actually Innovate, or Are We Just Paying for Status?</a>
-                        </li>
-
-                        <li style="border-bottom: 1px solid #eee; padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
-                            <span class="date" style="font-weight: 700; color: #666; margin-right: 1rem;">2026-09-28</span> 
-                            <a href="articles/neo-robot.html" style="color: var(--dark); font-weight: 800; text-decoration: none;">Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?</a>
-                        </li>
-
-                        <li style="border-bottom: 1px solid #eee; padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
-                            <span class="date" style="font-weight: 700; color: #666; margin-right: 1rem;">2026-09-27</span> 
-                            <a href="articles/does-ai-finish-water.html" style="color: var(--dark); font-weight: 800; text-decoration: none;">Does AI Finish Water? Here's the Truth</a>
-                        </li>
-
-                        <li style="border-bottom: 1px solid #eee; padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
-                            <span class="date" style="font-weight: 700; color: #666; margin-right: 1rem;">2026-09-27</span> 
-                            <a href="articles/ai-trends-2026.html" style="color: var(--dark); font-weight: 800; text-decoration: none;">Why We Need to Embrace AI: A Decade of Innovation (2016 vs. 2026)</a>
-                        </li>
-
-                        <li style="border-bottom: 1px solid #eee; padding-bottom: 0.75rem; margin-bottom: 0.75rem;">
-                            <span class="date" style="font-weight: 700; color: #666; margin-right: 1rem;">2026-09-24</span> 
-                            <a href="articles/iphone-18.html" style="color: var(--dark); font-weight: 800; text-decoration: none;">Is the iPhone 18 Worth It? Probably Not, and Here's the Math</a>
-                        </li>
-
-                    </ul>
+            <div class="archive-item">
+                <div class="archive-meta-group">
+                    <a href="software-digital-life.html" class="tag-meta">Software & Digital Life</a>
+                    <h3><a href="../articles/phone-privacy.html">Is Your Phone Watching You? The Reality of Digital Tracking</a></h3>
                 </div>
-            </section>
-        </main>
+                <div class="archive-date">2026-09-29</div>
+            </div>
 
-        <footer>
-            <p>&copy; 2026 TechWitHer. All rights reserved.</p>
-            <p>Independent Tech Journalism</p>
-        </footer>
-    </div>
+            <div class="archive-item">
+                <div class="archive-meta-group">
+                    <a href="robotics-future-tech.html" class="tag-meta">Robotics & Future Tech</a>
+                    <h3><a href="../articles/neo-robot.html">Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?</a></h3>
+                </div>
+                <div class="archive-date">2026-09-28</div>
+            </div>
+
+            <div class="archive-item">
+                <div class="archive-meta-group">
+                    <a href="gadgets-hardware.html" class="tag-meta">Gadgets & Hardware</a>
+                    <h3><a href="../articles/iphone-18.html">Inside the iPhone 18 Spec Sheet: Incremental Upgrades or Hardware Leaps?</a></h3>
+                </div>
+                <div class="archive-date">2026-09-28</div>
+            </div>
+
+            <div class="archive-item">
+                <div class="archive-meta-group">
+                    <a href="ai-machine-learning.html" class="tag-meta">AI & Machine Learning</a>
+                    <h3><a href="../articles/ai-trends-2026.html">AI Trends 2026: What's Actually Changing in Software Architecture</a></h3>
+                </div>
+                <div class="archive-date">2026-09-27</div>
+            </div>
+
+            <div class="archive-item">
+                <div class="archive-meta-group">
+                    <a href="ai-machine-learning.html" class="tag-meta">AI & Machine Learning</a>
+                    <h3><a href="../articles/does-ai-finish-water.html">Does AI Finish Water? Here's the Truth Behind Data Centers</a></h3>
+                </div>
+                <div class="archive-date">2026-09-27</div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div style="font-family: monospace; font-size: 1.2rem; font-weight: 900; margin-bottom: 0.5rem;">TECHWITHER<span>.</span></div>
+        <p>The uncompromising repository on technology, intelligence, and future engineering.</p>
+        <p style="margin-top: 1.5rem; color: #666; font-size: 0.75rem;">&copy; 2026 TechWitHer. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>

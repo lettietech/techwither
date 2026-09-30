@@ -1,50 +1,45 @@
 [
   {
-    "title": "Is Your Phone Watching You?",
-    "filename": "articles/phone-privacy.html",
-    "category": "Software & Digital Life",
-    "date": "2026-09-29",
-    "snippet": "Let's break down what your phone actually knows, address the microphone myth, and cover what you can actually do about your privacy.",
-    "thumbnail": "photos/phone watching.jpg"
-  },
-  {
-    "title": "Android vs. iPhone 2026: Does Apple Actually Innovate, or Are We Just Paying for Status?",
-    "filename": "articles/iphone-vs-android.html",
-    "category": "Reviews & Verdicts",
-    "date": "2026-09-29",
-    "snippet": "Setting tribalism aside to look at what each platform does better in 2026 — from charging speeds to video processing and the ecosystem trap.",
-    "thumbnail": "photos/iphone vs andriod.jpg"
-  },
-  {
     "title": "Meet the Human Robot: Is 1X's NEO the Future of Home Life, or Just Expensive Hype?",
     "filename": "articles/neo-robot.html",
+    "thumbnail": "photos/neo-robot.jpg",
     "category": "Robotics & Future Tech",
     "date": "2026-09-28",
-    "snippet": "It promises to fold your laundry and tidy your home — but is 1X's NEO humanoid robot ready yet?",
-    "thumbnail": "photos/neo-robot.jpg"
+    "lead_feature": true
   },
   {
-    "title": "Does AI Finish Water? Here's the Truth",
-    "filename": "articles/does-ai-finish-water.html",
-    "category": "AI & Machine Learning",
-    "date": "2026-09-27",
-    "snippet": "Separating water myths from facts: looking at data center consumption and the global water cycle.",
-    "thumbnail": "photos/ai pic.jpg"
-  },
-  {
-    "title": "Why We Need to Embrace AI: A Decade of Innovation (2016 vs. 2026)",
+    "title": "AI Trends 2026: What's Actually Changing in Software Architecture",
     "filename": "articles/ai-trends-2026.html",
+    "thumbnail": "photos/ai pic.jpg",
     "category": "AI & Machine Learning",
-    "date": "2026-09-27",
-    "snippet": "From data center water myths to remote work freedom: breaking down why embracing AI transforms lives.",
-    "thumbnail": "photos/ai pic.jpg"
+    "date": "2026-09-27"
   },
   {
-    "title": "Is the iPhone 18 Worth It? Probably Not, and Here's the Math",
+    "title": "Inside the iPhone 18 Spec Sheet: Incremental Upgrades or Hardware Leaps?",
     "filename": "articles/iphone-18.html",
+    "thumbnail": "photos/iphone18.jpg",
+    "category": "Gadgets & Hardware",
+    "date": "2026-09-28"
+  },
+  {
+    "title": "Is Your Phone Watching You? The Reality of Digital Tracking",
+    "filename": "articles/phone-privacy.html",
+    "thumbnail": "photos/phone watching.jpg",
+    "category": "Software & Digital Life",
+    "date": "2026-09-29"
+  },
+  {
+    "title": "Does AI Finish Water? Here's the Truth Behind Data Centers",
+    "filename": "articles/does-ai-finish-water.html",
+    "thumbnail": "photos/ai water.jpg",
+    "category": "AI & Machine Learning",
+    "date": "2026-09-27"
+  },
+  {
+    "title": "Android vs. iPhone 2026: Does Apple Innovate, or Are We Paying for Status?",
+    "filename": "articles/iphone-vs-android.html",
+    "thumbnail": "photos/iphone vs andriod.jpg",
     "category": "Reviews & Verdicts",
-    "date": "2026-09-24",
-    "snippet": "Let's look past the marketing hype and do the real math on annual upgrades.",
-    "thumbnail": "photos/iphone18.jpg"
+    "date": "2026-09-29"
   }
 ]
