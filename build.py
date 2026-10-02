@@ -1,9 +1,18 @@
+from datetime import datetime
 import json
 import os
 
 # Load articles metadata
 with open("articles.json", "r", encoding="utf-8") as f:
-    articles = json.load(f)
+    all_articles = json.load(f)
+
+# Get today's date (format: YYYY-MM-DD)
+today_str = datetime.now().strftime("%Y-%m-%d")
+
+# Filter out future articles (only keep articles whose date is today or in the past)
+articles = [
+    art for art in all_articles if art.get("date", "2099-01-01") <= today_str
+]
 
 # Sort articles by date descending (newest first)
 articles.sort(key=lambda x: x["date"], reverse=True)
@@ -14,28 +23,37 @@ CATEGORIES = [
     "Gadgets & Hardware",
     "Software & Digital Life",
     "Robotics & Future Tech",
-    "Reviews & Verdicts"
+    "Reviews & Verdicts",
 ]
 
+
 def get_nav_html(active_cat="Home"):
-    nav_html = f'<a href="/index.html" class="{"active" if active_cat == "Home" else ""}">Home</a>\n'
-    for cat in CATEGORIES:
-        cat_path = f"/articles/Categories/{cat}/index.html"
-        is_active = 'class="active" style="color: #e60000;"' if active_cat == cat else ''
-        nav_html += f'        <a href="{cat_path}" {is_active}>{cat}</a>\n'
-    return nav_html
+  nav_html = (
+      f'<a href="/index.html" class="{"active" if active_cat == "Home" else ""}'
+      '">Home</a>\n'
+  )
+  for cat in CATEGORIES:
+    cat_path = f"/articles/Categories/{cat}/index.html"
+    is_active = (
+        'class="active" style="color: #e60000;"' if active_cat == cat else ""
+    )
+    nav_html += f'        <a href="{cat_path}" {is_active}>{cat}</a>\n'
+  return nav_html
+
 
 # 1. BUILD CATEGORY LANDING PAGES
 for cat in CATEGORIES:
-    cat_dir = os.path.join("articles", "Categories", cat)
-    os.makedirs(cat_dir, exist_ok=True)
-    
-    cat_articles = [a for a in articles if a["category"] == cat]
-    
-    articles_html = ""
-    for art in cat_articles:
-        snippet_text = art.get('snippet', 'Explore the full article on TechWitHer.')
-        articles_html += f"""
+  cat_dir = os.path.join("articles", "Categories", cat)
+  os.makedirs(cat_dir, exist_ok=True)
+
+  cat_articles = [a for a in articles if a["category"] == cat]
+
+  articles_html = ""
+  for art in cat_articles:
+    snippet_text = art.get(
+        "snippet", "Explore the full article on TechWitHer."
+    )
+    articles_html += f"""
         <div class="article-card">
             <div class="flex-with-thumb">
                 <div class="thumb-small"><img src="/{art['thumbnail']}" alt="{art['title']}"></div>
@@ -47,11 +65,13 @@ for cat in CATEGORIES:
             </div>
         </div>
         """
-    
-    if not cat_articles:
-        articles_html = "<p>No articles published in this category yet. Check back soon!</p>"
 
-    cat_page_content = f"""<!DOCTYPE html>
+  if not cat_articles:
+    articles_html = (
+        "<p>No articles published in this category yet. Check back soon!</p>"
+    )
+
+  cat_page_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -99,16 +119,20 @@ for cat in CATEGORIES:
 </body>
 </html>
 """
-    with open(os.path.join(cat_dir, "index.html"), "w", encoding="utf-8") as f:
-        f.write(cat_page_content)
+  with open(os.path.join(cat_dir, "index.html"), "w", encoding="utf-8") as f:
+    f.write(cat_page_content)
 
 # 2. BUILD MAIN INDEX.HTML
-lead_article = next((a for a in articles if a.get("lead_feature")), articles[0])
-latest_articles = [a for a in articles if a != lead_article][:2]
-grid_articles = articles[3:6] if len(articles) > 3 else articles[:3]
+if articles:
+  lead_article = next((a for a in articles if a.get("lead_feature")), articles[0])
+  latest_articles = [a for a in articles if a != lead_article][:2]
+  grid_articles = articles[3:6] if len(articles) > 3 else articles[:3]
+else:
+  lead_article = None
+
 
 def render_article_card_small(art):
-    return f"""
+  return f"""
     <div class="article-card">
         <div class="flex-with-thumb">
             <div class="thumb-small"><img src="/{art['thumbnail']}" alt="{art['title']}"></div>
@@ -120,8 +144,32 @@ def render_article_card_small(art):
     </div>
     """
 
-latest_drops_html = "".join([render_article_card_small(a) for a in latest_articles])
-lead_snippet = lead_article.get('snippet', 'Explore the full feature on TechWitHer.')
+
+latest_drops_html = "".join(
+    [render_article_card_small(a) for a in latest_articles]
+) if articles else "<p>No articles available.</p>"
+lead_snippet = (
+    lead_article.get("snippet", "Explore the full feature on TechWitHer.")
+    if lead_article
+    else ""
+)
+
+lead_section_html = (
+    f"""
+            <div>
+                <div class="section-header-bar">Lead Feature</div>
+                <div class="article-card" style="border: none; padding: 0; margin: 0;">
+                    <div class="thumb-container"><img src="/{lead_article['thumbnail']}" alt="{lead_article['title']}"></div>
+                    <a href="/articles/Categories/{lead_article['category']}/index.html" class="tag-meta">{lead_article['category']} <span>&bull; {lead_article['date']}</span></a>
+                    <h2 class="lead-headline"><a href="/{lead_article['filename']}">{lead_article['title']}</a></h2>
+                    <p class="snippet" style="font-size: 1.05rem; margin-top: 0.8rem;">{lead_snippet}</p>
+                    <a href="/{lead_article['filename']}" style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000; text-decoration: none; letter-spacing: 0.5px;">Read Full Feature &rarr;</a>
+                </div>
+            </div>
+"""
+    if lead_article
+    else "<div><p>No lead feature available.</p></div>"
+)
 
 index_html_content = f"""<!DOCTYPE html>
 <html lang="en">
@@ -190,16 +238,7 @@ index_html_content = f"""<!DOCTYPE html>
     <nav class="nav-bar"><div class="nav-container">{get_nav_html("Home")}</div></nav>
     <main class="container">
         <div class="wire-grid-lead">
-            <div>
-                <div class="section-header-bar">Lead Feature</div>
-                <div class="article-card" style="border: none; padding: 0; margin: 0;">
-                    <div class="thumb-container"><img src="/{lead_article['thumbnail']}" alt="{lead_article['title']}"></div>
-                    <a href="/articles/Categories/{lead_article['category']}/index.html" class="tag-meta">{lead_article['category']} <span>&bull; {lead_article['date']}</span></a>
-                    <h2 class="lead-headline"><a href="/{lead_article['filename']}">{lead_article['title']}</a></h2>
-                    <p class="snippet" style="font-size: 1.05rem; margin-top: 0.8rem;">{lead_snippet}</p>
-                    <a href="/{lead_article['filename']}" style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000; text-decoration: none; letter-spacing: 0.5px;">Read Full Feature &rarr;</a>
-                </div>
-            </div>
+            {lead_section_html}
             <div>
                 <div class="section-header-bar">Latest Drop</div>
                 {latest_drops_html}
@@ -208,8 +247,9 @@ index_html_content = f"""<!DOCTYPE html>
         <div class="three-col-grid">
 """
 
-for art in grid_articles[:3]:
-    grid_snippet = art.get('snippet', 'Read the full article on TechWitHer.')
+if articles:
+  for art in grid_articles[:3]:
+    grid_snippet = art.get("snippet", "Read the full article on TechWitHer.")
     index_html_content += f"""
             <div>
                 <div class="section-header-bar">{art['category']}</div>
@@ -236,6 +276,9 @@ index_html_content += f"""
 """
 
 with open("index.html", "w", encoding="utf-8") as f:
-    f.write(index_html_content)
+  f.write(index_html_content)
 
-print("Static site build complete! All files generated successfully with zero errors.")
+print(
+    "Static site build complete! All files generated successfully with zero"
+    " errors."
+)
