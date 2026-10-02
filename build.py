@@ -18,10 +18,9 @@ CATEGORIES = [
 ]
 
 def get_nav_html(active_cat="Home"):
-    nav_html = f'<a href="index.html" class="{"active" if active_cat == "Home" else ""}">Home</a>\n'
+    nav_html = f'<a href="/index.html" class="{"active" if active_cat == "Home" else ""}">Home</a>\n'
     for cat in CATEGORIES:
-        prefix = "../../" if active_cat != "Home" else ""
-        cat_path = f"{prefix}articles/Categories/{cat}/index.html"
+        cat_path = f"/articles/Categories/{cat}/index.html"
         is_active = 'class="active" style="color: #e60000;"' if active_cat == cat else ''
         nav_html += f'        <a href="{cat_path}" {is_active}>{cat}</a>\n'
     return nav_html
@@ -39,10 +38,10 @@ for cat in CATEGORIES:
         articles_html += f"""
         <div class="article-card">
             <div class="flex-with-thumb">
-                <div class="thumb-small"><img src="../../../{art['thumbnail']}" alt="{art['title']}"></div>
+                <div class="thumb-small"><img src="/{art['thumbnail']}" alt="{art['title']}"></div>
                 <div>
                     <span class="tag-meta">{art['category']} &bull; {art['date']}</span>
-                    <h3><a href="../../../{art['filename']}">{art['title']}</a></h3>
+                    <h3><a href="/{art['filename']}">{art['title']}</a></h3>
                     <p class="snippet">{snippet_text}</p>
                 </div>
             </div>
@@ -58,8 +57,8 @@ for cat in CATEGORIES:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{cat} | TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="../../../techwither.svg">
-    <link rel="stylesheet" href="../../../style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
     <style>
         body {{ margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #000; background: #fff; line-height: 1.5; }}
         .top-ticker {{ background: #000; color: #fff; font-size: 0.75rem; font-weight: 700; padding: 6px 20px; display: flex; justify-content: space-between; text-transform: uppercase; }}
@@ -87,7 +86,7 @@ for cat in CATEGORIES:
 </head>
 <body>
     <div class="top-ticker"><div>TECHWITHER REPOSITORY &bull; <span>CATEGORY ARCHIVE</span></div><div>EST. 2026</div></div>
-    <header class="site-header"><div style="max-width: 1400px; margin: 0 auto;"><a href="../../../index.html" class="brand-logo">TECHWITHER<span>.</span></a></div></header>
+    <header class="site-header"><div style="max-width: 1400px; margin: 0 auto;"><a href="/index.html" class="brand-logo">TECHWITHER<span>.</span></a></div></header>
     <nav class="nav-bar"><div class="nav-container">{get_nav_html(cat)}</div></nav>
     <main class="container">
         <div class="section-header-bar">Category: {cat}</div>
@@ -112,10 +111,10 @@ def render_article_card_small(art):
     return f"""
     <div class="article-card">
         <div class="flex-with-thumb">
-            <div class="thumb-small"><img src="{art['thumbnail']}" alt="{art['title']}"></div>
+            <div class="thumb-small"><img src="/{art['thumbnail']}" alt="{art['title']}"></div>
             <div>
-                <a href="articles/Categories/{art['category']}/index.html" class="tag-meta">{art['category']} <span>&bull; {art['date']}</span></a>
-                <h3 style="font-size: 1rem; line-height: 1.2;"><a href="{art['filename']}">{art['title']}</a></h3>
+                <a href="/articles/Categories/{art['category']}/index.html" class="tag-meta">{art['category']} <span>&bull; {art['date']}</span></a>
+                <h3 style="font-size: 1rem; line-height: 1.2;"><a href="/{art['filename']}">{art['title']}</a></h3>
             </div>
         </div>
     </div>
@@ -137,8 +136,8 @@ index_html_content = f"""<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechWitHer | The Digital Repository on Tech & Future Engineering</title>
-    <link rel="icon" type="image/svg+xml" href="techwither.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
     <style>
         body {{ margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #000; background: #ffffff; line-height: 1.5; }}
         .top-ticker {{ background: #000; color: #fff; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; padding: 6px 20px; display: flex; justify-content: space-between; text-transform: uppercase; }}
@@ -182,7 +181,7 @@ index_html_content = f"""<!DOCTYPE html>
     <div class="top-ticker"><div>TECHWITHER REPOSITORY &bull; <span>LIVE EDITORIAL</span></div><div>EST. 2026</div></div>
     <header class="site-header">
         <div class="header-container">
-            <a href="index.html" class="brand-logo">TECHWITHER<span>.</span></a>
+            <a href="/index.html" class="brand-logo">TECHWITHER<span>.</span></a>
             <div class="header-tagline" style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
                 The Uncompromising Digital Repository on Tech & Future Engineering
             </div>
@@ -194,11 +193,11 @@ index_html_content = f"""<!DOCTYPE html>
             <div>
                 <div class="section-header-bar">Lead Feature</div>
                 <div class="article-card" style="border: none; padding: 0; margin: 0;">
-                    <div class="thumb-container"><img src="{lead_article['thumbnail']}" alt="{lead_article['title']}"></div>
-                    <a href="articles/Categories/{lead_article['category']}/index.html" class="tag-meta">{lead_article['category']} <span>&bull; {lead_article['date']}</span></a>
-                    <h2 class="lead-headline"><a href="{lead_article['filename']}">{lead_article['title']}</a></h2>
+                    <div class="thumb-container"><img src="/{lead_article['thumbnail']}" alt="{lead_article['title']}"></div>
+                    <a href="/articles/Categories/{lead_article['category']}/index.html" class="tag-meta">{lead_article['category']} <span>&bull; {lead_article['date']}</span></a>
+                    <h2 class="lead-headline"><a href="/{lead_article['filename']}">{lead_article['title']}</a></h2>
                     <p class="snippet" style="font-size: 1.05rem; margin-top: 0.8rem;">{lead_snippet}</p>
-                    <a href="{lead_article['filename']}" style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000; text-decoration: none; letter-spacing: 0.5px;">Read Full Feature &rarr;</a>
+                    <a href="/{lead_article['filename']}" style="font-size: 0.8rem; font-weight: 900; text-transform: uppercase; color: #000; text-decoration: none; letter-spacing: 0.5px;">Read Full Feature &rarr;</a>
                 </div>
             </div>
             <div>
@@ -215,11 +214,11 @@ for art in grid_articles[:3]:
             <div>
                 <div class="section-header-bar">{art['category']}</div>
                 <div class="article-card">
-                    <div class="thumb-container" style="height: 140px;"><img src="{art['thumbnail']}" alt="{art['title']}"></div>
-                    <a href="articles/Categories/{art['category']}/index.html" class="tag-meta">{art['category']} <span>&bull; {art['date']}</span></a>
-                    <h3 class="sub-headline"><a href="{art['filename']}">{art['title']}</a></h3>
+                    <div class="thumb-container" style="height: 140px;"><img src="/{art['thumbnail']}" alt="{art['title']}"></div>
+                    <a href="/articles/Categories/{art['category']}/index.html" class="tag-meta">{art['category']} <span>&bull; {art['date']}</span></a>
+                    <h3 class="sub-headline"><a href="/{art['filename']}">{art['title']}</a></h3>
                     <p class="snippet">{grid_snippet}</p>
-                    <a href="{art['filename']}" style="font-size: 0.75rem; font-weight: 900; text-transform: uppercase; color: #e60000; text-decoration: none;">Read Article &rarr;</a>
+                    <a href="/{art['filename']}" style="font-size: 0.75rem; font-weight: 900; text-transform: uppercase; color: #e60000; text-decoration: none;">Read Article &rarr;</a>
                 </div>
             </div>
     """
