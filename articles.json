@@ -1,0 +1,26 @@
+[
+  {
+    "title": "The Shift Toward Autonomous Agentic Workflows",
+    "category": "Artificial Intelligence & Practical Automation",
+    "date": "2026-10-06",
+    "slug": "autonomous-agentic-workflows",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "How multi-agent AI systems are moving past simple chat prompts to execute complex, multi-step business logic autonomously."
+  },
+  {
+    "title": "Why Next-Gen Silicon Architecture Is Redefining Mobile Performance",
+    "category": "Consumer Tech & Hardware Reviews",
+    "date": "2026-10-05",
+    "slug": "next-gen-silicon-architecture",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "A breakdown of recent leaps in on-device NPUs, energy efficiency, and thermal management in modern consumer hardware."
+  },
+  {
+    "title": "Minimalist Tooling: Building Fast Without Framework Bloat",
+    "category": "Software, Apps & Digital Tools",
+    "date": "2026-10-04",
+    "slug": "minimalist-tooling-no-bloat",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "Why modern creators are stripping away heavy dependencies in favor of raw HTML, CSS, and clean automation scripts."
+  }
+]
