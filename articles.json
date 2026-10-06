@@ -10,7 +10,7 @@
   {
     "title": "Why Next-Gen Silicon Architecture Is Redefining Mobile Performance",
     "category": "Consumer Tech & Hardware Reviews",
-    "date": "2026-10-05",
+    "date": "2026-10-06",
     "slug": "next-gen-silicon-architecture",
     "thumbnail": "images/placeholder.jpg",
     "excerpt": "A breakdown of recent leaps in on-device NPUs, energy efficiency, and thermal management in modern consumer hardware."
@@ -18,9 +18,81 @@
   {
     "title": "Minimalist Tooling: Building Fast Without Framework Bloat",
     "category": "Software, Apps & Digital Tools",
-    "date": "2026-10-04",
+    "date": "2026-10-07",
     "slug": "minimalist-tooling-no-bloat",
     "thumbnail": "images/placeholder.jpg",
     "excerpt": "Why modern creators are stripping away heavy dependencies in favor of raw HTML, CSS, and clean automation scripts."
+  },
+  {
+    "title": "Local LLMs on the Desktop: Running Privacy-First Models Efficiently",
+    "category": "Artificial Intelligence & Practical Automation",
+    "date": "2026-10-07",
+    "slug": "local-llms-desktop-privacy",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "A practical guide to utilizing lightweight open-weight models locally for coding assistants and offline document querying."
+  },
+  {
+    "title": "The Ergonomics of Mechanical Keyboards: What Actually Matters",
+    "category": "Consumer Tech & Hardware Reviews",
+    "date": "2026-10-08",
+    "slug": "ergonomics-mechanical-keyboards",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "Cutting through marketing hype to examine switch weights, gasket mounts, and layout profiles for long-form typing comfort."
+  },
+  {
+    "title": "Mastering Git Workflows for Solo Developers and Content Creators",
+    "category": "Software, Apps & Digital Tools",
+    "date": "2026-10-08",
+    "slug": "mastering-git-workflows-solo",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "Streamlining version control, automated publishing hooks, and backup strategies without getting bogged down in complex branching."
+  },
+  {
+    "title": "Automating Daily Repetitive Tasks with Simple Python Scripts",
+    "category": "Artificial Intelligence & Practical Automation",
+    "date": "2026-10-09",
+    "slug": "automating-tasks-simple-python",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "Practical script templates to handle file organization, data extraction, and build pipeline generation in seconds."
+  },
+  {
+    "title": "Ultra-Portable Monitors: A Game Changer for Mobile Workstations",
+    "category": "Consumer Tech & Hardware Reviews",
+    "date": "2026-10-09",
+    "slug": "ultra-portable-monitors-review",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "Testing USB-C powered displays for dual-screen productivity on the go without sacrificing desk footprint or battery life."
+  },
+  {
+    "title": "Lightweight Browser Extensions That Reclaim Your Focus",
+    "category": "Software, Apps & Digital Tools",
+    "date": "2026-10-10",
+    "slug": "lightweight-browser-extensions-focus",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "A curated list of zero-bloat, open-source extensions designed to block distractions and speed up daily web browsing."
+  },
+  {
+    "title": "The Evolution of Neural Search Engines in Technical Research",
+    "category": "Artificial Intelligence & Practical Automation",
+    "date": "2026-10-10",
+    "slug": "evolution-neural-search-engines",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "How vector embeddings and semantic search are replacing keyword matching to unearth deep technical documentation instantly."
+  },
+  {
+    "title": "OLED vs. Mini-LED: Choosing the Right Panel for Long Coding Sessions",
+    "category": "Consumer Tech & Hardware Reviews",
+    "date": "2026-10-11",
+    "slug": "oled-vs-mini-led-coding",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "Analyzing text clarity, eye strain mitigation, and contrast performance for developer workspaces."
+  },
+  {
+    "title": "Building a Zero-Dependency Markdown Reader in Python",
+    "category": "Software, Apps & Digital Tools",
+    "date": "2026-10-11",
+    "slug": "zero-dependency-markdown-reader-python",
+    "thumbnail": "images/placeholder.jpg",
+    "excerpt": "How to parse and render quick documentation notes into clean HTML without third-party heavy packages."
   }
 ]
