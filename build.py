@@ -39,8 +39,8 @@ def build_site():
         for article in article_list:
             cat_name = article['category']
             folder = category_config.get(cat_name, {"folder": "AI"})["folder"]
-            # Adjust path depending on whether we are in root or inside a category subfolder
-            post_link = f"{base_path_prefix}categories/{folder}/{article['slug']}.html"
+            # Use absolute root path for post links so they work from any subfolder
+            post_link = f"/categories/{folder}/{article['slug']}.html"
             thumb_link = f"{base_path_prefix}{article['thumbnail']}" if not article['thumbnail'].startswith("http") else article['thumbnail']
 
             cards += f'''
@@ -73,12 +73,12 @@ def build_site():
     <div class="container">
         <!-- Magazine Header -->
         <header>
-            <a href="index.html" class="brand">TechWitHer<span class="red-dot">.</span></a>
+            <a href="/index.html" class="brand">TechWitHer<span class="red-dot">.</span></a>
             <nav>
-                <a href="index.html" class="active">Home</a>
-                <a href="categories/AI/Artificial Intelligence & Practical Automation.html">AI</a>
-                <a href="categories/Hardware/Consumer Tech & Hardware Reviews.html">Hardware</a>
-                <a href="categories/Software/Software, Apps & Digital Tools.html">Software</a>
+                <a href="/index.html" class="active">Home</a>
+                <a href="/categories/AI/Artificial Intelligence & Practical Automation.html">AI</a>
+                <a href="/categories/Hardware/Consumer Tech & Hardware Reviews.html">Hardware</a>
+                <a href="/categories/Software/Software, Apps & Digital Tools.html">Software</a>
             </nav>
         </header>
 
@@ -126,12 +126,12 @@ def build_site():
     <div class="container">
         <!-- Magazine Header -->
         <header>
-            <a href="../../index.html" class="brand">TechWitHer<span class="red-dot">.</span></a>
+            <a href="/index.html" class="brand">TechWitHer<span class="red-dot">.</span></a>
             <nav>
-                <a href="../../index.html">Home</a>
-                <a href="Artificial Intelligence & Practical Automation.html" class="{'active' if folder=='AI' else ''}">AI</a>
-                <a href="../Hardware/Consumer Tech & Hardware Reviews.html" class="{'active' if folder=='Hardware' else ''}">Hardware</a>
-                <a href="../Software/Software, Apps & Digital Tools.html" class="{'active' if folder=='Software' else ''}">Software</a>
+                <a href="/index.html">Home</a>
+                <a href="/categories/AI/Artificial Intelligence & Practical Automation.html" class="{'active' if folder=='AI' else ''}">AI</a>
+                <a href="/categories/Hardware/Consumer Tech & Hardware Reviews.html" class="{'active' if folder=='Hardware' else ''}">Hardware</a>
+                <a href="/categories/Software/Software, Apps & Digital Tools.html" class="{'active' if folder=='Software' else ''}">Software</a>
             </nav>
         </header>
 
