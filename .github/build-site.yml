@@ -1,0 +1,32 @@
+name: Build and Deploy TechWitHer Daily
+
+on:
+  schedule:
+    # Runs every day at 6:00 AM UTC (which is 8:00 AM South African Standard Time)
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allows you to manually trigger it anytime from GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run build script
+        run: python build.py
+
+      - name: Commit and push if there are changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --quiet && git diff --cached --quiet || (git commit -m "Automated daily build: update site pages [skip ci]" && git push)
