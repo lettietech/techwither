@@ -1,6 +1,7 @@
 import os
 import json
 from datetime import datetime
+import shutil
 
 def build_site():
     # 1. Load articles from articles.json
@@ -10,9 +11,6 @@ def build_site():
     except FileNotFoundError:
         print("articles.json not found. Creating a blank list.")
         articles = []
-
-    # 2. Sort articles chronologically (Newest to Oldest based on 'date')
-    articles.sort(key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d'), reverse=True)
 
     # Map category names to their respective folders and filenames
     category_config = {
@@ -32,6 +30,16 @@ def build_site():
             "nav_title": "Software"
         }
     }
+
+    # If articles.json is empty, clean out old category folders to start fresh
+    if not articles:
+        if os.path.exists("categories"):
+            shutil.rmtree("categories")
+        print("articles.json is empty. Cleared old category files for a fresh start.")
+
+    # 2. Sort articles chronologically (Newest to Oldest based on 'date') if any exist
+    if articles:
+        articles.sort(key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d'), reverse=True)
 
     # Helper function to generate clean, text-first article cards (no image dependency)
     def generate_cards(article_list):
@@ -80,7 +88,7 @@ def build_site():
         <!-- Main Content Feed -->
         <main>
             <section class="magazine-grid">
-{home_cards}
+{home_cards if home_cards else '<p style="color: #666; font-size: 1.1rem; padding: 2rem 0;">No articles published yet. Check back soon for deep-dive technical insights.</p>'}
             </section>
         </main>
 
@@ -96,16 +104,16 @@ def build_site():
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(index_content)
 
-    # 4. Build Individual Article Pages
-    for article in articles:
-        cat_name = article['category']
-        config = category_config.get(cat_name, category_config["Artificial Intelligence & Practical Automation"])
-        folder = config["folder"]
-        
-        # If an article doesn't have explicit HTML content yet, fall back to its excerpt
-        article_content_html = article.get('content', f"<p>{article['excerpt']}</p>")
-        
-        post_page_content = f'''<!DOCTYPE html>
+    # 4. Build Individual Article Pages & Category Archives (Only if articles exist)
+    if articles:
+        for article in articles:
+            cat_name = article['category']
+            config = category_config.get(cat_name, category_config["Artificial Intelligence & Practical Automation"])
+            folder = config["folder"]
+            
+            article_content_html = article.get('content', f"<p>{article['excerpt']}</p>")
+            
+            post_page_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -160,19 +168,19 @@ def build_site():
 </body>
 </html>
 '''
-        os.makedirs(f"categories/{folder}", exist_ok=True)
-        with open(f"categories/{folder}/{article['slug']}.html", 'w', encoding='utf-8') as f:
-            f.write(post_page_content)
+            os.makedirs(f"categories/{folder}", exist_ok=True)
+            with open(f"categories/{folder}/{article['slug']}.html", 'w', encoding='utf-8') as f:
+                f.write(post_page_content)
 
-    # 5. Build Category Archive Pages Automatically
-    for cat_name, config in category_config.items():
-        folder = config["folder"]
-        filename = config["filename"]
-        
-        cat_articles = [a for a in articles if a['category'] == cat_name]
-        cat_cards = generate_cards(cat_articles)
+        # 5. Build Category Archive Pages Automatically
+        for cat_name, config in category_config.items():
+            folder = config["folder"]
+            filename = config["filename"]
+            
+            cat_articles = [a for a in articles if a['category'] == cat_name]
+            cat_cards = generate_cards(cat_articles)
 
-        cat_content = f'''<!DOCTYPE html>
+            cat_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -201,7 +209,7 @@ def build_site():
         <main>
             <h1 style="margin-bottom: 2rem; font-size: 1.8rem; border-bottom: 2px solid #000; padding-bottom: 0.5rem;">{cat_name}</h1>
             <section class="magazine-grid">
-{cat_cards}
+{cat_cards if cat_cards else '<p style="color: #666; font-size: 1rem;">No articles in this category yet.</p>'}
             </section>
         </main>
 
@@ -214,11 +222,11 @@ def build_site():
 </body>
 </html>
 '''
-        os.makedirs(f"categories/{folder}", exist_ok=True)
-        with open(f"categories/{folder}/{filename}", 'w', encoding='utf-8') as f:
-            f.write(cat_content)
+            os.makedirs(f"categories/{folder}", exist_ok=True)
+            with open(f"categories/{folder}/{filename}", 'w', encoding='utf-8') as f:
+                f.write(cat_content)
 
-    print("Successfully built clean, text-first homepage, article pages, and category archives!")
+    print("Successfully built site! Slate is completely clean and ready for your first article.")
 
 if __name__ == '__main__':
     build_site()
