@@ -169,7 +169,7 @@ def build_site():
                     </div>
                 </div>
 
-                <!-- TAB 2: EXERCISE INTERVAL TIMER WITH NATIVE AUDIO -->
+                <!-- TAB 2: EXERCISE INTERVAL TIMER -->
                 <div id="tab-timer" class="utility-tab" style="display: none;">
                     <div style="background: #f4f4f4; padding: 20px; border-radius: 6px; border: 1px solid #ddd; max-width: 360px;">
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
@@ -189,16 +189,6 @@ def build_site():
                         <div id="timer-display-box" style="background: #111; color: #00ffcc; font-size: 2.2rem; font-family: monospace; text-align: center; padding: 20px; margin-bottom: 15px; border-radius: 4px;">
                             READY
                         </div>
-                        
-                        <!-- NATIVE HTML5 AUDIO PLAYER (Guaranteed sound control) -->
-                        <div style="margin-bottom: 15px; background: #fff; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
-                            <label style="font-size: 0.75rem; font-weight: 700; display: block; margin-bottom: 4px; color: #333;">TIMER ALARM SOUND (Play to enable audio):</label>
-                            <audio id="workout-alarm" controls style="width: 100%; height: 32px;">
-                                <source src="https://freesound.org/data/previews/80/80921_1022651-lq.mp3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </div>
-
                         <div style="display: flex; gap: 10px;">
                             <button onclick="startWorkoutTimer()" style="flex: 2; padding: 10px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer;">Start</button>
                             <button onclick="pauseWorkoutTimer()" style="flex: 1; padding: 10px; background: #ffc107; color: #111; border: none; font-weight: bold; cursor: pointer;">Pause</button>
@@ -283,6 +273,9 @@ def build_site():
         </footer>
     </div>
 
+    <!-- AUDIO BEEP GENERATOR USING STANDARD HTML5 AUDIO -->
+    <audio id="timer-beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+
     <script>
     function switchTab(tabName) {
         document.querySelectorAll('.utility-tab').forEach(el => el.style.display = 'none');
@@ -303,12 +296,12 @@ def build_site():
         try { screen.value = eval(screen.value); } catch { screen.value = 'Error'; }
     }
 
-    // --- NATIVE AUDIO PLAYER HELPER ---
-    function playAlarmSound() {
-        const audio = document.getElementById('workout-alarm');
-        if (audio) {
-            audio.currentTime = 0;
-            audio.play().catch(e => console.log("Audio play blocked by browser policy"));
+    // --- RELIABLE AUDIO BEEP PLAYER ---
+    function playBeepSound() {
+        const beep = document.getElementById('timer-beep');
+        if (beep) {
+            beep.currentTime = 0;
+            beep.play().catch(e => console.log("Audio waiting for user gesture"));
         }
     }
 
@@ -316,7 +309,7 @@ def build_site():
     function startWorkoutTimer() {
         if (timerInterval) return;
         
-        playAlarmSound();
+        playBeepSound(); // Triggers beep immediately when Start is clicked
 
         let workTime = parseInt(document.getElementById('timer-work').value) || 45;
         let restTime = parseInt(document.getElementById('timer-rest').value) || 15;
@@ -325,7 +318,6 @@ def build_site():
         if (currentPhase === 'READY') { 
             currentPhase = 'WORK'; 
             currentTime = workTime; 
-            playAlarmSound();
         }
         
         timerInterval = setInterval(() => {
@@ -333,29 +325,28 @@ def build_site():
                 currentTime--;
                 document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
                 if (currentTime <= 3) {
-                    playAlarmSound();
+                    playBeepSound(); // Beep on countdown ticks
                 }
             } else if (currentTime === 1) {
                 currentTime--;
                 document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
-                playAlarmSound();
+                playBeepSound();
             } else {
+                playBeepSound(); // Beep on phase transition
                 if (currentPhase === 'WORK') { 
                     currentPhase = 'REST'; 
                     currentTime = restTime; 
-                    playAlarmSound(); 
                 } else {
                     currentRound++;
                     if (currentRound > totalRounds) {
                         clearInterval(timerInterval); timerInterval = null;
                         currentPhase = 'DONE';
                         document.getElementById('timer-display-box').innerText = 'WORKOUT COMPLETE!';
-                        playAlarmSound();
+                        playBeepSound();
                         return;
                     }
                     currentPhase = 'WORK'; 
                     currentTime = workTime;
-                    playAlarmSound();
                 }
             }
         }, 1000);
@@ -363,14 +354,14 @@ def build_site():
     function pauseWorkoutTimer() { 
         clearInterval(timerInterval); 
         timerInterval = null; 
-        playAlarmSound();
+        playBeepSound();
     }
     function resetWorkoutTimer() {
         pauseWorkoutTimer(); 
         currentPhase = 'READY'; 
         currentRound = 1;
         document.getElementById('timer-display-box').innerText = 'READY';
-        playAlarmSound();
+        playBeepSound();
     }
 
     function updateClocks() {
