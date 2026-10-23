@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Online Calculator, HIIT Workout Timer, World Clock & Currency Converter - TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free online everyday utilities: instant math calculator, customizable HIIT exercise timer, live world clocks for global tech hubs, and multi-currency converter.">
+    <meta name="description" content="Use TechWitHer's free online everyday utilities: instant math calculator, customizable HIIT exercise timer with audio beeps, live world clocks, and multi-currency converter.">
     <link rel="icon" type="image/svg+xml" href="techwither.svg">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -23,7 +23,7 @@
         </header>
         <main>
             <h1 style="margin-bottom: 0.5rem; font-size: 2rem; font-weight: 900;">Global Tech & Utility Hub</h1>
-            <p style="color: #555; margin-bottom: 2rem;">Your everyday browser toolkit: instant calculations, HIIT workout intervals, global time zones, and multi-currency conversion.</p>
+            <p style="color: #555; margin-bottom: 2rem;">Your everyday browser toolkit: instant calculations, HIIT workout intervals with audio cues, global time zones, and multi-currency conversion.</p>
             
             <div class="utility-hub-card" style="border: 1px solid #e0e0e0; padding: 2rem; background: #fdfdfd; border-radius: 4px;">
                 <div style="display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;">
@@ -167,6 +167,9 @@
         </footer>
     </div>
 
+    <!-- AUDIO BEEP GENERATOR USING STANDARD HTML5 AUDIO -->
+    <audio id="timer-beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
+
     <script>
     function switchTab(tabName) {
         document.querySelectorAll('.utility-tab').forEach(el => el.style.display = 'none');
@@ -187,36 +190,72 @@
         try { screen.value = eval(screen.value); } catch { screen.value = 'Error'; }
     }
 
+    // --- RELIABLE AUDIO BEEP PLAYER ---
+    function playBeepSound() {
+        const beep = document.getElementById('timer-beep');
+        if (beep) {
+            beep.currentTime = 0;
+            beep.play().catch(e => console.log("Audio waiting for user gesture"));
+        }
+    }
+
     let timerInterval = null, currentTime = 0, currentPhase = 'READY', currentRound = 1;
     function startWorkoutTimer() {
         if (timerInterval) return;
+        
+        playBeepSound(); // Triggers beep immediately when Start is clicked
+
         let workTime = parseInt(document.getElementById('timer-work').value) || 45;
         let restTime = parseInt(document.getElementById('timer-rest').value) || 15;
         let totalRounds = parseInt(document.getElementById('timer-rounds').value) || 5;
-        if (currentPhase === 'READY') { currentPhase = 'WORK'; currentTime = workTime; }
+        
+        if (currentPhase === 'READY') { 
+            currentPhase = 'WORK'; 
+            currentTime = workTime; 
+        }
+        
         timerInterval = setInterval(() => {
-            if (currentTime > 0) {
+            if (currentTime > 1) {
                 currentTime--;
                 document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
+                if (currentTime <= 3) {
+                    playBeepSound(); // Beep on countdown ticks
+                }
+            } else if (currentTime === 1) {
+                currentTime--;
+                document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
+                playBeepSound();
             } else {
-                if (currentPhase === 'WORK') { currentPhase = 'REST'; currentTime = restTime; }
-                else {
+                playBeepSound(); // Beep on phase transition
+                if (currentPhase === 'WORK') { 
+                    currentPhase = 'REST'; 
+                    currentTime = restTime; 
+                } else {
                     currentRound++;
                     if (currentRound > totalRounds) {
                         clearInterval(timerInterval); timerInterval = null;
                         currentPhase = 'DONE';
                         document.getElementById('timer-display-box').innerText = 'WORKOUT COMPLETE!';
+                        playBeepSound();
                         return;
                     }
-                    currentPhase = 'WORK'; currentTime = workTime;
+                    currentPhase = 'WORK'; 
+                    currentTime = workTime;
                 }
             }
         }, 1000);
     }
-    function pauseWorkoutTimer() { clearInterval(timerInterval); timerInterval = null; }
+    function pauseWorkoutTimer() { 
+        clearInterval(timerInterval); 
+        timerInterval = null; 
+        playBeepSound();
+    }
     function resetWorkoutTimer() {
-        pauseWorkoutTimer(); currentPhase = 'READY'; currentRound = 1;
+        pauseWorkoutTimer(); 
+        currentPhase = 'READY'; 
+        currentRound = 1;
         document.getElementById('timer-display-box').innerText = 'READY';
+        playBeepSound();
     }
 
     function updateClocks() {

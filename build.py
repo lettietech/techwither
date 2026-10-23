@@ -103,7 +103,7 @@ def build_site():
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(index_content)
 
-# 4. Build Dedicated Tools Page (tools.html)
+    # 4. Build Dedicated Tools Page (tools.html)
     tools_page_content = '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -402,6 +402,8 @@ def build_site():
 </body>
 </html>
 '''
+    with open('tools.html', 'w', encoding='utf-8') as f:
+        f.write(tools_page_content)
 
     # 5. Build Individual Article Pages & Category Archives (If articles exist)
     if articles:
