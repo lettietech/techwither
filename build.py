@@ -110,7 +110,7 @@ def build_site():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Online Calculator, HIIT Workout Timer, World Clock & Currency Converter - TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free online everyday utilities: instant math calculator, customizable HIIT exercise timer, live world clocks for global tech hubs, and multi-currency converter.">
+    <meta name="description" content="Use TechWitHer's free online everyday utilities: instant math calculator, customizable HIIT exercise timer with audio beeps, live world clocks, and multi-currency converter.">
     <link rel="icon" type="image/svg+xml" href="techwither.svg">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -129,7 +129,7 @@ def build_site():
         </header>
         <main>
             <h1 style="margin-bottom: 0.5rem; font-size: 2rem; font-weight: 900;">Global Tech & Utility Hub</h1>
-            <p style="color: #555; margin-bottom: 2rem;">Your everyday browser toolkit: instant calculations, HIIT workout intervals, global time zones, and multi-currency conversion.</p>
+            <p style="color: #555; margin-bottom: 2rem;">Your everyday browser toolkit: instant calculations, HIIT workout intervals with audio cues, global time zones, and multi-currency conversion.</p>
             
             <div class="utility-hub-card" style="border: 1px solid #e0e0e0; padding: 2rem; background: #fdfdfd; border-radius: 4px;">
                 <div style="display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;">
@@ -169,7 +169,7 @@ def build_site():
                     </div>
                 </div>
 
-                <!-- TAB 2: EXERCISE INTERVAL TIMER -->
+                <!-- TAB 2: EXERCISE INTERVAL TIMER WITH AUDIO -->
                 <div id="tab-timer" class="utility-tab" style="display: none;">
                     <div style="background: #f4f4f4; padding: 20px; border-radius: 6px; border: 1px solid #ddd; max-width: 360px;">
                         <div style="display: flex; gap: 10px; margin-bottom: 15px;">
@@ -293,28 +293,68 @@ def build_site():
         try { screen.value = eval(screen.value); } catch { screen.value = 'Error'; }
     }
 
+    // --- AUDIO BEEPS FOR WORKOUT TIMER ---
+    function playAudioTone(frequency, duration) {
+        try {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = frequency;
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+            osc.stop(ctx.currentTime + duration);
+        } catch (e) {
+            console.log("Audio not supported or blocked by browser policy");
+        }
+    }
+
     let timerInterval = null, currentTime = 0, currentPhase = 'READY', currentRound = 1;
     function startWorkoutTimer() {
         if (timerInterval) return;
         let workTime = parseInt(document.getElementById('timer-work').value) || 45;
         let restTime = parseInt(document.getElementById('timer-rest').value) || 15;
         let totalRounds = parseInt(document.getElementById('timer-rounds').value) || 5;
-        if (currentPhase === 'READY') { currentPhase = 'WORK'; currentTime = workTime; }
+        
+        if (currentPhase === 'READY') { 
+            currentPhase = 'WORK'; 
+            currentTime = workTime; 
+            playAudioTone(880, 0.4); // High start beep
+        }
+        
         timerInterval = setInterval(() => {
-            if (currentTime > 0) {
+            if (currentTime > 1) {
                 currentTime--;
                 document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
+                if (currentTime <= 3) {
+                    playAudioTone(440, 0.15); // Countdown tick beeps
+                }
+            } else if (currentTime === 1) {
+                currentTime--;
+                document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
+                playAudioTone(440, 0.15);
             } else {
-                if (currentPhase === 'WORK') { currentPhase = 'REST'; currentTime = restTime; }
-                else {
+                if (currentPhase === 'WORK') { 
+                    currentPhase = 'REST'; 
+                    currentTime = restTime; 
+                    playAudioTone(300, 0.5); // Lower rest beep
+                } else {
                     currentRound++;
                     if (currentRound > totalRounds) {
                         clearInterval(timerInterval); timerInterval = null;
                         currentPhase = 'DONE';
                         document.getElementById('timer-display-box').innerText = 'WORKOUT COMPLETE!';
+                        playAudioTone(600, 0.8); // Completion fanfare beep
                         return;
                     }
-                    currentPhase = 'WORK'; currentTime = workTime;
+                    currentPhase = 'WORK'; 
+                    currentTime = workTime;
+                    playAudioTone(880, 0.4); // Next work round beep
                 }
             }
         }, 1000);
@@ -363,8 +403,6 @@ def build_site():
 </body>
 </html>
 '''
-    with open('tools.html', 'w', encoding='utf-8') as f:
-        f.write(tools_page_content)
 
     # 5. Build Individual Article Pages & Category Archives (If articles exist)
     if articles:
