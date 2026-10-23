@@ -12,6 +12,10 @@ def build_site():
         print("articles.json not found. Creating a blank list.")
         articles = []
 
+    # Filter out articles with dates in the future so they don't appear early
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    articles = [a for a in articles if a.get('date', '2026-01-01') <= today_str]
+
     # Map category names to their respective folders and filenames
     category_config = {
         "Artificial Intelligence & Practical Automation": {
@@ -488,7 +492,7 @@ def build_site():
             with open(f"categories/{folder}/{filename}", 'w', encoding='utf-8') as f:
                 f.write(cat_content)
 
-    print("Successfully built site with Finance category and updated navigation!")
+    print("Successfully built site with Finance category, updated navigation, and future-date filtering!")
 
 if __name__ == '__main__':
     build_site()
