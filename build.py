@@ -28,6 +28,11 @@ def build_site():
             "folder": "Software",
             "filename": "Software, Apps & Digital Tools.html",
             "nav_title": "Software"
+        },
+        "Finance, Crypto & Markets": {
+            "folder": "Finances",
+            "filename": "Finance, Crypto & Markets.html",
+            "nav_title": "Finance"
         }
     }
 
@@ -50,7 +55,7 @@ def build_site():
                 </article>'''
         return cards
 
-    # Shared Navigation HTML snippet
+    # Shared Navigation HTML snippet (Including Finance)
     def get_nav(active_page="home"):
         return f'''
             <header>
@@ -60,7 +65,8 @@ def build_site():
                     <a href="/categories/AI/Artificial Intelligence & Practical Automation.html" class="{'active' if active_page=='ai' else ''}">AI</a>
                     <a href="/categories/Hardware/Consumer Tech & Hardware Reviews.html" class="{'active' if active_page=='hardware' else ''}">Hardware</a>
                     <a href="/categories/Software/Software, Apps & Digital Tools.html" class="{'active' if active_page=='software' else ''}">Software</a>
-                    <a href="/tools.html" class="{'active' if active_page=='tools' else ''}">Tools</a>
+                    <a href="/categories/Finances/Finance, Crypto & Markets.html" class="{'active' if active_page=='finance' else ''}">Finance</a>
+                    <a href="/tools.html" class="{'active' if active_page=='tools' else ''}" style="color: #ff3333;">⚡ Tools</a>
                 </nav>
             </header>
         '''
@@ -73,7 +79,7 @@ def build_site():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechWitHer - The Digital Tech Magazine</title>
+    <title>TechWitHer - The Digital Tech & Finance Magazine</title>
     <link rel="icon" type="image/svg+xml" href="techwither.svg">
     <link rel="stylesheet" href="style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
@@ -117,7 +123,8 @@ def build_site():
                 <a href="/categories/AI/Artificial Intelligence & Practical Automation.html">AI</a>
                 <a href="/categories/Hardware/Consumer Tech & Hardware Reviews.html">Hardware</a>
                 <a href="/categories/Software/Software, Apps & Digital Tools.html">Software</a>
-                <a href="/tools.html" class="active" style="color: #ff3333; border-bottom: 2px solid #ff3333; padding-bottom: 3px;">⚡ Tools Hub</a>
+                <a href="/categories/Finances/Finance, Crypto & Markets.html">Finance</a>
+                <a href="/tools.html" class="active" style="color: #ff3333; border-bottom: 2px solid #ff3333; padding-bottom: 3px;">⚡ Tools</a>
             </nav>
         </header>
         <main>
@@ -190,7 +197,7 @@ def build_site():
                     </div>
                 </div>
 
-                <!-- TAB 3: WORLD TIME (EXPANDED GLOBAL HUBS) -->
+                <!-- TAB 3: WORLD TIME -->
                 <div id="tab-time" class="utility-tab" style="display: none;">
                     <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px;">Live time across major international business, tech, and financial capitals.</p>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
@@ -221,7 +228,7 @@ def build_site():
                     </div>
                 </div>
 
-                <!-- TAB 4: TOP LEADING WORLD CURRENCIES -->
+                <!-- TAB 4: CURRENCY CONVERTER -->
                 <div id="tab-currency" class="utility-tab" style="display: none;">
                     <div style="background: #fff; padding: 20px; border: 1px solid #ddd; max-width: 450px;">
                         <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px;">Convert across the world's leading global currencies.</p>
@@ -332,29 +339,18 @@ def build_site():
     setInterval(updateClocks, 1000);
     updateClocks();
 
-    // Top Leading Global Currencies Rates against USD baseline
     const rates = { 
-        USD: 1.0, 
-        EUR: 0.92, 
-        GBP: 0.79, 
-        ZAR: 18.25, 
-        JPY: 152.50, 
-        AUD: 1.52, 
-        CAD: 1.38, 
-        CHF: 0.89, 
-        CNY: 7.12, 
-        INR: 83.20 
+        USD: 1.0, EUR: 0.92, GBP: 0.79, ZAR: 18.25, 
+        JPY: 152.50, AUD: 1.52, CAD: 1.38, CHF: 0.89, 
+        CNY: 7.12, INR: 83.20 
     };
     
     function convertCurrency() {
         const amount = parseFloat(document.getElementById('curr-amount').value) || 0;
         const from = document.getElementById('curr-from').value;
         const to = document.getElementById('curr-to').value;
-        
-        // Convert input to USD first, then to the target currency
         const inUSD = amount / rates[from];
         const converted = inUSD * rates[to];
-        
         const symbols = { 
             USD: '$', EUR: '€', GBP: '£', ZAR: 'R ', 
             JPY: '¥', AUD: 'A$', CAD: 'C$', CHF: 'Fr ', 
@@ -367,6 +363,8 @@ def build_site():
 </body>
 </html>
 '''
+    with open('tools.html', 'w', encoding='utf-8') as f:
+        f.write(tools_page_content)
 
     # 5. Build Individual Article Pages & Category Archives (If articles exist)
     if articles:
@@ -413,7 +411,12 @@ def build_site():
             filename = config["filename"]
             cat_articles = [a for a in articles if a['category'] == cat_name]
             cat_cards = generate_cards(cat_articles)
-            active_key = 'ai' if folder=='AI' else ('hardware' if folder=='Hardware' else 'software')
+            
+            if folder == 'AI': active_key = 'ai'
+            elif folder == 'Hardware': active_key = 'hardware'
+            elif folder == 'Software': active_key = 'software'
+            elif folder == 'Finances': active_key = 'finance'
+            else: active_key = 'home'
 
             cat_content = f'''<!DOCTYPE html>
 <html lang="en">
@@ -446,7 +449,7 @@ def build_site():
             with open(f"categories/{folder}/{filename}", 'w', encoding='utf-8') as f:
                 f.write(cat_content)
 
-    print("Successfully built site including tools.html and updated navigation!")
+    print("Successfully built site with Finance category and updated navigation!")
 
 if __name__ == '__main__':
     build_site()
