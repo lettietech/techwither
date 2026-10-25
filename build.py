@@ -54,7 +54,7 @@ def build_site():
 
             cards += f'''
                 <article class="article-card">
-                    <div class="meta">{cat_name} &bull; {article['date']} &bull; By Lettie N.L.</div>
+                    <div class="meta">{cat_name} &bull; {article['date']} &bull; By <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></div>
                     <h2><a href="{post_link}">{article['title']}</a></h2>
                     <p>{article['excerpt']}</p>
                 </article>'''
@@ -71,22 +71,23 @@ def build_site():
                     <a href="/categories/Hardware/" class="{'active' if active_page=='hardware' else ''}">Hardware</a>
                     <a href="/categories/Software/" class="{'active' if active_page=='software' else ''}">Software</a>
                     <a href="/categories/Finances/" class="{'active' if active_page=='finance' else ''}">Finance</a>
-                    <a href="/tools.html" class="{'active' if active_page=='tools' else ''}" style="color: #ff3333;">⚡ Tools</a>
+                    <a href="/tools/" class="{'active' if active_page=='tools' else ''}" style="color: #ff3333;">⚡ Tools</a>
                 </nav>
             </header>
         '''
 
-    # Shared Footer with Compliance Links
+    # Shared Footer with Compliance Links (Clean URLs, including Disclaimer)
     def get_footer():
         return '''
             <footer>
                 <div style="margin-bottom: 1rem; display: flex; gap: 15px; justify-content: center; font-size: 0.85rem; flex-wrap: wrap;">
-                    <a href="/about.html" style="color: #555; text-decoration: none;">About</a>
-                    <a href="/privacy.html" style="color: #555; text-decoration: none;">Privacy Policy</a>
-                    <a href="/disclosure.html" style="color: #555; text-decoration: none;">Affiliate Disclosure</a>
-                    <a href="/contact.html" style="color: #555; text-decoration: none;">Contact</a>
+                    <a href="/about/" style="color: #555; text-decoration: none;">About</a>
+                    <a href="/privacy/" style="color: #555; text-decoration: none;">Privacy Policy</a>
+                    <a href="/disclosure/" style="color: #555; text-decoration: none;">Affiliate Disclosure</a>
+                    <a href="/disclaimer/" style="color: #555; text-decoration: none;">Disclaimer</a>
+                    <a href="/contact/" style="color: #555; text-decoration: none;">Contact</a>
                 </div>
-                <p>&copy; 2026 TechWitHer. All rights reserved. &bull; Curated by Lettie N.L.</p>
+                <p>&copy; 2026 TechWitHer. All rights reserved. &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
                 <p>Searched By Her</p>
             </footer>
         '''
@@ -100,8 +101,8 @@ def build_site():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechWitHer - The Digital Tech & Finance Magazine</title>
-    <link rel="icon" type="image/svg+xml" href="techwither.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -120,17 +121,52 @@ def build_site():
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(index_content)
 
-    # 4. Build Dedicated Trust & Compliance Pages
+    # 4. Build Dedicated Trust & Compliance Pages (Clean Folders)
     
-    # ABOUT PAGE
+    # 4a. AUTHOR BIO PAGE (/author/lettie-nl/)
+    os.makedirs("author/lettie-nl", exist_ok=True)
+    author_content = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lettie N.L. - Author Profile - TechWitHer</title>
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        {get_nav('none')}
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Lettie N.L.</h1>
+            <p style="color: #666; font-weight: 700; margin-bottom: 1.5rem;">Curator, Lead Researcher & Founder, TechWitHer</p>
+            
+            <p>Lettie N.L. is a tech enthusiast, digital researcher, and customer care specialist who built TechWitHer to bridge the gap between complex software developments, practical AI automation, and everyday personal finance management.</p>
+            
+            <h3 style="margin-top: 2rem;">Why I Cover These Topics</h3>
+            <p>We live in a fast-evolving digital era where technology and personal finance intersect daily. From understanding AI utility to safeguarding your digital assets, TechWitHer was created to cut through confusing jargon and provide clear, grounded, and independent insights.</p>
+            
+            <h3 style="margin-top: 2rem;">Rigorous Standards & Editorial Independence</h3>
+            <p>Every piece of content published under this byline adheres to strict verification protocols. We do not take shortcuts; we evaluate primary sources, test digital workflows, and review financial frameworks objectively to protect reader trust.</p>
+        </main>
+        {get_footer()}
+    </div>
+</body>
+</html>
+'''
+    with open('author/lettie-nl/index.html', 'w', encoding='utf-8') as f:
+        f.write(author_content)
+
+    # 4b. ABOUT PAGE (/about/)
+    os.makedirs("about", exist_ok=True)
     about_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="techwither.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="container">
@@ -140,103 +176,161 @@ def build_site():
             <p>Welcome to <strong>TechWitHer</strong>, an independent digital magazine focusing on artificial intelligence, software tools, consumer technology, and modern financial markets.</p>
             
             <h3 style="margin-top: 2rem;">Who We Are</h3>
-            <p>Founded and curated by <strong>Lettie N.L.</strong>, TechWitHer was built out of a passion for cutting-edge technology, practical automation, and clear financial insights. Our mission is to cut through the noise and provide readers with well-researched, reliable, and actionable digital guidance.</p>
+            <p>Founded and curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a>, TechWitHer was built out of a passion for cutting-edge technology, practical automation, and clear financial insights. Read more on our <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Author Profile</a>.</p>
             
-            <h3 style="margin-top: 2rem;">Our Verification & Editorial Process</h3>
-            <p>Every article published on TechWitHer undergoes thorough research and fact-checking. We scan industry trends, evaluate software and financial data independently, and design our content to be transparent, accurate, and completely reader-focused.</p>
+            <h3 style="margin-top: 2rem;">Why We Cover These Topics</h3>
+            <p>Our modern world relies heavily on software performance and smart financial decisions. We cover these niche intersections to equip everyday professionals, creators, and tech enthusiasts with reliable blueprints for navigating the digital economy.</p>
+
+            <h3 style="margin-top: 2rem;">Price & Source Verification Methods</h3>
+            <p>We cross-reference pricing tiers, software release notes, and financial data directly from official developer documentations, primary earnings reports, and live platform benchmarks before publication.</p>
+
+            <h3 style="margin-top: 2rem;">Our Scoring & Evaluation Framework</h3>
+            <p>When we review products, software platforms, or financial products, our content passes a strict multi-point assessment:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li><strong>Utility & Practicality:</strong> Does the tool solve a genuine workflow problem?</li>
+                <li><strong>Transparency & Cost:</strong> Are subscription tiers, hidden fees, or affiliate relationships clear?</li>
+                <li><strong>Security & Privacy:</strong> Does the platform respect user data and privacy laws?</li>
+                <li><strong>Reliability:</strong> Is the underlying technology stable, active, and well-supported?</li>
+            </ul>
         </main>
         {get_footer()}
     </div>
 </body>
 </html>
 '''
-    with open('about.html', 'w', encoding='utf-8') as f:
+    with open('about/index.html', 'w', encoding='utf-8') as f:
         f.write(about_content)
 
-    # PRIVACY POLICY PAGE
+    # 4c. PRIVACY POLICY PAGE (/privacy/)
+    os.makedirs("privacy", exist_ok=True)
     privacy_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="techwither.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="container">
         {get_nav('none')}
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">Privacy Policy</h1>
-            <p>At TechWitHer, accessible from techwither.com, privacy is a top priority. This Privacy Policy document outlines the types of information collected and recorded by TechWitHer and how we use it.</p>
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Privacy Policy</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026</p>
             
-            <h3 style="margin-top: 1.5rem;">Information We Collect & Analytics</h3>
-            <p>We use standard web analytics to monitor site traffic and performance. This data helps us understand reader engagement and improve our content layout.</p>
+            <p>At TechWitHer, accessible from techwither.com, privacy is a top priority. This Privacy Policy document outlines the types of information collected and recorded by our website and how we use it.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Information We Collect & Analytics Tool</h3>
+            <p>We use web analytics tools (such as Google Analytics) to monitor site traffic and performance. This data helps us understand reader engagement and improve our digital magazine layout.</p>
             
             <h3 style="margin-top: 1.5rem;">Cookies and Third-Party Advertising (Google AdSense)</h3>
-            <p>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</p>
-            <p>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" style="color: #ff3333;">Ads Settings</a>.</p>
+            <p>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to <strong>our website</strong> or other websites. Google's use of advertising cookies enables it and its partners to serve ads to <strong>our users</strong> based on their visit to our site and/or other sites on the Internet.</p>
+            <p>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" style="color: #ff3333;">Ads Settings</a>. You can also opt out of third-party vendor cookies across multiple networks by visiting <a href="https://www.aboutads.info" target="_blank" style="color: #ff3333;">aboutads.info</a>.</p>
 
-            <h3 style="margin-top: 1.5rem;">Email Signups & Contact Data</h3>
-            <p>If you contact us or subscribe to future updates, your information is kept secure and never sold or distributed to third parties.</p>
+            <h3 style="margin-top: 1.5rem;">Contact Forms & Data Storage</h3>
+            <p>Data submitted through our contact form (such as your name, email address, and message contents) is securely processed and stored via our form service provider to enable direct communication. We never sell or distribute reader correspondence.</p>
+
+            <h3 style="margin-top: 1.5rem;">Global Privacy Rights (GDPR, CCPA & POPIA)</h3>
+            <p>Depending on your geographic region (including the European Union under GDPR, California under CCPA, or South Africa under POPIA), readers maintain specific rights regarding their personal data, including the right to access, correct, or request deletion of personal information submitted via forms or cookies. To exercise these rights, contact us directly.</p>
+
+            <h3 style="margin-top: 1.5rem;">Privacy Questions & Contact Email</h3>
+            <p>If you have any questions or concerns regarding our privacy practices, you can reach out via our <a href="/contact/" style="color: #ff3333; text-decoration: underline;">Contact Page</a>.</p>
         </main>
         {get_footer()}
     </div>
 </body>
 </html>
 '''
-    with open('privacy.html', 'w', encoding='utf-8') as f:
+    with open('privacy/index.html', 'w', encoding='utf-8') as f:
         f.write(privacy_content)
 
-    # AFFILIATE DISCLOSURE PAGE
+    # 4d. AFFILIATE DISCLOSURE PAGE (/disclosure/)
+    os.makedirs("disclosure", exist_ok=True)
     disclosure_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Affiliate Disclosure - TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="techwither.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="container">
         {get_nav('none')}
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">Affiliate & Advertising Disclosure</h1>
-            <p>TechWitHer believes in complete transparency with our readers. In compliance with guideline standards, please note the following relationships:</p>
+            <p>TechWitHer believes in complete transparency with our readers. In compliance with <strong>FTC guidelines</strong> and standard industry disclosures, please note our monetization model:</p>
             
             <h3 style="margin-top: 1.5rem;">Plain-Language Commission Notice</h3>
-            <p>Some of the links on this website are affiliate links. This means that if you click on the link and purchase an item or service, TechWitHer may receive a small commission <strong>at absolutely no extra cost to you</strong>.</p>
+            <p>Some of the links on this website are affiliate links. This means that if you click on the link and purchase an item or software service, TechWitHer may receive a small commission <strong>at absolutely no extra cost to you</strong>.</p>
             
+            <h3 style="margin-top: 1.5rem;">Display Ads & Revenue</h3>
+            <p>In addition to affiliate links, we may also earn revenue from programmatic display advertising networks (such as Google AdSense) placed throughout our articles and tool hubs.</p>
+
             <h3 style="margin-top: 1.5rem;">Editorial Integrity</h3>
-            <p>Our reviews, recommendations, and guides are based on independent editorial research and evaluations. Affiliate partnerships do not dictate our content rankings or product reviews; we only recommend tools and platforms we trust will provide genuine value to our readers.</p>
+            <p>Our reviews, recommendations, and guides are rooted in strict editorial independence. Affiliate partnerships do not influence our content rankings or evaluations; we only endorse products, tools, and platforms that add genuine value to our readers.</p>
         </main>
         {get_footer()}
     </div>
 </body>
 </html>
 '''
-    with open('disclosure.html', 'w', encoding='utf-8') as f:
+    with open('disclosure/index.html', 'w', encoding='utf-8') as f:
         f.write(disclosure_content)
 
-    # SECURE CONTACT PAGE (Formspree or Static Forms integration)
+    # 4e. DISCLAIMER PAGE (/disclaimer/)
+    os.makedirs("disclaimer", exist_ok=True)
+    disclaimer_content = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer - TechWitHer</title>
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        {get_nav('none')}
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">General & Financial Disclaimer</h1>
+            <p>The information provided on TechWitHer (techwither.com) is for general informational, educational, and entertainment purposes only.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Financial & Investment Content Disclaimer</h3>
+            <p>Articles covering finance, crypto, markets, investments, monetization strategies, and software tools do not constitute formal financial, tax, or legal advice. Markets are volatile, and past performance does not guarantee future results. Always conduct your own independent research or consult with a certified professional before making significant financial commitments.</p>
+            
+            <h3 style="margin-top: 1.5rem;">External Links</h3>
+            <p>TechWitHer contains links to external websites, third-party tools, and affiliate merchants. We assume no responsibility or liability for the content, privacy practices, or service terms of any third-party websites.</p>
+        </main>
+        {get_footer()}
+    </div>
+</body>
+</html>
+'''
+    with open('disclaimer/index.html', 'w', encoding='utf-8') as f:
+        f.write(disclaimer_content)
+
+    # 4f. SECURE CONTACT PAGE (/contact/)
+    os.makedirs("contact", exist_ok=True)
     contact_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="techwither.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="container">
         {get_nav('none')}
         <main style="max-width: 600px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 1rem; font-weight: 900;">Contact Us</h1>
-            <p style="color: #555; margin-bottom: 2rem;">Have a question, feedback, or a partnership inquiry? Drop us a message using the secure form below. Your email address remains completely private.</p>
+            <p style="color: #555; margin-bottom: 2rem;">Have a question, privacy inquiry, feedback, or a partnership proposal? Send a secure dispatch using the form below. Reader correspondence is handled confidentially.</p>
             
-            <!-- Replace the action URL with your free Formspree endpoint (e.g., https://formspree.io/f/your_form_id) -->
+            <!-- Replace the action URL with your free Formspree endpoint -->
             <form action="https://formspree.io/f/your_form_id" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
                 <div>
                     <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Your Name</label>
@@ -258,10 +352,11 @@ def build_site():
 </body>
 </html>
 '''
-    with open('contact.html', 'w', encoding='utf-8') as f:
+    with open('contact/index.html', 'w', encoding='utf-8') as f:
         f.write(contact_content)
 
-    # 4. Build Dedicated Tools Page (tools.html)
+    # 4g. TOOLS HUB PAGE (/tools/)
+    os.makedirs("tools", exist_ok=True)
     tools_page_content = '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -269,8 +364,8 @@ def build_site():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Online Calculator, HIIT Workout Timer, World Clock & Currency Converter - TechWitHer</title>
     <meta name="description" content="Use TechWitHer's free online everyday utilities: instant math calculator, customizable HIIT exercise timer with audio beeps, live world clocks, and multi-currency converter.">
-    <link rel="icon" type="image/svg+xml" href="techwither.svg">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div class="container">
@@ -282,7 +377,7 @@ def build_site():
                 <a href="/categories/Hardware/">Hardware</a>
                 <a href="/categories/Software/">Software</a>
                 <a href="/categories/Finances/">Finance</a>
-                <a href="/tools.html" class="active" style="color: #ff3333; border-bottom: 2px solid #ff3333; padding-bottom: 3px;">⚡ Tools</a>
+                <a href="/tools/" class="active" style="color: #ff3333; border-bottom: 2px solid #ff3333; padding-bottom: 3px;">⚡ Tools</a>
             </nav>
         </header>
         <main>
@@ -399,6 +494,7 @@ def build_site():
                                 <option value="ZAR" selected>ZAR (R)</option>
                                 <option value="JPY">JPY (¥)</option>
                                 <option value="AUD">AUD ($)</option>
+                                <option value="CAD">CAD ($)</option>
                                 <option value="CHF">CHF (Fr)</option>
                                 <option value="CNY">CNY (¥)</option>
                                 <option value="INR">INR (₹)</option>
@@ -424,7 +520,17 @@ def build_site():
                 </div>
             </div>
         </main>
-        {get_footer()}
+        <footer>
+            <div style="margin-bottom: 1rem; display: flex; gap: 15px; justify-content: center; font-size: 0.85rem; flex-wrap: wrap;">
+                <a href="/about/" style="color: #555; text-decoration: none;">About</a>
+                <a href="/privacy/" style="color: #555; text-decoration: none;">Privacy Policy</a>
+                <a href="/disclosure/" style="color: #555; text-decoration: none;">Affiliate Disclosure</a>
+                <a href="/disclaimer/" style="color: #555; text-decoration: none;">Disclaimer</a>
+                <a href="/contact/" style="color: #555; text-decoration: none;">Contact</a>
+            </div>
+            <p>&copy; 2026 TechWitHer. All rights reserved. &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
+            <p>Searched By Her</p>
+        </footer>
     </div>
 
     <!-- AUDIO BEEP GENERATOR USING STANDARD HTML5 AUDIO -->
@@ -556,7 +662,7 @@ def build_site():
 </body>
 </html>
 '''
-    with open('tools.html', 'w', encoding='utf-8') as f:
+    with open('tools/index.html', 'w', encoding='utf-8') as f:
         f.write(tools_page_content)
 
     # 5. Build Individual Article Pages & Category Archives (Clean Folder URLs)
@@ -569,7 +675,7 @@ def build_site():
             
             disclosure_notice = '''
                 <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                    <em>Editorial Note: This article may contain affiliate links. If you make a purchase through these links, we may earn a commission at no extra cost to you. Read our <a href="/disclosure.html" style="color: #111; text-decoration: underline;">Affiliate Disclosure</a>.</em>
+                    <em>Editorial Note: This article may contain affiliate links. If you make a purchase through these links, we may earn a commission at no extra cost to you. Read our <a href="/disclosure/" style="color: #111; text-decoration: underline;">Affiliate Disclosure</a> and <a href="/disclaimer/" style="color: #111; text-decoration: underline;">Disclaimer</a>.</em>
                 </div>
             '''
             
@@ -579,8 +685,8 @@ def build_site():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{article['title']} - TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="../../../techwither.svg">
-    <link rel="stylesheet" href="../../../style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -589,7 +695,7 @@ def build_site():
         <main>
             <article class="post-content">
                 <h1>{article['title']}</h1>
-                <p class="post-meta">{article['category']} &bull; {article['date']} &bull; By Lettie N.L.</p>
+                <p class="post-meta">{article['category']} &bull; {article['date']} &bull; By <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
                 {disclosure_notice}
                 {article_content_html}
             </article>
@@ -621,8 +727,8 @@ def build_site():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{cat_name} - TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="../../techwither.svg">
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -644,7 +750,7 @@ def build_site():
             with open(f"{cat_dir}/index.html", 'w', encoding='utf-8') as f:
                 f.write(cat_content)
 
-    print("Successfully built site with Lettie N.L. bylines, trust pages, and clean URLs!")
+    print("Successfully built site with robust trust pages, Disclaimer page, author profile, and clean folder URLs!")
 
 if __name__ == '__main__':
     build_site()
