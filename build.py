@@ -20,22 +20,22 @@ def build_site():
     category_config = {
         "Artificial Intelligence & Practical Automation": {
             "folder": "AI",
-            "filename": "Artificial Intelligence & Practical Automation.html",
+            "filename": "AI/index.html",
             "nav_title": "AI"
         },
         "Consumer Tech & Hardware Reviews": {
             "folder": "Hardware",
-            "filename": "Consumer Tech & Hardware Reviews.html",
+            "filename": "Hardware/index.html",
             "nav_title": "Hardware"
         },
         "Software, Apps & Digital Tools": {
             "folder": "Software",
-            "filename": "Software, Apps & Digital Tools.html",
+            "filename": "Software/index.html",
             "nav_title": "Software"
         },
         "Finance, Crypto & Markets": {
             "folder": "Finances",
-            "filename": "Finance, Crypto & Markets.html",
+            "filename": "Finances/index.html",
             "nav_title": "Finance"
         }
     }
@@ -60,17 +60,17 @@ def build_site():
                 </article>'''
         return cards
 
-    # Shared Navigation HTML snippet (Including Finance)
+    # Shared Navigation HTML snippet
     def get_nav(active_page="home"):
         return f'''
             <header>
-                <a href="/index.html" class="brand">TechWitHer<span class="red-dot">.</span></a>
+                <a href="/" class="brand">TechWitHer<span class="red-dot">.</span></a>
                 <nav>
-                    <a href="/index.html" class="{'active' if active_page=='home' else ''}">Home</a>
-                    <a href="/categories/AI/Artificial Intelligence & Practical Automation.html" class="{'active' if active_page=='ai' else ''}">AI</a>
-                    <a href="/categories/Hardware/Consumer Tech & Hardware Reviews.html" class="{'active' if active_page=='hardware' else ''}">Hardware</a>
-                    <a href="/categories/Software/Software, Apps & Digital Tools.html" class="{'active' if active_page=='software' else ''}">Software</a>
-                    <a href="/categories/Finances/Finance, Crypto & Markets.html" class="{'active' if active_page=='finance' else ''}">Finance</a>
+                    <a href="/" class="{'active' if active_page=='home' else ''}">Home</a>
+                    <a href="/categories/AI/" class="{'active' if active_page=='ai' else ''}">AI</a>
+                    <a href="/categories/Hardware/" class="{'active' if active_page=='hardware' else ''}">Hardware</a>
+                    <a href="/categories/Software/" class="{'active' if active_page=='software' else ''}">Software</a>
+                    <a href="/categories/Finances/" class="{'active' if active_page=='finance' else ''}">Finance</a>
                     <a href="/tools.html" class="{'active' if active_page=='tools' else ''}" style="color: #ff3333;">⚡ Tools</a>
                 </nav>
             </header>
@@ -122,13 +122,13 @@ def build_site():
 <body>
     <div class="container">
         <header>
-            <a href="/index.html" class="brand">TechWitHer<span class="red-dot">.</span></a>
+            <a href="/" class="brand">TechWitHer<span class="red-dot">.</span></a>
             <nav>
-                <a href="/index.html">Home</a>
-                <a href="/categories/AI/Artificial Intelligence & Practical Automation.html">AI</a>
-                <a href="/categories/Hardware/Consumer Tech & Hardware Reviews.html">Hardware</a>
-                <a href="/categories/Software/Software, Apps & Digital Tools.html">Software</a>
-                <a href="/categories/Finances/Finance, Crypto & Markets.html">Finance</a>
+                <a href="/">Home</a>
+                <a href="/categories/AI/">AI</a>
+                <a href="/categories/Hardware/">Hardware</a>
+                <a href="/categories/Software/">Software</a>
+                <a href="/categories/Finances/">Finance</a>
                 <a href="/tools.html" class="active" style="color: #ff3333; border-bottom: 2px solid #ff3333; padding-bottom: 3px;">⚡ Tools</a>
             </nav>
         </header>
@@ -314,7 +314,7 @@ def build_site():
     function startWorkoutTimer() {
         if (timerInterval) return;
         
-        playBeepSound(); // Triggers beep immediately when Start is clicked
+        playBeepSound();
 
         let workTime = parseInt(document.getElementById('timer-work').value) || 45;
         let restTime = parseInt(document.getElementById('timer-rest').value) || 15;
@@ -330,14 +330,14 @@ def build_site():
                 currentTime--;
                 document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
                 if (currentTime <= 3) {
-                    playBeepSound(); // Beep on countdown ticks
+                    playBeepSound();
                 }
             } else if (currentTime === 1) {
                 currentTime--;
                 document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
                 playBeepSound();
             } else {
-                playBeepSound(); // Beep on phase transition
+                playBeepSound();
                 if (currentPhase === 'WORK') { 
                     currentPhase = 'REST'; 
                     currentTime = restTime; 
@@ -446,7 +446,6 @@ def build_site():
 </body>
 </html>
 '''
-            # Create a dedicated folder for the article slug and save it as index.html
             article_dir = f"categories/{folder}/{article['slug']}"
             os.makedirs(article_dir, exist_ok=True)
             with open(f"{article_dir}/index.html", 'w', encoding='utf-8') as f:
@@ -454,7 +453,6 @@ def build_site():
 
         for cat_name, config in category_config.items():
             folder = config["folder"]
-            filename = config["filename"]
             cat_articles = [a for a in articles if a['category'] == cat_name]
             cat_cards = generate_cards(cat_articles)
             
@@ -484,15 +482,16 @@ def build_site():
             </section>
         </main>
         <footer>
-            <p>&copy; 2026 TechWitHer. All rights-reserved.</p>
+            <p>&copy; 2026 TechWitHer. All rights reserved.</p>
             <p>Searched By Her</p>
         </footer>
     </div>
 </body>
 </html>
 '''
-            os.makedirs(f"categories/{folder}", exist_ok=True)
-            with open(f"categories/{folder}/{filename}", 'w', encoding='utf-8') as f:
+            cat_dir = f"categories/{folder}"
+            os.makedirs(cat_dir, exist_ok=True)
+            with open(f"{cat_dir}/index.html", 'w', encoding='utf-8') as f:
                 f.write(cat_content)
 
     print("Successfully built site with clean folder-based URLs (Wired style)!")

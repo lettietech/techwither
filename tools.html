@@ -11,13 +11,13 @@
 <body>
     <div class="container">
         <header>
-            <a href="/index.html" class="brand">TechWitHer<span class="red-dot">.</span></a>
+            <a href="/" class="brand">TechWitHer<span class="red-dot">.</span></a>
             <nav>
-                <a href="/index.html">Home</a>
-                <a href="/categories/AI/Artificial Intelligence & Practical Automation.html">AI</a>
-                <a href="/categories/Hardware/Consumer Tech & Hardware Reviews.html">Hardware</a>
-                <a href="/categories/Software/Software, Apps & Digital Tools.html">Software</a>
-                <a href="/categories/Finances/Finance, Crypto & Markets.html">Finance</a>
+                <a href="/">Home</a>
+                <a href="/categories/AI/">AI</a>
+                <a href="/categories/Hardware/">Hardware</a>
+                <a href="/categories/Software/">Software</a>
+                <a href="/categories/Finances/">Finance</a>
                 <a href="/tools.html" class="active" style="color: #ff3333; border-bottom: 2px solid #ff3333; padding-bottom: 3px;">⚡ Tools</a>
             </nav>
         </header>
@@ -203,7 +203,7 @@
     function startWorkoutTimer() {
         if (timerInterval) return;
         
-        playBeepSound(); // Triggers beep immediately when Start is clicked
+        playBeepSound();
 
         let workTime = parseInt(document.getElementById('timer-work').value) || 45;
         let restTime = parseInt(document.getElementById('timer-rest').value) || 15;
@@ -219,14 +219,14 @@
                 currentTime--;
                 document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
                 if (currentTime <= 3) {
-                    playBeepSound(); // Beep on countdown ticks
+                    playBeepSound();
                 }
             } else if (currentTime === 1) {
                 currentTime--;
                 document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
                 playBeepSound();
             } else {
-                playBeepSound(); // Beep on phase transition
+                playBeepSound();
                 if (currentPhase === 'WORK') { 
                     currentPhase = 'REST'; 
                     currentTime = restTime; 
