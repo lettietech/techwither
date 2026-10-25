@@ -49,7 +49,8 @@ def build_site():
         for article in article_list:
             cat_name = article['category']
             folder = category_config.get(cat_name, {"folder": "AI"})["folder"]
-            post_link = f"/categories/{folder}/{article['slug']}.html"
+            # Clean URL ending with a trailing slash (no .html)
+            post_link = f"/categories/{folder}/{article['slug']}/"
 
             cards += f'''
                 <article class="article-card">
@@ -409,7 +410,7 @@ def build_site():
     with open('tools.html', 'w', encoding='utf-8') as f:
         f.write(tools_page_content)
 
-    # 5. Build Individual Article Pages & Category Archives (If articles exist)
+    # 5. Build Individual Article Pages & Category Archives (Clean Folder URLs)
     if articles:
         for article in articles:
             cat_name = article['category']
@@ -423,8 +424,8 @@ def build_site():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{article['title']} - TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="../../techwither.svg">
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="icon" type="image/svg+xml" href="../../../techwither.svg">
+    <link rel="stylesheet" href="../../../style.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -445,8 +446,10 @@ def build_site():
 </body>
 </html>
 '''
-            os.makedirs(f"categories/{folder}", exist_ok=True)
-            with open(f"categories/{folder}/{article['slug']}.html", 'w', encoding='utf-8') as f:
+            # Create a dedicated folder for the article slug and save it as index.html
+            article_dir = f"categories/{folder}/{article['slug']}"
+            os.makedirs(article_dir, exist_ok=True)
+            with open(f"{article_dir}/index.html", 'w', encoding='utf-8') as f:
                 f.write(post_page_content)
 
         for cat_name, config in category_config.items():
@@ -481,7 +484,7 @@ def build_site():
             </section>
         </main>
         <footer>
-            <p>&copy; 2026 TechWitHer. All rights reserved.</p>
+            <p>&copy; 2026 TechWitHer. All rights-reserved.</p>
             <p>Searched By Her</p>
         </footer>
     </div>
@@ -492,7 +495,7 @@ def build_site():
             with open(f"categories/{folder}/{filename}", 'w', encoding='utf-8') as f:
                 f.write(cat_content)
 
-    print("Successfully built site with Finance category, updated navigation, and UTC date filtering!")
+    print("Successfully built site with clean folder-based URLs (Wired style)!")
 
 if __name__ == '__main__':
     build_site()
