@@ -54,7 +54,7 @@ def build_site():
 
             cards += f'''
                 <article class="article-card">
-                    <div class="meta">{cat_name} &bull; {article['date']}</div>
+                    <div class="meta">{cat_name} &bull; {article['date']} &bull; By Lettie N.L.</div>
                     <h2><a href="{post_link}">{article['title']}</a></h2>
                     <p>{article['excerpt']}</p>
                 </article>'''
@@ -74,6 +74,21 @@ def build_site():
                     <a href="/tools.html" class="{'active' if active_page=='tools' else ''}" style="color: #ff3333;">⚡ Tools</a>
                 </nav>
             </header>
+        '''
+
+    # Shared Footer with Compliance Links
+    def get_footer():
+        return '''
+            <footer>
+                <div style="margin-bottom: 1rem; display: flex; gap: 15px; justify-content: center; font-size: 0.85rem; flex-wrap: wrap;">
+                    <a href="/about.html" style="color: #555; text-decoration: none;">About</a>
+                    <a href="/privacy.html" style="color: #555; text-decoration: none;">Privacy Policy</a>
+                    <a href="/disclosure.html" style="color: #555; text-decoration: none;">Affiliate Disclosure</a>
+                    <a href="/contact.html" style="color: #555; text-decoration: none;">Contact</a>
+                </div>
+                <p>&copy; 2026 TechWitHer. All rights reserved. &bull; Curated by Lettie N.L.</p>
+                <p>Searched By Her</p>
+            </footer>
         '''
 
     # 3. Build Homepage (index.html)
@@ -97,16 +112,154 @@ def build_site():
 {home_cards if home_cards else '<p style="color: #666; font-size: 1.1rem; padding: 2rem 0;">No articles published yet.</p>'}
             </section>
         </main>
-        <footer>
-            <p>&copy; 2026 TechWitHer. All rights reserved.</p>
-            <p>Searched By Her</p>
-        </footer>
+        {get_footer()}
     </div>
 </body>
 </html>
 '''
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(index_content)
+
+    # 4. Build Dedicated Trust & Compliance Pages
+    
+    # ABOUT PAGE
+    about_content = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - TechWitHer</title>
+    <link rel="icon" type="image/svg+xml" href="techwither.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        {get_nav('none')}
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">About TechWitHer</h1>
+            <p>Welcome to <strong>TechWitHer</strong>, an independent digital magazine focusing on artificial intelligence, software tools, consumer technology, and modern financial markets.</p>
+            
+            <h3 style="margin-top: 2rem;">Who We Are</h3>
+            <p>Founded and curated by <strong>Lettie N.L.</strong>, TechWitHer was built out of a passion for cutting-edge technology, practical automation, and clear financial insights. Our mission is to cut through the noise and provide readers with well-researched, reliable, and actionable digital guidance.</p>
+            
+            <h3 style="margin-top: 2rem;">Our Verification & Editorial Process</h3>
+            <p>Every article published on TechWitHer undergoes thorough research and fact-checking. We scan industry trends, evaluate software and financial data independently, and design our content to be transparent, accurate, and completely reader-focused.</p>
+        </main>
+        {get_footer()}
+    </div>
+</body>
+</html>
+'''
+    with open('about.html', 'w', encoding='utf-8') as f:
+        f.write(about_content)
+
+    # PRIVACY POLICY PAGE
+    privacy_content = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - TechWitHer</title>
+    <link rel="icon" type="image/svg+xml" href="techwither.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        {get_nav('none')}
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">Privacy Policy</h1>
+            <p>At TechWitHer, accessible from techwither.com, privacy is a top priority. This Privacy Policy document outlines the types of information collected and recorded by TechWitHer and how we use it.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Information We Collect & Analytics</h3>
+            <p>We use standard web analytics to monitor site traffic and performance. This data helps us understand reader engagement and improve our content layout.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Cookies and Third-Party Advertising (Google AdSense)</h3>
+            <p>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to your website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</p>
+            <p>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" style="color: #ff3333;">Ads Settings</a>.</p>
+
+            <h3 style="margin-top: 1.5rem;">Email Signups & Contact Data</h3>
+            <p>If you contact us or subscribe to future updates, your information is kept secure and never sold or distributed to third parties.</p>
+        </main>
+        {get_footer()}
+    </div>
+</body>
+</html>
+'''
+    with open('privacy.html', 'w', encoding='utf-8') as f:
+        f.write(privacy_content)
+
+    # AFFILIATE DISCLOSURE PAGE
+    disclosure_content = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Disclosure - TechWitHer</title>
+    <link rel="icon" type="image/svg+xml" href="techwither.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        {get_nav('none')}
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">Affiliate & Advertising Disclosure</h1>
+            <p>TechWitHer believes in complete transparency with our readers. In compliance with guideline standards, please note the following relationships:</p>
+            
+            <h3 style="margin-top: 1.5rem;">Plain-Language Commission Notice</h3>
+            <p>Some of the links on this website are affiliate links. This means that if you click on the link and purchase an item or service, TechWitHer may receive a small commission <strong>at absolutely no extra cost to you</strong>.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Editorial Integrity</h3>
+            <p>Our reviews, recommendations, and guides are based on independent editorial research and evaluations. Affiliate partnerships do not dictate our content rankings or product reviews; we only recommend tools and platforms we trust will provide genuine value to our readers.</p>
+        </main>
+        {get_footer()}
+    </div>
+</body>
+</html>
+'''
+    with open('disclosure.html', 'w', encoding='utf-8') as f:
+        f.write(disclosure_content)
+
+    # SECURE CONTACT PAGE (Formspree or Static Forms integration)
+    contact_content = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TechWitHer</title>
+    <link rel="icon" type="image/svg+xml" href="techwither.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        {get_nav('none')}
+        <main style="max-width: 600px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 1rem; font-weight: 900;">Contact Us</h1>
+            <p style="color: #555; margin-bottom: 2rem;">Have a question, feedback, or a partnership inquiry? Drop us a message using the secure form below. Your email address remains completely private.</p>
+            
+            <!-- Replace the action URL with your free Formspree endpoint (e.g., https://formspree.io/f/your_form_id) -->
+            <form action="https://formspree.io/f/your_form_id" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Your Name</label>
+                    <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Your Email</label>
+                    <input type="email" name="email" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <div>
+                    <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Message</label>
+                    <textarea name="message" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
+                </div>
+                <button type="submit" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem;">Send Message</button>
+            </form>
+        </main>
+        {get_footer()}
+    </div>
+</body>
+</html>
+'''
+    with open('contact.html', 'w', encoding='utf-8') as f:
+        f.write(contact_content)
 
     # 4. Build Dedicated Tools Page (tools.html)
     tools_page_content = '''<!DOCTYPE html>
@@ -246,7 +399,6 @@ def build_site():
                                 <option value="ZAR" selected>ZAR (R)</option>
                                 <option value="JPY">JPY (¥)</option>
                                 <option value="AUD">AUD ($)</option>
-                                <option value="CAD">CAD ($)</option>
                                 <option value="CHF">CHF (Fr)</option>
                                 <option value="CNY">CNY (¥)</option>
                                 <option value="INR">INR (₹)</option>
@@ -272,10 +424,7 @@ def build_site():
                 </div>
             </div>
         </main>
-        <footer>
-            <p>&copy; 2026 TechWitHer. All rights reserved.</p>
-            <p>Searched By Her</p>
-        </footer>
+        {get_footer()}
     </div>
 
     <!-- AUDIO BEEP GENERATOR USING STANDARD HTML5 AUDIO -->
@@ -418,6 +567,12 @@ def build_site():
             folder = config["folder"]
             article_content_html = article.get('content', f"<p>{article['excerpt']}</p>")
             
+            disclosure_notice = '''
+                <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
+                    <em>Editorial Note: This article may contain affiliate links. If you make a purchase through these links, we may earn a commission at no extra cost to you. Read our <a href="/disclosure.html" style="color: #111; text-decoration: underline;">Affiliate Disclosure</a>.</em>
+                </div>
+            '''
+            
             post_page_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -434,14 +589,12 @@ def build_site():
         <main>
             <article class="post-content">
                 <h1>{article['title']}</h1>
-                <p class="post-meta">{article['category']} &bull; {article['date']}</p>
+                <p class="post-meta">{article['category']} &bull; {article['date']} &bull; By Lettie N.L.</p>
+                {disclosure_notice}
                 {article_content_html}
             </article>
         </main>
-        <footer>
-            <p>&copy; 2026 TechWitHer. All rights reserved.</p>
-            <p>Searched By Her</p>
-        </footer>
+        {get_footer()}
     </div>
 </body>
 </html>
@@ -481,10 +634,7 @@ def build_site():
 {cat_cards if cat_cards else '<p style="color: #666; font-size: 1rem;">No articles in this category yet.</p>'}
             </section>
         </main>
-        <footer>
-            <p>&copy; 2026 TechWitHer. All rights reserved.</p>
-            <p>Searched By Her</p>
-        </footer>
+        {get_footer()}
     </div>
 </body>
 </html>
@@ -494,7 +644,7 @@ def build_site():
             with open(f"{cat_dir}/index.html", 'w', encoding='utf-8') as f:
                 f.write(cat_content)
 
-    print("Successfully built site with clean folder-based URLs (Wired style)!")
+    print("Successfully built site with Lettie N.L. bylines, trust pages, and clean URLs!")
 
 if __name__ == '__main__':
     build_site()
