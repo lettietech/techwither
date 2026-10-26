@@ -331,7 +331,7 @@ def build_site():
             <p style="color: #555; margin-bottom: 2rem;">Have a question, privacy inquiry, feedback, or a partnership proposal? Send a secure dispatch using the form below. Reader correspondence is handled confidentially.</p>
             
             <!-- Replace the action URL with your free Formspree endpoint -->
-            <form action="https://formspree.io/f/mljjgynn" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+            <form action="https://formspree.io/f/mljjgynn" method="POST" style="display: flex; flex-direction: column; gap: 15px;">git add .
                 <div>
                     <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Your Name</label>
                     <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
