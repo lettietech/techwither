@@ -331,7 +331,7 @@ def build_site():
             <p style="color: #555; margin-bottom: 2rem;">Have a question, privacy inquiry, feedback, or a partnership proposal? Send a secure dispatch using the form below. Reader correspondence is handled confidentially.</p>
             
             <!-- Replace the action URL with your free Formspree endpoint -->
-            <form action="https://formspree.io/f/mljjgynn" method="POST" style="display: flex; flex-direction: column; gap: 15px;">git add .
+            <form action="https://formspree.io/f/mljjgynn" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
                 <div>
                     <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Your Name</label>
                     <input type="text" name="name" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
@@ -556,7 +556,6 @@ def build_site():
         try { screen.value = eval(screen.value); } catch { screen.value = 'Error'; }
     }
 
-    // --- RELIABLE AUDIO BEEP PLAYER ---
     function playBeepSound() {
         const beep = document.getElementById('timer-beep');
         if (beep) {
@@ -750,7 +749,40 @@ def build_site():
             with open(f"{cat_dir}/index.html", 'w', encoding='utf-8') as f:
                 f.write(cat_content)
 
-    print("Successfully built site with robust trust pages, Disclaimer page, author profile, and clean folder URLs!")
+    # 6. Automated Sitemap Generator for SEO & AdSense
+    domain = "https://techwither.com"
+    today = datetime.now().strftime('%Y-%m-%d')
+    
+    urls = [
+        {"loc": f"{domain}/", "priority": "1.0", "changefreq": "daily"},
+        {"loc": f"{domain}/about/", "priority": "0.5", "changefreq": "monthly"},
+        {"loc": f"{domain}/contact/", "priority": "0.5", "changefreq": "monthly"},
+        {"loc": f"{domain}/privacy/", "priority": "0.3", "changefreq": "yearly"},
+        {"loc": f"{domain}/disclaimer/", "priority": "0.3", "changefreq": "yearly"},
+        {"loc": f"{domain}/disclosure/", "priority": "0.3", "changefreq": "yearly"},
+        {"loc": f"{domain}/tools/", "priority": "0.8", "changefreq": "weekly"},
+    ]
+    
+    for article in articles:
+        slug = article.get('slug')
+        cat_name = article.get('category')
+        folder = category_config.get(cat_name, {"folder": "AI"})["folder"]
+        urls.append({
+            "loc": f"{domain}/categories/{folder}/{slug}/",
+            "priority": "0.8",
+            "changefreq": "weekly"
+        })
+    
+    xml_content = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml_content += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    for u in urls:
+        xml_content += f"  <url>\n    <loc>{u['loc']}</loc>\n    <lastmod>{today}</lastmod>\n    <changefreq>{u['changefreq']}</changefreq>\n    <priority>{u['priority']}</priority>\n  </url>\n"
+    xml_content += '</urlset>'
+    
+    with open("sitemap.xml", "w", encoding="utf-8") as f:
+        f.write(xml_content)
+
+    print("Successfully built site with robust trust pages, Disclaimer page, author profile, clean folder URLs, and sitemap.xml!")
 
 if __name__ == '__main__':
     build_site()
