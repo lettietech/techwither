@@ -666,7 +666,9 @@ def build_site():
 
     # 4h. DEDICATED TOOL PAGE: SAVINGS GOAL CALCULATOR (/tools/savings-goal-calculator/)
     os.makedirs("tools/savings-goal-calculator", exist_ok=True)
-    savings_calc_content = '''<!DOCTYPE html>
+    
+    # Notice we use a normal string (three quotes without the 'f')
+    savings_calc_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -725,7 +727,7 @@ def build_site():
 </head>
 <body>
     <div class="container">
-        {get_nav('tools')}
+        NAV_PLACEHOLDER
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Savings Goal Calculator</h1>
             <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
@@ -835,6 +837,10 @@ def build_site():
 </body>
 </html>
 '''
+
+    # Safely inject the navigation bar using Python replacement
+    savings_calc_content = savings_calc_html.replace("NAV_PLACEHOLDER", get_native_nav_or_placeholder := get_nav('tools'))
+    
     with open('tools/savings-goal-calculator/index.html', 'w', encoding='utf-8') as f:
         f.write(savings_calc_content)
 
