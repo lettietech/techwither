@@ -874,6 +874,22 @@ def build_site():
                 </div>
             '''
             
+            in_article_ad = '''
+                <div style="margin: 2rem 0;">
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774"
+                         crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block; text-align:center;"
+                         data-ad-layout="in-article"
+                         data-ad-format="fluid"
+                         data-ad-client="ca-pub-3209789109672774"
+                         data-ad-slot="1600143151"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            '''
+            
             post_page_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -892,6 +908,7 @@ def build_site():
                 <h1>{article['title']}</h1>
                 <p class="post-meta">{article['category']} &bull; {article['date']} &bull; By <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
                 {disclosure_notice}
+                {in_article_ad}
                 {article_content_html}
             </article>
         </main>
