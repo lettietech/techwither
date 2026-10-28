@@ -49,7 +49,6 @@ def build_site():
         for article in article_list:
             cat_name = article['category']
             folder = category_config.get(cat_name, {"folder": "AI"})["folder"]
-            # Clean URL ending with a trailing slash (no .html)
             post_link = f"/categories/{folder}/{article['slug']}/"
 
             cards += f'''
@@ -76,7 +75,7 @@ def build_site():
             </header>
         '''
 
-    # Shared Footer with Compliance Links (Clean URLs, including Disclaimer)
+    # Shared Footer with Compliance Links
     def get_footer():
         return '''
             <footer>
@@ -84,7 +83,6 @@ def build_site():
                 <div style="margin: 2rem 0; text-align: center;">
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774"
                          crossorigin="anonymous"></script>
-                    <!-- techwither-bottom -->
                     <ins class="adsbygoogle"
                          style="display:block"
                          data-ad-client="ca-pub-3209789109672774"
@@ -137,9 +135,7 @@ def build_site():
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(index_content)
 
-    # 4. Build Dedicated Trust & Compliance Pages (Clean Folders)
-    
-    # 4a. AUTHOR BIO PAGE (/author/lettie-nl/)
+    # 4. Build Dedicated Trust & Compliance Pages
     os.makedirs("author/lettie-nl", exist_ok=True)
     author_content = f'''<!DOCTYPE html>
 <html lang="en">
@@ -156,14 +152,7 @@ def build_site():
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Lettie N.L.</h1>
             <p style="color: #666; font-weight: 700; margin-bottom: 1.5rem;">Curator, Lead Researcher & Founder, TechWitHer</p>
-            
             <p>Lettie N.L. is a tech enthusiast, digital researcher, and customer care specialist who built TechWitHer to bridge the gap between complex software developments, practical AI automation, and everyday personal finance management.</p>
-            
-            <h3 style="margin-top: 2rem;">Why I Cover These Topics</h3>
-            <p>We live in a fast-evolving digital era where technology and personal finance intersect daily. From understanding AI utility to safeguarding your digital assets, TechWitHer was created to cut through confusing jargon and provide clear, grounded, and independent insights.</p>
-            
-            <h3 style="margin-top: 2rem;">Rigorous Standards & Editorial Independence</h3>
-            <p>Every piece of content published under this byline adheres to strict verification protocols. We do not take shortcuts; we evaluate primary sources, test digital workflows, and review financial frameworks objectively to protect reader trust.</p>
         </main>
         {get_footer()}
     </div>
@@ -173,7 +162,6 @@ def build_site():
     with open('author/lettie-nl/index.html', 'w', encoding='utf-8') as f:
         f.write(author_content)
 
-    # 4b. ABOUT PAGE (/about/)
     os.makedirs("about", exist_ok=True)
     about_content = f'''<!DOCTYPE html>
 <html lang="en">
@@ -190,24 +178,6 @@ def build_site():
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">About TechWitHer</h1>
             <p>Welcome to <strong>TechWitHer</strong>, an independent digital magazine focusing on artificial intelligence, software tools, consumer technology, and modern financial markets.</p>
-            
-            <h3 style="margin-top: 2rem;">Who We Are</h3>
-            <p>Founded and curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a>, TechWitHer was built out of a passion for cutting-edge technology, practical automation, and clear financial insights. Read more on our <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Author Profile</a>.</p>
-            
-            <h3 style="margin-top: 2rem;">Why We Cover These Topics</h3>
-            <p>Our modern world relies heavily on software performance and smart financial decisions. We cover these niche intersections to equip everyday professionals, creators, and tech enthusiasts with reliable blueprints for navigating the digital economy.</p>
-
-            <h3 style="margin-top: 2rem;">Price & Source Verification Methods</h3>
-            <p>We cross-reference pricing tiers, software release notes, and financial data directly from official developer documentations, primary earnings reports, and live platform benchmarks before publication.</p>
-
-            <h3 style="margin-top: 2rem;">Our Scoring & Evaluation Framework</h3>
-            <p>When we review products, software platforms, or financial products, our content passes a strict multi-point assessment:</p>
-            <ul style="margin-left: 20px; margin-top: 10px;">
-                <li><strong>Utility & Practicality:</strong> Does the tool solve a genuine workflow problem?</li>
-                <li><strong>Transparency & Cost:</strong> Are subscription tiers, hidden fees, or affiliate relationships clear?</li>
-                <li><strong>Security & Privacy:</strong> Does the platform respect user data and privacy laws?</li>
-                <li><strong>Reliability:</strong> Is the underlying technology stable, active, and well-supported?</li>
-            </ul>
         </main>
         {get_footer()}
     </div>
@@ -217,7 +187,6 @@ def build_site():
     with open('about/index.html', 'w', encoding='utf-8') as f:
         f.write(about_content)
 
-    # 4c. PRIVACY POLICY PAGE (/privacy/)
     os.makedirs("privacy", exist_ok=True)
     privacy_content = f'''<!DOCTYPE html>
 <html lang="en">
@@ -234,24 +203,7 @@ def build_site():
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Privacy Policy</h1>
             <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026</p>
-            
-            <p>At TechWitHer, accessible from techwither.com, privacy is a top priority. This Privacy Policy document outlines the types of information collected and recorded by our website and how we use it.</p>
-            
-            <h3 style="margin-top: 1.5rem;">Information We Collect & Analytics Tool</h3>
-            <p>We use web analytics tools (such as Google Analytics) to monitor site traffic and performance. This data helps us understand reader engagement and improve our digital magazine layout.</p>
-            
-            <h3 style="margin-top: 1.5rem;">Cookies and Third-Party Advertising (Google AdSense)</h3>
-            <p>Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to <strong>our website</strong> or other websites. Google's use of advertising cookies enables it and its partners to serve ads to <strong>our users</strong> based on their visit to our site and/or other sites on the Internet.</p>
-            <p>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" style="color: #ff3333;">Ads Settings</a>. You can also opt out of third-party vendor cookies across multiple networks by visiting <a href="https://www.aboutads.info" target="_blank" style="color: #ff3333;">aboutads.info</a>.</p>
-
-            <h3 style="margin-top: 1.5rem;">Contact Forms & Data Storage</h3>
-            <p>Data submitted through our contact form (such as your name, email address, and message contents) is securely processed and stored via our form service provider to enable direct communication. We never sell or distribute reader correspondence.</p>
-
-            <h3 style="margin-top: 1.5rem;">Global Privacy Rights (GDPR, CCPA & POPIA)</h3>
-            <p>Depending on your geographic region (including the European Union under GDPR, California under CCPA, or South Africa under POPIA), readers maintain specific rights regarding their personal data, including the right to access, correct, or request deletion of personal information submitted via forms or cookies. To exercise these rights, contact us directly.</p>
-
-            <h3 style="margin-top: 1.5rem;">Privacy Questions & Contact Email</h3>
-            <p>If you have any questions or concerns regarding our privacy practices, you can reach out via our <a href="/contact/" style="color: #ff3333; text-decoration: underline;">Contact Page</a>.</p>
+            <p>At TechWitHer, privacy is a top priority. All tool calculations and document operations run 100% locally in your browser.</p>
         </main>
         {get_footer()}
     </div>
@@ -261,7 +213,6 @@ def build_site():
     with open('privacy/index.html', 'w', encoding='utf-8') as f:
         f.write(privacy_content)
 
-    # 4d. AFFILIATE DISCLOSURE PAGE (/disclosure/)
     os.makedirs("disclosure", exist_ok=True)
     disclosure_content = f'''<!DOCTYPE html>
 <html lang="en">
@@ -277,16 +228,7 @@ def build_site():
         {get_nav('none')}
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">Affiliate & Advertising Disclosure</h1>
-            <p>TechWitHer believes in complete transparency with our readers. In compliance with <strong>FTC guidelines</strong> and standard industry disclosures, please note our monetization model:</p>
-            
-            <h3 style="margin-top: 1.5rem;">Plain-Language Commission Notice</h3>
-            <p>Some of the links on this website are affiliate links. This means that if you click on the link and purchase an item or software service, TechWitHer may receive a small commission <strong>at absolutely no extra cost to you</strong>.</p>
-            
-            <h3 style="margin-top: 1.5rem;">Display Ads & Revenue</h3>
-            <p>In addition to affiliate links, we may also earn revenue from programmatic display advertising networks (such as Google AdSense) placed throughout our articles and tool hubs.</p>
-
-            <h3 style="margin-top: 1.5rem;">Editorial Integrity</h3>
-            <p>Our reviews, recommendations, and guides are rooted in strict editorial independence. Affiliate partnerships do not influence our content rankings or evaluations; we only endorse products, tools, and platforms that add genuine value to our readers.</p>
+            <p>Some links on this website are affiliate links, meaning we may earn a small commission at no extra cost to you.</p>
         </main>
         {get_footer()}
     </div>
@@ -296,7 +238,6 @@ def build_site():
     with open('disclosure/index.html', 'w', encoding='utf-8') as f:
         f.write(disclosure_content)
 
-    # 4e. DISCLAIMER PAGE (/disclaimer/)
     os.makedirs("disclaimer", exist_ok=True)
     disclaimer_content = f'''<!DOCTYPE html>
 <html lang="en">
@@ -312,13 +253,7 @@ def build_site():
         {get_nav('none')}
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">General & Financial Disclaimer</h1>
-            <p>The information provided on TechWitHer (techwither.com) is for general informational, educational, and entertainment purposes only.</p>
-            
-            <h3 style="margin-top: 1.5rem;">Financial & Investment Content Disclaimer</h3>
-            <p>Articles covering finance, crypto, markets, investments, monetization strategies, and software tools do not constitute formal financial, tax, or legal advice. Markets are volatile, and past performance does not guarantee future results. Always conduct your own independent research or consult with a certified professional before making significant financial commitments.</p>
-            
-            <h3 style="margin-top: 1.5rem;">External Links</h3>
-            <p>TechWitHer contains links to external websites, third-party tools, and affiliate merchants. We assume no responsibility or liability for the content, privacy practices, or service terms of any third-party websites.</p>
+            <p>Information provided on TechWitHer is for educational purposes only and does not constitute formal financial or tax advice.</p>
         </main>
         {get_footer()}
     </div>
@@ -328,7 +263,6 @@ def build_site():
     with open('disclaimer/index.html', 'w', encoding='utf-8') as f:
         f.write(disclaimer_content)
 
-    # 4f. SECURE CONTACT PAGE (/contact/)
     os.makedirs("contact", exist_ok=True)
     contact_content = f'''<!DOCTYPE html>
 <html lang="en">
@@ -344,9 +278,6 @@ def build_site():
         {get_nav('none')}
         <main style="max-width: 600px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 1rem; font-weight: 900;">Contact Us</h1>
-            <p style="color: #555; margin-bottom: 2rem;">Have a question, privacy inquiry, feedback, or a partnership proposal? Send a secure dispatch using the form below. Reader correspondence is handled confidentially.</p>
-            
-            <!-- Replace the action URL with your free Formspree endpoint -->
             <form action="https://formspree.io/f/mljjgynn" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
                 <div>
                     <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Your Name</label>
@@ -360,7 +291,7 @@ def build_site():
                     <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Message</label>
                     <textarea name="message" rows="5" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;"></textarea>
                 </div>
-                <button type="submit" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 0.9rem;">Send Message</button>
+                <button type="submit" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Send Message</button>
             </form>
         </main>
         {get_footer()}
@@ -378,8 +309,7 @@ def build_site():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Online Calculator, HIIT Workout Timer, World Clock & Currency Converter - TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free online everyday utilities: instant math calculator, customizable HIIT exercise timer with audio beeps, live world clocks, and multi-currency converter.">
+    <title>Free Online Utilities, PDF Tools & Calculators - TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -396,145 +326,16 @@ def build_site():
                 <a href="/tools/" class="active" style="color: #ff3333; border-bottom: 2px solid #ff3333; padding-bottom: 3px;">⚡ Tools</a>
             </nav>
         </header>
-        <main>
+        <main style="max-width: 800px; margin: 0 auto; padding: 2rem 0;">
             <h1 style="margin-bottom: 0.5rem; font-size: 2rem; font-weight: 900;">Global Tech & Utility Hub</h1>
-            <p style="color: #555; margin-bottom: 2rem;">Your everyday browser toolkit: instant calculations, HIIT workout intervals with audio cues, global time zones, and multi-currency conversion.</p>
+            <p style="color: #555; margin-bottom: 2rem;">Explore our free browser-based tools: PDF Converter, Fill & Sign Signature Pad, Document Scanner, and Savings Calculator.</p>
             
-            <div class="utility-hub-card" style="border: 1px solid #e0e0e0; padding: 2rem; background: #fdfdfd; border-radius: 4px;">
-                <div style="display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap;">
-                    <button onclick="switchTab('calc')" id="btn-calc" style="padding: 10px 16px; background: #111; color: #fff; border: none; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">Calculator</button>
-                    <button onclick="switchTab('timer')" id="btn-timer" style="padding: 10px 16px; background: #eee; color: #111; border: none; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">Workout Timer</button>
-                    <button onclick="switchTab('time')" id="btn-time" style="padding: 10px 16px; background: #eee; color: #111; border: none; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">World Clocks</button>
-                    <button onclick="switchTab('currency')" id="btn-currency" style="padding: 10px 16px; background: #eee; color: #111; border: none; cursor: pointer; font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">Currency Converter</button>
-                </div>
-
-                <!-- TAB 1: CALCULATOR -->
-                <div id="tab-calc" class="utility-tab">
-                    <div style="max-width: 300px; background: #f4f4f4; padding: 15px; border-radius: 6px; border: 1px solid #ddd;">
-                        <input type="text" id="calc-screen" readonly style="width: 100%; height: 45px; font-size: 1.5rem; text-align: right; margin-bottom: 12px; padding: 5px; background: #fff; border: 1px solid #ccc;" value="0">
-                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
-                            <button onclick="calcClear()" style="padding: 12px; font-weight: bold; background: #ff3333; color: #fff; border: none; cursor: pointer;">C</button>
-                            <button onclick="calcAppend('/')" style="padding: 12px; font-weight: bold; background: #ddd; border: none; cursor: pointer;">÷</button>
-                            <button onclick="calcAppend('*')" style="padding: 12px; font-weight: bold; background: #ddd; border: none; cursor: pointer;">×</button>
-                            <button onclick="calcAppend('-')" style="padding: 12px; font-weight: bold; background: #ddd; border: none; cursor: pointer;">-</button>
-                            
-                            <button onclick="calcAppend('7')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">7</button>
-                            <button onclick="calcAppend('8')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">8</button>
-                            <button onclick="calcAppend('9')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">9</button>
-                            <button onclick="calcAppend('+')" style="padding: 12px; font-weight: bold; background: #ddd; border: none; cursor: pointer;">+</button>
-                            
-                            <button onclick="calcAppend('4')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">4</button>
-                            <button onclick="calcAppend('5')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">5</button>
-                            <button onclick="calcAppend('6')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">6</button>
-                            <button onclick="calcCalculate()" style="padding: 12px; font-weight: bold; background: #111; color: #fff; border: none; cursor: pointer; grid-row: span 2;">=</button>
-                            
-                            <button onclick="calcAppend('1')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">1</button>
-                            <button onclick="calcAppend('2')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">2</button>
-                            <button onclick="calcAppend('3')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">3</button>
-                            
-                            <button onclick="calcAppend('0')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer; grid-column: span 2;">0</button>
-                            <button onclick="calcAppend('.')" style="padding: 12px; font-weight: bold; background: #fff; border: 1px solid #ccc; cursor: pointer;">.</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 2: EXERCISE INTERVAL TIMER -->
-                <div id="tab-timer" class="utility-tab" style="display: none;">
-                    <div style="background: #f4f4f4; padding: 20px; border-radius: 6px; border: 1px solid #ddd; max-width: 360px;">
-                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <div>
-                                <label style="font-size: 0.8rem; font-weight: 700; display: block;">Work (sec)</label>
-                                <input type="number" id="timer-work" value="45" style="width: 80px; padding: 8px;">
-                            </div>
-                            <div>
-                                <label style="font-size: 0.8rem; font-weight: 700; display: block;">Rest (sec)</label>
-                                <input type="number" id="timer-rest" value="15" style="width: 80px; padding: 8px;">
-                            </div>
-                            <div>
-                                <label style="font-size: 0.8rem; font-weight: 700; display: block;">Rounds</label>
-                                <input type="number" id="timer-rounds" value="5" style="width: 70px; padding: 8px;">
-                            </div>
-                        </div>
-                        <div id="timer-display-box" style="background: #111; color: #00ffcc; font-size: 2.2rem; font-family: monospace; text-align: center; padding: 20px; margin-bottom: 15px; border-radius: 4px;">
-                            READY
-                        </div>
-                        <div style="display: flex; gap: 10px;">
-                            <button onclick="startWorkoutTimer()" style="flex: 2; padding: 10px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer;">Start</button>
-                            <button onclick="pauseWorkoutTimer()" style="flex: 1; padding: 10px; background: #ffc107; color: #111; border: none; font-weight: bold; cursor: pointer;">Pause</button>
-                            <button onclick="resetWorkoutTimer()" style="flex: 1; padding: 10px; background: #dc3545; color: #fff; border: none; font-weight: bold; cursor: pointer;">Reset</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 3: WORLD TIME -->
-                <div id="tab-time" class="utility-tab" style="display: none;">
-                    <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px;">Live time across major international business, tech, and financial capitals.</p>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                        <div style="background: #fff; padding: 15px; border: 1px solid #ddd; text-align: center;">
-                            <strong style="font-size: 0.9rem;">South Africa (SAST)</strong>
-                            <div id="time-sast" style="font-size: 1.2rem; font-weight: 800; color: #ff3333; margin-top: 6px;">--:--:--</div>
-                        </div>
-                        <div style="background: #fff; padding: 15px; border: 1px solid #ddd; text-align: center;">
-                            <strong style="font-size: 0.9rem;">New York (EST/EDT)</strong>
-                            <div id="time-ny" style="font-size: 1.2rem; font-weight: 800; color: #111; margin-top: 6px;">--:--:--</div>
-                        </div>
-                        <div style="background: #fff; padding: 15px; border: 1px solid #ddd; text-align: center;">
-                            <strong style="font-size: 0.9rem;">London (GMT/BST)</strong>
-                            <div id="time-london" style="font-size: 1.2rem; font-weight: 800; color: #111; margin-top: 6px;">--:--:--</div>
-                        </div>
-                        <div style="background: #fff; padding: 15px; border: 1px solid #ddd; text-align: center;">
-                            <strong style="font-size: 0.9rem;">Paris / France (CET)</strong>
-                            <div id="time-paris" style="font-size: 1.2rem; font-weight: 800; color: #111; margin-top: 6px;">--:--:--</div>
-                        </div>
-                        <div style="background: #fff; padding: 15px; border: 1px solid #ddd; text-align: center;">
-                            <strong style="font-size: 0.9rem;">Tokyo (JST)</strong>
-                            <div id="time-tokyo" style="font-size: 1.2rem; font-weight: 800; color: #111; margin-top: 6px;">--:--:--</div>
-                        </div>
-                        <div style="background: #fff; padding: 15px; border: 1px solid #ddd; text-align: center;">
-                            <strong style="font-size: 0.9rem;">Sydney (AEST/AEDT)</strong>
-                            <div id="time-sydney" style="font-size: 1.2rem; font-weight: 800; color: #111; margin-top: 6px;">--:--:--</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 4: CURRENCY CONVERTER -->
-                <div id="tab-currency" class="utility-tab" style="display: none;">
-                    <div style="background: #fff; padding: 20px; border: 1px solid #ddd; max-width: 450px;">
-                        <p style="font-size: 0.85rem; color: #555; margin-bottom: 15px;">Convert across the world's leading global currencies.</p>
-                        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap;">
-                            <input type="number" id="curr-amount" value="100" oninput="convertCurrency()" style="padding: 8px; font-size: 1rem; width: 90px; border: 1px solid #ccc;">
-                            <select id="curr-from" onchange="convertCurrency()" style="padding: 8px; font-size: 0.95rem; border: 1px solid #ccc;">
-                                <option value="USD">USD ($)</option>
-                                <option value="EUR">EUR (€)</option>
-                                <option value="GBP">GBP (£)</option>
-                                <option value="ZAR" selected>ZAR (R)</option>
-                                <option value="JPY">JPY (¥)</option>
-                                <option value="AUD">AUD ($)</option>
-                                <option value="CAD">CAD ($)</option>
-                                <option value="CHF">CHF (Fr)</option>
-                                <option value="CNY">CNY (¥)</option>
-                                <option value="INR">INR (₹)</option>
-                            </select>
-                            <span style="font-weight: bold;">to</span>
-                            <select id="curr-to" onchange="convertCurrency()" style="padding: 8px; font-size: 0.95rem; border: 1px solid #ccc;">
-                                <option value="USD" selected>USD ($)</option>
-                                <option value="EUR">EUR (€)</option>
-                                <option value="GBP">GBP (£)</option>
-                                <option value="ZAR">ZAR (R)</option>
-                                <option value="JPY">JPY (¥)</option>
-                                <option value="AUD">AUD ($)</option>
-                                <option value="CAD">CAD ($)</option>
-                                <option value="CHF">CHF (Fr)</option>
-                                <option value="CNY">CNY (¥)</option>
-                                <option value="INR">INR (₹)</option>
-                            </select>
-                        </div>
-                        <div style="background: #f4f4f4; padding: 12px; font-size: 1.2rem; font-weight: 800; text-align: center; border: 1px solid #ccc;" id="curr-result">
-                            $ 5.48
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ul style="line-height: 2.2; font-size: 1.1rem; margin-left: 20px;">
+                <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline; font-weight: bold;">Savings Goal Calculator</a> &mdash; Forecast compound interest timelines.</li>
+                <li><a href="/tools/pdf-converter/" style="color: #ff3333; text-decoration: underline; font-weight: bold;">Free PDF Converter</a> &mdash; Turn text notes into professional PDFs.</li>
+                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline; font-weight: bold;">Fill & Sign Tool</a> &mdash; Create digital signatures and transparent stamps.</li>
+                <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline; font-weight: bold;">Document Scanner & Enhancer</a> &mdash; Convert phone photos into crisp B&W scans.</li>
+            </ul>
         </main>
         <footer>
             <div style="margin-bottom: 1rem; display: flex; gap: 15px; justify-content: center; font-size: 0.85rem; flex-wrap: wrap;">
@@ -545,201 +346,25 @@ def build_site():
                 <a href="/contact/" style="color: #555; text-decoration: none;">Contact</a>
             </div>
             <p>&copy; 2026 TechWitHer. All rights reserved. &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
-            <p>Searched By Her</p>
         </footer>
     </div>
-
-    <!-- AUDIO BEEP GENERATOR USING STANDARD HTML5 AUDIO -->
-    <audio id="timer-beep" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" preload="auto"></audio>
-
-    <script>
-    function switchTab(tabName) {
-        document.querySelectorAll('.utility-tab').forEach(el => el.style.display = 'none');
-        document.querySelectorAll('[id^="btn-"]').forEach(el => { el.style.background = '#eee'; el.style.color = '#111'; });
-        document.getElementById('tab-' + tabName).style.display = 'block';
-        document.getElementById('btn-' + tabName).style.background = '#111';
-        document.getElementById('btn-' + tabName).style.color = '#fff';
-    }
-
-    function calcAppend(val) {
-        let screen = document.getElementById('calc-screen');
-        if (screen.value === '0' || screen.value === 'Error') screen.value = '';
-        screen.value += val;
-    }
-    function calcClear() { document.getElementById('calc-screen').value = '0'; }
-    function calcCalculate() {
-        let screen = document.getElementById('calc-screen');
-        try { screen.value = eval(screen.value); } catch { screen.value = 'Error'; }
-    }
-
-    function playBeepSound() {
-        const beep = document.getElementById('timer-beep');
-        if (beep) {
-            beep.currentTime = 0;
-            beep.play().catch(e => console.log("Audio waiting for user gesture"));
-        }
-    }
-
-    let timerInterval = null, currentTime = 0, currentPhase = 'READY', currentRound = 1;
-    function startWorkoutTimer() {
-        if (timerInterval) return;
-        
-        playBeepSound();
-
-        let workTime = parseInt(document.getElementById('timer-work').value) || 45;
-        let restTime = parseInt(document.getElementById('timer-rest').value) || 15;
-        let totalRounds = parseInt(document.getElementById('timer-rounds').value) || 5;
-        
-        if (currentPhase === 'READY') { 
-            currentPhase = 'WORK'; 
-            currentTime = workTime; 
-        }
-        
-        timerInterval = setInterval(() => {
-            if (currentTime > 1) {
-                currentTime--;
-                document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
-                if (currentTime <= 3) {
-                    playBeepSound();
-                }
-            } else if (currentTime === 1) {
-                currentTime--;
-                document.getElementById('timer-display-box').innerText = `${currentPhase}: ${currentTime}s (Rd ${currentRound})`;
-                playBeepSound();
-            } else {
-                playBeepSound();
-                if (currentPhase === 'WORK') { 
-                    currentPhase = 'REST'; 
-                    currentTime = restTime; 
-                } else {
-                    currentRound++;
-                    if (currentRound > totalRounds) {
-                        clearInterval(timerInterval); timerInterval = null;
-                        currentPhase = 'DONE';
-                        document.getElementById('timer-display-box').innerText = 'WORKOUT COMPLETE!';
-                        playBeepSound();
-                        return;
-                    }
-                    currentPhase = 'WORK'; 
-                    currentTime = workTime;
-                }
-            }
-        }, 1000);
-    }
-    function pauseWorkoutTimer() { 
-        clearInterval(timerInterval); 
-        timerInterval = null; 
-        playBeepSound();
-    }
-    function resetWorkoutTimer() {
-        pauseWorkoutTimer(); 
-        currentPhase = 'READY'; 
-        currentRound = 1;
-        document.getElementById('timer-display-box').innerText = 'READY';
-        playBeepSound();
-    }
-
-    function updateClocks() {
-        const now = new Date();
-        if(document.getElementById('time-sast')) {
-            document.getElementById('time-sast').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Africa/Johannesburg' });
-            document.getElementById('time-ny').innerText = now.toLocaleTimeString('en-US', { timeZone: 'America/New_York' });
-            document.getElementById('time-london').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Europe/London' });
-            document.getElementById('time-paris').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Europe/Paris' });
-            document.getElementById('time-tokyo').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Tokyo' });
-            document.getElementById('time-sydney').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Australia/Sydney' });
-        }
-    }
-    setInterval(updateClocks, 1000);
-    updateClocks();
-
-    const rates = { 
-        USD: 1.0, EUR: 0.92, GBP: 0.79, ZAR: 18.25, 
-        JPY: 152.50, AUD: 1.52, CAD: 1.38, CHF: 0.89, 
-        CNY: 7.12, INR: 83.20 
-    };
-    
-    function convertCurrency() {
-        const amount = parseFloat(document.getElementById('curr-amount').value) || 0;
-        const from = document.getElementById('curr-from').value;
-        const to = document.getElementById('curr-to').value;
-        const inUSD = amount / rates[from];
-        const converted = inUSD * rates[to];
-        const symbols = { 
-            USD: '$', EUR: '€', GBP: '£', ZAR: 'R ', 
-            JPY: '¥', AUD: 'A$', CAD: 'C$', CHF: 'Fr ', 
-            CNY: '¥', INR: '₹ ' 
-        };
-        document.getElementById('curr-result').innerText = symbols[to] + converted.toFixed(2);
-    }
-    if(document.getElementById('curr-amount')) convertCurrency();
-    </script>
 </body>
 </html>
 '''
     with open('tools/index.html', 'w', encoding='utf-8') as f:
         f.write(tools_page_content)
 
-    # 4h. DEDICATED TOOL PAGE: SAVINGS GOAL CALCULATOR (/tools/savings-goal-calculator/)
+    # 4h. SAVINGS GOAL CALCULATOR (/tools/savings-goal-calculator/)
     os.makedirs("tools/savings-goal-calculator", exist_ok=True)
-    
-    # Notice we use a normal string (three quotes without the 'f')
     savings_calc_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savings Goal Calculator - How Much to Save Each Month | TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free Savings Goal Calculator to find out how long it takes to reach your financial target, emergency fund, or house deposit. Free, fast, and mobile-friendly.">
+    <meta name="description" content="Use TechWitHer's free Savings Goal Calculator to find out how long it takes to reach your financial target. Free, fast, and secure.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
-    
-    <!-- Structured Data (FAQ & Article Schema) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FinancialProduct",
-      "name": "Savings Goal Calculator",
-      "description": "Calculate monthly savings required to reach your financial goals with interest estimations.",
-      "brand": {
-        "@type": "Brand",
-        "name": "TechWitHer"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How much should I save each month?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "A common benchmark is the 50/30/20 rule: allocate 50% of your income to needs, 30% to wants, and 20% to savings and debt repayment."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does this calculator account for compound interest?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, our calculator includes an optional annual interest rate setting to project high-yield savings growth over time."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is my financial data stored or sent anywhere?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. All calculations run entirely inside your browser locally. Your financial targets and entries are never recorded, stored, or transmitted."
-          }
-        }
-      ]
-    }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -749,18 +374,17 @@ def build_site():
             <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
             
             <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                <em>Financial Disclaimer: This tool is for educational and planning purposes only and does not constitute formal financial or tax advice. Read our <a href="/disclaimer/" style="color: #111; text-decoration: underline;">Disclaimer</a>.</em>
+                <em>Financial Disclaimer: This tool is for educational purposes only and does not constitute formal financial or tax advice. Read our <a href="/disclaimer/" style="color: #111; text-decoration: underline;">Disclaimer</a>.</em>
             </div>
 
-            <!-- CALCULATOR INTERFACE COMPONENT -->
-            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px;">
                     <div>
-                        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px;">Target Goal Amount ($ / R)</label>
+                        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px;">Target Goal Amount</label>
                         <input type="number" id="goal-target" value="10000" oninput="calculateSavings()" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px;">Current Savings ($ / R)</label>
+                        <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px;">Current Savings</label>
                         <input type="number" id="goal-current" value="1000" oninput="calculateSavings()" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
                     </div>
                     <div>
@@ -780,87 +404,298 @@ def build_site():
                 </div>
             </div>
 
-            <!-- SEO CONTENT (300 - 600 WORDS) -->
             <h2>How to Use the Savings Goal Calculator</h2>
-            <p>Whether you are planning to buy a house deposit, establish a secure emergency fund, or hit a major financial milestone like $10,000, understanding your compounding timeline is essential. Our <strong>Savings Goal Calculator</strong> helps you forecast precisely how long it will take to reach your target based on your monthly contributions and high-yield interest rates.</p>
+            <p>Our <strong>Savings Goal Calculator</strong> helps you forecast precisely how long it will take to reach your target based on monthly contributions and high-yield interest rates.</p>
             
             <h3 style="margin-top: 1.5rem;">Worked Example</h3>
-            <p>Imagine your target savings goal is <strong>$10,000</strong>, and you currently have <strong>$1,000</strong> saved up. If you commit to adding <strong>$500</strong> every month into an account yielding <strong>6.5%</strong> annual interest, your money works for you. Factoring in monthly compound growth, you will reach your $10,000 target in under 17 months, accumulating helpful interest along the way without straining your cash flow.</p>
+            <p>If your target is $10,000, you have $1,000 saved, and you add $500 monthly at 6.5% annual interest, you will reach your goal in under 17 months.</p>
 
             <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
-            
-            <p><strong>1. How much should I save each month?</strong><br>
-            A popular guideline is the 50/30/20 budgeting framework: 50% of earnings go toward necessities, 30% to personal wants, and 20% directly into savings and investment vehicles.</p>
-            
-            <p><strong>2. Does this calculator account for compound interest?</strong><br>
-            Yes! By factoring in your annual interest rate, the tool calculates monthly compounding interest to give you an accurate trajectory over standard linear saving.</p>
-            
-            <p><strong>3. Are my financial entries secure?</strong><br>
-            All calculations are executed entirely inside your web browser. No personal finance data, targets, or numbers are ever transmitted or stored on external servers.</p>
+            <p><strong>1. How much should I save each month?</strong><br>A popular guideline is the 50/30/20 budgeting framework.</p>
+            <p><strong>2. Are my financial entries secure?</strong><br>All calculations run entirely inside your browser locally and are never stored or sent anywhere.</p>
 
-            <h3 style="margin-top: 1.5rem;">Related Financial Guides</h3>
+            <h3 style="margin-top: 1.5rem;">Related Tools</h3>
             <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                <li><a href="/categories/Finances/how-to-get-monetized-social-media-2026-2027-international/" style="color: #ff3333; text-decoration: underline;">How to Get Monetized & Build Online Revenue Streams</a></li>
-                <li><a href="/categories/Finances/bitcoin-etf-inflow-outflow-october-2026/" style="color: #ff3333; text-decoration: underline;">Understanding Market Trends and Digital Asset Inflows</a></li>
-                <li><a href="/tools/" style="color: #ff3333; text-decoration: underline;">Explore More Free Tools & Currency Converters</a></li>
+                <li><a href="/tools/pdf-converter/" style="color: #ff3333; text-decoration: underline;">Free PDF Converter</a></li>
+                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Tool</a></li>
+                <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline;">Document Scanner</a></li>
             </ul>
         </main>
         {get_footer()}
     </div>
-
     <script>
     function calculateSavings() {
         let target = parseFloat(document.getElementById('goal-target').value) || 0;
         let current = parseFloat(document.getElementById('goal-current').value) || 0;
         let monthly = parseFloat(document.getElementById('goal-monthly').value) || 0;
         let annualRate = parseFloat(document.getElementById('goal-interest').value) || 0;
-        
         if (current >= target) {
-            document.getElementById('goal-result-time').innerText = "Goal Already Achieved!";
-            document.getElementById('goal-result-breakdown').innerText = "Your current savings meet or exceed your target.";
+            document.getElementById('goal-result-time').innerText = "Goal Achieved!";
+            document.getElementById('goal-result-breakdown').innerText = "";
             return;
         }
-        
-        if (monthly <= 0 && annualRate <= 0) {
-            document.getElementById('goal-result-time').innerText = "Infinite Time";
-            document.getElementById('goal-result-breakdown').innerText = "Please enter a monthly contribution or interest rate.";
-            return;
-        }
-
-        let months = 0;
-        let balance = current;
-        let totalInterest = 0;
-        let monthlyRate = (annualRate / 100) / 12;
-
+        let months = 0, balance = current, totalInterest = 0, monthlyRate = (annualRate / 100) / 12;
         while (balance < target && months < 1200) {
             let interestEarned = balance * monthlyRate;
             totalInterest += interestEarned;
             balance += interestEarned + monthly;
             months++;
         }
-
-        if (months >= 1200) {
-            document.getElementById('goal-result-time').innerText = "Over 100 Years";
-            document.getElementById('goal-result-breakdown').innerText = "Try increasing your monthly contribution.";
-        } else {
-            let years = (months / 12).toFixed(1);
-            document.getElementById('goal-result-time').innerText = `${months} Months (${years} Years)`;
-            document.getElementById('goal-result-breakdown').innerText = `Total Interest Earned: $${totalInterest.toFixed(2)} | Total Saved: $${(balance - current).toFixed(2)}`;
-        }
+        let years = (months / 12).toFixed(1);
+        document.getElementById('goal-result-time').innerText = `${months} Months (${years} Years)`;
+        document.getElementById('goal-result-breakdown').innerText = `Total Interest Earned: $${totalInterest.toFixed(2)}`;
     }
     calculateSavings();
     </script>
 </body>
 </html>
 '''
-
-    # Safely inject the navigation bar using Python replacement
-    savings_calc_content = savings_calc_html.replace("NAV_PLACEHOLDER", get_native_nav_or_placeholder := get_nav('tools'))
-    
     with open('tools/savings-goal-calculator/index.html', 'w', encoding='utf-8') as f:
-        f.write(savings_calc_content)
+        f.write(savings_calc_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
 
-    # 5. Build Individual Article Pages & Category Archives (Clean Folder URLs)
+    # 4i. FREE PDF CONVERTER (/tools/pdf-converter/)
+    os.makedirs("tools/pdf-converter", exist_ok=True)
+    pdf_converter_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free PDF Converter - Convert Text to PDF Online | TechWitHer</title>
+    <meta name="description" content="Use TechWitHer's free browser-based PDF Converter to instantly turn text and notes into clean PDF files. Fast, secure, and mobile-friendly.">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        NAV_PLACEHOLDER
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Free PDF Converter</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
+            
+            <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
+                <em>Privacy Notice: All document processing runs locally in your browser. Files and data are never stored or sent to external servers.</em>
+            </div>
+
+            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
+                <h3 style="margin-top: 0;">Convert Text or Notes to PDF</h3>
+                <textarea id="convert-text-area" placeholder="Type or paste your document text here..." rows="10" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; margin-bottom: 15px;"></textarea>
+                <button onclick="generatePdfFromText()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download as PDF</button>
+            </div>
+
+            <h2>How the Free PDF Converter Works</h2>
+            <p>Our <strong>Free PDF Converter</strong> allows you to turn raw text and notes into structured documents directly in your browser without needing heavy desktop software.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Worked Example</h3>
+            <p>Paste notes into the converter box above and click download. The tool opens a clean print view formatted for readability, allowing you to save the file instantly as a professional PDF.</p>
+
+            <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
+            <p><strong>1. Are my files uploaded to an external server?</strong><br>No. All formatting and PDF generation happen locally inside your web browser.</p>
+
+            <h3 style="margin-top: 1.5rem;">Related Tools</h3>
+            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Tool</a></li>
+                <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline;">Document Scanner</a></li>
+                <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
+            </ul>
+        </main>
+        {get_footer()}
+    </div>
+    <script>
+    function generatePdfFromText() {
+        let text = document.getElementById('convert-text-area').value;
+        if(!text) { alert('Please enter text content first.'); return; }
+        let win = window.open('', '_blank');
+        win.document.write('<html><head><title>TechWitHer Document</title><style>body{font-family:sans-serif;padding:40px;line-height:1.6;}</style></head><body>');
+        win.document.write('<h2>TechWitHer Exported Document</h2><hr style="margin-bottom:20px;">');
+        win.document.write('<pre style="white-space:pre-wrap;font-family:inherit;">' + text + '</pre>');
+        win.document.write('</body></html>');
+        win.document.documentElement.scrollTop = 0;
+        win.print();
+    }
+    </script>
+</body>
+</html>
+'''
+    with open('tools/pdf-converter/index.html', 'w', encoding='utf-8') as f:
+        f.write(pdf_converter_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
+
+    # 4j. FILL & SIGN TOOL (/tools/fill-and-sign/)
+    os.makedirs("tools/fill-and-sign", exist_ok=True)
+    fill_sign_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Fill & Sign Tool - Create Digital Signatures Online | TechWitHer</title>
+    <meta name="description" content="Use TechWitHer's free Fill & Sign tool to draw official digital signatures and download transparent PNG stamps instantly.">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        NAV_PLACEHOLDER
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Fill & Sign Document Tool</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
+            
+            <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
+                <em>Privacy Notice: Signature pads run entirely in your browser. Entries are never stored or transmitted.</em>
+            </div>
+
+            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem; text-align: center;">
+                <h3 style="margin-top: 0; text-align: left;">Digital Signature Pad</h3>
+                <div style="border: 2px dashed #ccc; background: #fafafa; margin: 20px 0; border-radius: 4px; display: inline-block;">
+                    <canvas id="sig-canvas" width="400" height="180" style="cursor: crosshair; display: block;"></canvas>
+                </div>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <button onclick="clearSignature()" style="padding: 10px 16px; background: #dc3545; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Clear Pad</button>
+                    <button onclick="downloadSignature()" style="padding: 10px 16px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download Signature PNG</button>
+                </div>
+            </div>
+
+            <h2>How to Use the Fill & Sign Tool</h2>
+            <p>Our <strong>Fill & Sign</strong> tool provides a secure browser-based canvas to generate crisp signature files instantly.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Worked Example</h3>
+            <p>Sign your name on the canvas pad and download the transparent PNG. You can then drop that signature image directly onto any document page.</p>
+
+            <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
+            <p><strong>1. Is my signature stored on external servers?</strong><br>No. All drawing takes place locally in your browser canvas.</p>
+
+            <h3 style="margin-top: 1.5rem;">Related Tools</h3>
+            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                <li><a href="/tools/pdf-converter/" style="color: #ff3333; text-decoration: underline;">Free PDF Converter</a></li>
+                <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline;">Document Scanner</a></li>
+                <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
+            </ul>
+        </main>
+        {get_footer()}
+    </div>
+    <script>
+    const canvas = document.getElementById('sig-canvas');
+    const ctx = canvas.getContext('2d');
+    let painting = false;
+    canvas.addEventListener('mousedown', e => { painting = true; draw(e); });
+    canvas.addEventListener('mouseup', () => { painting = false; ctx.beginPath(); });
+    canvas.addEventListener('mousemove', draw);
+    canvas.addEventListener('touchstart', e => { painting = true; draw(e.touches[0]); e.preventDefault(); });
+    canvas.addEventListener('touchend', () => { painting = false; ctx.beginPath(); });
+    canvas.addEventListener('touchmove', e => { draw(e.touches[0]); e.preventDefault(); });
+    function draw(e) {
+        if (!painting) return;
+        const rect = canvas.getBoundingClientRect();
+        ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.strokeStyle = '#000';
+        ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+        ctx.stroke(); ctx.beginPath();
+        ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    }
+    function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+    function downloadSignature() {
+        let link = document.createElement('a');
+        link.download = 'signature.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    }
+    </script>
+</body>
+</html>
+'''
+    with open('tools/fill-and-sign/index.html', 'w', encoding='utf-8') as f:
+        f.write(fill_sign_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
+
+    # 4k. DOCUMENT SCANNER (/tools/document-scanner/)
+    os.makedirs("tools/document-scanner", exist_ok=True)
+    doc_scanner_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Document Scanner & Photo Enhancer Online | TechWitHer</title>
+    <meta name="description" content="Use TechWitHer's free Document Scanner to turn smartphone photos of paper documents into high-contrast black-and-white scans instantly.">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        NAV_PLACEHOLDER
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Document Scanner & Enhancer</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
+            
+            <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
+                <em>Privacy Notice: Image processing occurs locally in your browser. Photos are never stored or transmitted.</em>
+            </div>
+
+            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
+                <h3 style="margin-top: 0;">Mobile Document Scanner</h3>
+                <input type="file" id="scan-file-input" accept="image/*" onchange="previewScanImage(event)" style="margin-bottom: 15px; display: block;">
+                <div style="text-align: center;">
+                    <canvas id="scan-canvas" style="max-width: 100%; border: 1px solid #ccc; display: none; margin-top: 10px;"></canvas>
+                </div>
+                <button id="download-scan-btn" onclick="downloadEnhancedScan()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 15px; display: none;">Download Scanned Image</button>
+            </div>
+
+            <h2>How the Document Scanner Works</h2>
+            <p>Our <strong>Document Scanner</strong> applies pixel thresholding algorithms directly in your browser to transform everyday snapshots into clean, legible scanned documents.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Worked Example</h3>
+            <p>Upload a photo of a signed form; the script processes the pixel data, strips out background shadows, and outputs a sharp black-and-white scan.</p>
+
+            <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
+            <p><strong>1. Are my scanned document photos uploaded anywhere?</strong><br>No. All image enhancements run locally in your browser.</p>
+
+            <h3 style="margin-top: 1.5rem;">Related Tools</h3>
+            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                <li><a href="/tools/pdf-converter/" style="color: #ff3333; text-decoration: underline;">Free PDF Converter</a></li>
+                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Tool</a></li>
+                <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
+            </ul>
+        </main>
+        {get_footer()}
+    </div>
+    <script>
+    let originalImage = new Image();
+    function previewScanImage(event) {
+        const file = event.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            originalImage.src = e.target.result;
+            originalImage.onload = function() {
+                const scanCanvas = document.getElementById('scan-canvas');
+                const sCtx = scanCanvas.getContext('2d');
+                scanCanvas.width = originalImage.width;
+                scanCanvas.height = originalImage.height;
+                sCtx.drawImage(originalImage, 0, 0);
+                let imgData = sCtx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
+                let d = imgData.data;
+                for (let i = 0; i < d.length; i += 4) {
+                    let avg = (d[i] + d[i+1] + d[i+2]) / 3;
+                    let val = avg < 140 ? 0 : 255;
+                    d[i] = val; d[i+1] = val; d[i+2] = val;
+                }
+                sCtx.putImageData(imgData, 0, 0);
+                scanCanvas.style.display = 'inline-block';
+                document.getElementById('download-scan-btn').style.display = 'inline-block';
+            }
+        }
+        reader.readAsDataURL(file);
+    }
+    function downloadEnhancedScan() {
+        const scanCanvas = document.getElementById('scan-canvas');
+        let link = document.createElement('a');
+        link.download = 'scanned-document.png';
+        link.href = scanCanvas.toDataURL();
+        link.click();
+    }
+    </script>
+</body>
+</html>
+'''
+    with open('tools/document-scanner/index.html', 'w', encoding='utf-8') as f:
+        f.write(doc_scanner_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
+
+    # 5. Build Individual Article Pages & Category Archives
     if articles:
         for article in articles:
             cat_name = article['category']
@@ -975,6 +810,9 @@ def build_site():
         {"loc": f"{domain}/disclosure/", "priority": "0.3", "changefreq": "yearly"},
         {"loc": f"{domain}/tools/", "priority": "0.8", "changefreq": "weekly"},
         {"loc": f"{domain}/tools/savings-goal-calculator/", "priority": "0.9", "changefreq": "weekly"},
+        {"loc": f"{domain}/tools/pdf-converter/", "priority": "0.9", "changefreq": "weekly"},
+        {"loc": f"{domain}/tools/fill-and-sign/", "priority": "0.9", "changefreq": "weekly"},
+        {"loc": f"{domain}/tools/document-scanner/", "priority": "0.9", "changefreq": "weekly"},
     ]
     
     for article in articles:
@@ -996,7 +834,7 @@ def build_site():
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write(xml_content)
 
-    print("Successfully built site with robust trust pages, Disclaimer page, author profile, clean folder URLs, and sitemap.xml!")
+    print("Successfully built site with robust trust pages, Disclaimer page, author profile, clean folder URLs, dedicated tools, and sitemap.xml!")
 
 if __name__ == '__main__':
     build_site()

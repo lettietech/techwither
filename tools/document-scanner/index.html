@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Document Scanner & Photo Enhancer Online | TechWitHer</title>
+    <meta name="description" content="Use TechWitHer's free Document Scanner to turn smartphone photos of paper documents into high-contrast black-and-white scans instantly.">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        
+            <header>
+                <a href="/" class="brand">TechWitHer<span class="red-dot">.</span></a>
+                <nav>
+                    <a href="/" class="">Home</a>
+                    <a href="/categories/AI/" class="">AI</a>
+                    <a href="/categories/Hardware/" class="">Hardware</a>
+                    <a href="/categories/Software/" class="">Software</a>
+                    <a href="/categories/Finances/" class="">Finance</a>
+                    <a href="/tools/" class="active" style="color: #ff3333;">⚡ Tools</a>
+                </nav>
+            </header>
+        
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Document Scanner & Enhancer</h1>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
+            
+            <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
+                <em>Privacy Notice: Image processing occurs locally in your browser. Photos are never stored or transmitted.</em>
+            </div>
+
+            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
+                <h3 style="margin-top: 0;">Mobile Document Scanner</h3>
+                <input type="file" id="scan-file-input" accept="image/*" onchange="previewScanImage(event)" style="margin-bottom: 15px; display: block;">
+                <div style="text-align: center;">
+                    <canvas id="scan-canvas" style="max-width: 100%; border: 1px solid #ccc; display: none; margin-top: 10px;"></canvas>
+                </div>
+                <button id="download-scan-btn" onclick="downloadEnhancedScan()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 15px; display: none;">Download Scanned Image</button>
+            </div>
+
+            <h2>How the Document Scanner Works</h2>
+            <p>Our <strong>Document Scanner</strong> applies pixel thresholding algorithms directly in your browser to transform everyday snapshots into clean, legible scanned documents.</p>
+            
+            <h3 style="margin-top: 1.5rem;">Worked Example</h3>
+            <p>Upload a photo of a signed form; the script processes the pixel data, strips out background shadows, and outputs a sharp black-and-white scan.</p>
+
+            <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
+            <p><strong>1. Are my scanned document photos uploaded anywhere?</strong><br>No. All image enhancements run locally in your browser.</p>
+
+            <h3 style="margin-top: 1.5rem;">Related Tools</h3>
+            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                <li><a href="/tools/pdf-converter/" style="color: #ff3333; text-decoration: underline;">Free PDF Converter</a></li>
+                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Tool</a></li>
+                <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
+            </ul>
+        </main>
+        {get_footer()}
+    </div>
+    <script>
+    let originalImage = new Image();
+    function previewScanImage(event) {
+        const file = event.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            originalImage.src = e.target.result;
+            originalImage.onload = function() {
+                const scanCanvas = document.getElementById('scan-canvas');
+                const sCtx = scanCanvas.getContext('2d');
+                scanCanvas.width = originalImage.width;
+                scanCanvas.height = originalImage.height;
+                sCtx.drawImage(originalImage, 0, 0);
+                let imgData = sCtx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
+                let d = imgData.data;
+                for (let i = 0; i < d.length; i += 4) {
+                    let avg = (d[i] + d[i+1] + d[i+2]) / 3;
+                    let val = avg < 140 ? 0 : 255;
+                    d[i] = val; d[i+1] = val; d[i+2] = val;
+                }
+                sCtx.putImageData(imgData, 0, 0);
+                scanCanvas.style.display = 'inline-block';
+                document.getElementById('download-scan-btn').style.display = 'inline-block';
+            }
+        }
+        reader.readAsDataURL(file);
+    }
+    function downloadEnhancedScan() {
+        const scanCanvas = document.getElementById('scan-canvas');
+        let link = document.createElement('a');
+        link.download = 'scanned-document.png';
+        link.href = scanCanvas.toDataURL();
+        link.click();
+    }
+    </script>
+</body>
+</html>
