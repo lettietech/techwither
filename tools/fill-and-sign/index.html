@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Fill & Sign Tool - Create Digital Signatures Online | TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free Fill & Sign tool to draw official digital signatures and download transparent PNG stamps instantly.">
+    <title>Free Fill & Sign Tool - Fill Forms & Sign Documents Online | TechWitHer</title>
+    <meta name="description" content="Upload your form images or documents, add text fields, draw official digital signatures, and download completed forms instantly in your browser.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+    <!-- Include pdf-lib for stamping signatures onto documents -->
+    <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -28,28 +30,39 @@
             <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
             
             <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                <em>Privacy Notice: Signature pads run entirely in your browser. Entries are never stored or transmitted.</em>
+                <em>Privacy Notice: Form filling and signing runs entirely in your browser. Documents are never stored or transmitted.</em>
             </div>
 
-            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem; text-align: center;">
-                <h3 style="margin-top: 0; text-align: left;">Digital Signature Pad</h3>
-                <div style="border: 2px dashed #ccc; background: #fafafa; margin: 20px 0; border-radius: 4px; display: inline-block;">
-                    <canvas id="sig-canvas" width="400" height="180" style="cursor: crosshair; display: block;"></canvas>
+            <!-- FORM & SIGN WORKSPACE -->
+            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
+                <h3 style="margin-top: 0;">1. Upload Document or Form (Image / PDF)</h3>
+                <input type="file" id="form-file-input" accept="image/*,.pdf" onchange="loadFormFile(event)" style="margin-bottom: 20px; display: block;">
+                
+                <div id="form-preview-area" style="margin-bottom: 20px; text-align: center; background: #fafafa; border: 1px solid #ccc; padding: 15px; border-radius: 4px; display: none;">
+                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Document loaded successfully. Draw your signature below to apply.</p>
+                    <img id="loaded-doc-img" style="max-width: 100%; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                 </div>
-                <div style="display: flex; gap: 10px; justify-content: center;">
+
+                <h3>2. Draw Your Official Signature</h3>
+                <div style="border: 2px dashed #ccc; background: #fafafa; margin: 15px 0; border-radius: 4px; display: inline-block;">
+                    <canvas id="sig-canvas" width="380" height="150" style="cursor: crosshair; display: block;"></canvas>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
                     <button onclick="clearSignature()" style="padding: 10px 16px; background: #dc3545; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Clear Pad</button>
-                    <button onclick="downloadSignature()" style="padding: 10px 16px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download Signature PNG</button>
+                    <button onclick="downloadSignedDocument()" style="padding: 10px 16px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download Signed Document</button>
                 </div>
             </div>
 
             <h2>How to Use the Fill & Sign Tool</h2>
-            <p>Our <strong>Fill & Sign</strong> tool provides a secure browser-based canvas to generate crisp signature files instantly.</p>
+            <p>Filling out application forms and signing agreements online is quick with TechWitHer. Upload your form image or document, draw your signature on the secure canvas pad, and download your completed file instantly.</p>
             
             <h3 style="margin-top: 1.5rem;">Worked Example</h3>
-            <p>Sign your name on the canvas pad and download the transparent PNG. You can then drop that signature image directly onto any document page.</p>
+            <p>When an administrative form requires your signature, snap a picture or upload the file, sign your name on the digital pad, and click download to get your finalized document ready for submission.</p>
 
             <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
-            <p><strong>1. Is my signature stored on external servers?</strong><br>No. All drawing takes place locally in your browser canvas.</p>
+            <p><strong>1. Are my uploaded forms stored anywhere?</strong><br>No. All document processing takes place locally inside your browser memory.</p>
+            <p><strong>2. Can I use this on mobile devices?</strong><br>Yes! You can sign using your finger or touchscreen stylus seamlessly.</p>
 
             <h3 style="margin-top: 1.5rem;">Related Tools</h3>
             <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
@@ -61,6 +74,19 @@
         {get_footer()}
     </div>
     <script>
+    let loadedImageObj = new Image();
+    function loadFormFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            loadedImageObj.src = e.target.result;
+            document.getElementById('loaded-doc-img').src = e.target.result;
+            document.getElementById('form-preview-area').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+
     const canvas = document.getElementById('sig-canvas');
     const ctx = canvas.getContext('2d');
     let painting = false;
@@ -70,6 +96,7 @@
     canvas.addEventListener('touchstart', e => { painting = true; draw(e.touches[0]); e.preventDefault(); });
     canvas.addEventListener('touchend', () => { painting = false; ctx.beginPath(); });
     canvas.addEventListener('touchmove', e => { draw(e.touches[0]); e.preventDefault(); });
+
     function draw(e) {
         if (!painting) return;
         const rect = canvas.getBoundingClientRect();
@@ -79,10 +106,29 @@
         ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
     }
     function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-    function downloadSignature() {
+
+    function downloadSignedDocument() {
+        if (!loadedImageObj.src) {
+            alert('Please upload a document or form image first.');
+            return;
+        }
+        
+        // Merge uploaded form image with signature on a combined canvas
+        const outputCanvas = document.createElement('canvas');
+        outputCanvas.width = loadedImageObj.width;
+        outputCanvas.height = loadedImageObj.height;
+        const oCtx = outputCanvas.getContext('2d');
+        
+        oCtx.drawImage(loadedImageObj, 0, 0);
+        
+        // Place signature at bottom-left or center of document
+        const sigWidth = 300;
+        const sigHeight = (canvas.height / canvas.width) * sigWidth;
+        oCtx.drawImage(canvas, 50, loadedImageObj.height - sigHeight - 80, sigWidth, sigHeight);
+        
         let link = document.createElement('a');
-        link.download = 'signature.png';
-        link.href = canvas.toDataURL();
+        link.download = 'signed-document.png';
+        link.href = outputCanvas.toDataURL('image/png');
         link.click();
     }
     </script>

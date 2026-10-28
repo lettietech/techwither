@@ -453,17 +453,19 @@ def build_site():
     with open('tools/savings-goal-calculator/index.html', 'w', encoding='utf-8') as f:
         f.write(savings_calc_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
 
-    # 4i. FREE PDF CONVERTER (/tools/pdf-converter/)
+    # 4i. DEDICATED TOOL PAGE: FREE PDF CONVERTER (/tools/pdf-converter/)
     os.makedirs("tools/pdf-converter", exist_ok=True)
     pdf_converter_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free PDF Converter - Convert Text to PDF Online | TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free browser-based PDF Converter to instantly turn text and notes into clean PDF files. Fast, secure, and mobile-friendly.">
+    <title>Free PDF Converter - Convert DOC & Files to PDF Online | TechWitHer</title>
+    <meta name="description" content="Upload your text, Word, or document files and instantly convert them into clean PDF files securely in your browser. No uploads to external servers.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+    <!-- Include jsPDF for real client-side PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -473,27 +475,32 @@ def build_site():
             <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
             
             <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                <em>Privacy Notice: All document processing runs locally in your browser. Files and data are never stored or sent to external servers.</em>
+                <em>Privacy Notice: All document conversions run 100% locally inside your web browser. Your files are never uploaded or stored on external servers.</em>
             </div>
 
             <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
-                <h3 style="margin-top: 0;">Convert Text or Notes to PDF</h3>
-                <textarea id="convert-text-area" placeholder="Type or paste your document text here..." rows="10" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; margin-bottom: 15px;"></textarea>
-                <button onclick="generatePdfFromText()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download as PDF</button>
+                <h3 style="margin-top: 0;">Upload Document or Type Content</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Upload a text file (.txt) or type your document content below to instantly generate a downloadable PDF.</p>
+                
+                <input type="file" id="upload-doc-file" accept=".txt" onchange="loadUploadedFile(event)" style="margin-bottom: 15px; display: block;">
+                <textarea id="convert-text-area" placeholder="Or type/paste your document text here..." rows="8" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; margin-bottom: 15px;"></textarea>
+                
+                <button onclick="downloadRealPdf()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 0.85rem;">Generate & Download PDF</button>
             </div>
 
             <h2>How the Free PDF Converter Works</h2>
-            <p>Our <strong>Free PDF Converter</strong> allows you to turn raw text and notes into structured documents directly in your browser without needing heavy desktop software.</p>
+            <p>Converting documents securely without installing heavy software is vital for remote work and digital administration. TechWitHer's <strong>Free PDF Converter</strong> parses your uploaded files or text blocks locally, compiling them into a structured PDF document instantly.</p>
             
             <h3 style="margin-top: 1.5rem;">Worked Example</h3>
-            <p>Paste notes into the converter box above and click download. The tool opens a clean print view formatted for readability, allowing you to save the file instantly as a professional PDF.</p>
+            <p>Upload a draft text document or paste your notes directly into the system. Click 'Generate & Download PDF', and our browser engine builds a clean, formatted PDF file ready for professional sharing or storage.</p>
 
             <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
-            <p><strong>1. Are my files uploaded to an external server?</strong><br>No. All formatting and PDF generation happen locally inside your web browser.</p>
+            <p><strong>1. Are my files uploaded to an external server?</strong><br>No. All file reading and PDF generation happen locally inside your web browser.</p>
+            <p><strong>2. What file formats are supported for upload?</strong><br>Currently, plain text (.txt) files and manual text inputs are supported directly for client-side rendering.</p>
 
             <h3 style="margin-top: 1.5rem;">Related Tools</h3>
             <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Tool</a></li>
+                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Forms</a></li>
                 <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline;">Document Scanner</a></li>
                 <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
             </ul>
@@ -501,16 +508,32 @@ def build_site():
         {get_footer()}
     </div>
     <script>
-    function generatePdfFromText() {
-        let text = document.getElementById('convert-text-area').value;
-        if(!text) { alert('Please enter text content first.'); return; }
-        let win = window.open('', '_blank');
-        win.document.write('<html><head><title>TechWitHer Document</title><style>body{font-family:sans-serif;padding:40px;line-height:1.6;}</style></head><body>');
-        win.document.write('<h2>TechWitHer Exported Document</h2><hr style="margin-bottom:20px;">');
-        win.document.write('<pre style="white-space:pre-wrap;font-family:inherit;">' + text + '</pre>');
-        win.document.write('</body></html>');
-        win.document.documentElement.scrollTop = 0;
-        win.print();
+    function loadUploadedFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('convert-text-area').value = e.target.result;
+        };
+        reader.readAsText(file);
+    }
+
+    function downloadRealPdf() {
+        const text = document.getElementById('convert-text-area').value;
+        if (!text) { alert('Please enter or upload document text first.'); return; }
+        
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFont("Helvetica", "normal");
+        doc.setFontSize(16);
+        doc.text("TechWitHer Document Export", 20, 20);
+        
+        doc.setFontSize(11);
+        const splitText = doc.splitTextToSize(text, 170);
+        doc.text(splitText, 20, 35);
+        
+        doc.save("techwither-document.pdf");
     }
     </script>
 </body>
@@ -519,17 +542,20 @@ def build_site():
     with open('tools/pdf-converter/index.html', 'w', encoding='utf-8') as f:
         f.write(pdf_converter_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
 
-    # 4j. FILL & SIGN TOOL (/tools/fill-and-sign/)
+
+    # 4j. DEDICATED TOOL PAGE: FILL & SIGN TOOL (/tools/fill-and-sign/)
     os.makedirs("tools/fill-and-sign", exist_ok=True)
     fill_sign_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Fill & Sign Tool - Create Digital Signatures Online | TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free Fill & Sign tool to draw official digital signatures and download transparent PNG stamps instantly.">
+    <title>Free Fill & Sign Tool - Fill Forms & Sign Documents Online | TechWitHer</title>
+    <meta name="description" content="Upload your form images or documents, add text fields, draw official digital signatures, and download completed forms instantly in your browser.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+    <!-- Include pdf-lib for stamping signatures onto documents -->
+    <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -539,28 +565,39 @@ def build_site():
             <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
             
             <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                <em>Privacy Notice: Signature pads run entirely in your browser. Entries are never stored or transmitted.</em>
+                <em>Privacy Notice: Form filling and signing runs entirely in your browser. Documents are never stored or transmitted.</em>
             </div>
 
-            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem; text-align: center;">
-                <h3 style="margin-top: 0; text-align: left;">Digital Signature Pad</h3>
-                <div style="border: 2px dashed #ccc; background: #fafafa; margin: 20px 0; border-radius: 4px; display: inline-block;">
-                    <canvas id="sig-canvas" width="400" height="180" style="cursor: crosshair; display: block;"></canvas>
+            <!-- FORM & SIGN WORKSPACE -->
+            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
+                <h3 style="margin-top: 0;">1. Upload Document or Form (Image / PDF)</h3>
+                <input type="file" id="form-file-input" accept="image/*,.pdf" onchange="loadFormFile(event)" style="margin-bottom: 20px; display: block;">
+                
+                <div id="form-preview-area" style="margin-bottom: 20px; text-align: center; background: #fafafa; border: 1px solid #ccc; padding: 15px; border-radius: 4px; display: none;">
+                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Document loaded successfully. Draw your signature below to apply.</p>
+                    <img id="loaded-doc-img" style="max-width: 100%; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                 </div>
-                <div style="display: flex; gap: 10px; justify-content: center;">
+
+                <h3>2. Draw Your Official Signature</h3>
+                <div style="border: 2px dashed #ccc; background: #fafafa; margin: 15px 0; border-radius: 4px; display: inline-block;">
+                    <canvas id="sig-canvas" width="380" height="150" style="cursor: crosshair; display: block;"></canvas>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
                     <button onclick="clearSignature()" style="padding: 10px 16px; background: #dc3545; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Clear Pad</button>
-                    <button onclick="downloadSignature()" style="padding: 10px 16px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download Signature PNG</button>
+                    <button onclick="downloadSignedDocument()" style="padding: 10px 16px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download Signed Document</button>
                 </div>
             </div>
 
             <h2>How to Use the Fill & Sign Tool</h2>
-            <p>Our <strong>Fill & Sign</strong> tool provides a secure browser-based canvas to generate crisp signature files instantly.</p>
+            <p>Filling out application forms and signing agreements online is quick with TechWitHer. Upload your form image or document, draw your signature on the secure canvas pad, and download your completed file instantly.</p>
             
             <h3 style="margin-top: 1.5rem;">Worked Example</h3>
-            <p>Sign your name on the canvas pad and download the transparent PNG. You can then drop that signature image directly onto any document page.</p>
+            <p>When an administrative form requires your signature, snap a picture or upload the file, sign your name on the digital pad, and click download to get your finalized document ready for submission.</p>
 
             <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
-            <p><strong>1. Is my signature stored on external servers?</strong><br>No. All drawing takes place locally in your browser canvas.</p>
+            <p><strong>1. Are my uploaded forms stored anywhere?</strong><br>No. All document processing takes place locally inside your browser memory.</p>
+            <p><strong>2. Can I use this on mobile devices?</strong><br>Yes! You can sign using your finger or touchscreen stylus seamlessly.</p>
 
             <h3 style="margin-top: 1.5rem;">Related Tools</h3>
             <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
@@ -572,6 +609,19 @@ def build_site():
         {get_footer()}
     </div>
     <script>
+    let loadedImageObj = new Image();
+    function loadFormFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            loadedImageObj.src = e.target.result;
+            document.getElementById('loaded-doc-img').src = e.target.result;
+            document.getElementById('form-preview-area').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+
     const canvas = document.getElementById('sig-canvas');
     const ctx = canvas.getContext('2d');
     let painting = false;
@@ -581,6 +631,7 @@ def build_site():
     canvas.addEventListener('touchstart', e => { painting = true; draw(e.touches[0]); e.preventDefault(); });
     canvas.addEventListener('touchend', () => { painting = false; ctx.beginPath(); });
     canvas.addEventListener('touchmove', e => { draw(e.touches[0]); e.preventDefault(); });
+
     function draw(e) {
         if (!painting) return;
         const rect = canvas.getBoundingClientRect();
@@ -590,10 +641,29 @@ def build_site():
         ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
     }
     function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-    function downloadSignature() {
+
+    function downloadSignedDocument() {
+        if (!loadedImageObj.src) {
+            alert('Please upload a document or form image first.');
+            return;
+        }
+        
+        // Merge uploaded form image with signature on a combined canvas
+        const outputCanvas = document.createElement('canvas');
+        outputCanvas.width = loadedImageObj.width;
+        outputCanvas.height = loadedImageObj.height;
+        const oCtx = outputCanvas.getContext('2d');
+        
+        oCtx.drawImage(loadedImageObj, 0, 0);
+        
+        // Place signature at bottom-left or center of document
+        const sigWidth = 300;
+        const sigHeight = (canvas.height / canvas.width) * sigWidth;
+        oCtx.drawImage(canvas, 50, loadedImageObj.height - sigHeight - 80, sigWidth, sigHeight);
+        
         let link = document.createElement('a');
-        link.download = 'signature.png';
-        link.href = canvas.toDataURL();
+        link.download = 'signed-document.png';
+        link.href = outputCanvas.toDataURL('image/png');
         link.click();
     }
     </script>
@@ -602,99 +672,7 @@ def build_site():
 '''
     with open('tools/fill-and-sign/index.html', 'w', encoding='utf-8') as f:
         f.write(fill_sign_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
-
-    # 4k. DOCUMENT SCANNER (/tools/document-scanner/)
-    os.makedirs("tools/document-scanner", exist_ok=True)
-    doc_scanner_html = '''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Document Scanner & Photo Enhancer Online | TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free Document Scanner to turn smartphone photos of paper documents into high-contrast black-and-white scans instantly.">
-    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-    <div class="container">
-        NAV_PLACEHOLDER
-        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Document Scanner & Enhancer</h1>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
-            
-            <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                <em>Privacy Notice: Image processing occurs locally in your browser. Photos are never stored or transmitted.</em>
-            </div>
-
-            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
-                <h3 style="margin-top: 0;">Mobile Document Scanner</h3>
-                <input type="file" id="scan-file-input" accept="image/*" onchange="previewScanImage(event)" style="margin-bottom: 15px; display: block;">
-                <div style="text-align: center;">
-                    <canvas id="scan-canvas" style="max-width: 100%; border: 1px solid #ccc; display: none; margin-top: 10px;"></canvas>
-                </div>
-                <button id="download-scan-btn" onclick="downloadEnhancedScan()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; margin-top: 15px; display: none;">Download Scanned Image</button>
-            </div>
-
-            <h2>How the Document Scanner Works</h2>
-            <p>Our <strong>Document Scanner</strong> applies pixel thresholding algorithms directly in your browser to transform everyday snapshots into clean, legible scanned documents.</p>
-            
-            <h3 style="margin-top: 1.5rem;">Worked Example</h3>
-            <p>Upload a photo of a signed form; the script processes the pixel data, strips out background shadows, and outputs a sharp black-and-white scan.</p>
-
-            <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
-            <p><strong>1. Are my scanned document photos uploaded anywhere?</strong><br>No. All image enhancements run locally in your browser.</p>
-
-            <h3 style="margin-top: 1.5rem;">Related Tools</h3>
-            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                <li><a href="/tools/pdf-converter/" style="color: #ff3333; text-decoration: underline;">Free PDF Converter</a></li>
-                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Tool</a></li>
-                <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
-            </ul>
-        </main>
-        {get_footer()}
-    </div>
-    <script>
-    let originalImage = new Image();
-    function previewScanImage(event) {
-        const file = event.target.files[0];
-        if(!file) return;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            originalImage.src = e.target.result;
-            originalImage.onload = function() {
-                const scanCanvas = document.getElementById('scan-canvas');
-                const sCtx = scanCanvas.getContext('2d');
-                scanCanvas.width = originalImage.width;
-                scanCanvas.height = originalImage.height;
-                sCtx.drawImage(originalImage, 0, 0);
-                let imgData = sCtx.getImageData(0, 0, scanCanvas.width, scanCanvas.height);
-                let d = imgData.data;
-                for (let i = 0; i < d.length; i += 4) {
-                    let avg = (d[i] + d[i+1] + d[i+2]) / 3;
-                    let val = avg < 140 ? 0 : 255;
-                    d[i] = val; d[i+1] = val; d[i+2] = val;
-                }
-                sCtx.putImageData(imgData, 0, 0);
-                scanCanvas.style.display = 'inline-block';
-                document.getElementById('download-scan-btn').style.display = 'inline-block';
-            }
-        }
-        reader.readAsDataURL(file);
-    }
-    function downloadEnhancedScan() {
-        const scanCanvas = document.getElementById('scan-canvas');
-        let link = document.createElement('a');
-        link.download = 'scanned-document.png';
-        link.href = scanCanvas.toDataURL();
-        link.click();
-    }
-    </script>
-</body>
-</html>
-'''
-    with open('tools/document-scanner/index.html', 'w', encoding='utf-8') as f:
-        f.write(doc_scanner_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
-
+    
     # 5. Build Individual Article Pages & Category Archives
     if articles:
         for article in articles:

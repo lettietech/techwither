@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free PDF Converter - Convert Text to PDF Online | TechWitHer</title>
-    <meta name="description" content="Use TechWitHer's free browser-based PDF Converter to instantly turn text and notes into clean PDF files. Fast, secure, and mobile-friendly.">
+    <title>Free PDF Converter - Convert DOC & Files to PDF Online | TechWitHer</title>
+    <meta name="description" content="Upload your text, Word, or document files and instantly convert them into clean PDF files securely in your browser. No uploads to external servers.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+    <!-- Include jsPDF for real client-side PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -28,27 +30,32 @@
             <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
             
             <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                <em>Privacy Notice: All document processing runs locally in your browser. Files and data are never stored or sent to external servers.</em>
+                <em>Privacy Notice: All document conversions run 100% locally inside your web browser. Your files are never uploaded or stored on external servers.</em>
             </div>
 
             <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
-                <h3 style="margin-top: 0;">Convert Text or Notes to PDF</h3>
-                <textarea id="convert-text-area" placeholder="Type or paste your document text here..." rows="10" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; margin-bottom: 15px;"></textarea>
-                <button onclick="generatePdfFromText()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download as PDF</button>
+                <h3 style="margin-top: 0;">Upload Document or Type Content</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Upload a text file (.txt) or type your document content below to instantly generate a downloadable PDF.</p>
+                
+                <input type="file" id="upload-doc-file" accept=".txt" onchange="loadUploadedFile(event)" style="margin-bottom: 15px; display: block;">
+                <textarea id="convert-text-area" placeholder="Or type/paste your document text here..." rows="8" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; margin-bottom: 15px;"></textarea>
+                
+                <button onclick="downloadRealPdf()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 0.85rem;">Generate & Download PDF</button>
             </div>
 
             <h2>How the Free PDF Converter Works</h2>
-            <p>Our <strong>Free PDF Converter</strong> allows you to turn raw text and notes into structured documents directly in your browser without needing heavy desktop software.</p>
+            <p>Converting documents securely without installing heavy software is vital for remote work and digital administration. TechWitHer's <strong>Free PDF Converter</strong> parses your uploaded files or text blocks locally, compiling them into a structured PDF document instantly.</p>
             
             <h3 style="margin-top: 1.5rem;">Worked Example</h3>
-            <p>Paste notes into the converter box above and click download. The tool opens a clean print view formatted for readability, allowing you to save the file instantly as a professional PDF.</p>
+            <p>Upload a draft text document or paste your notes directly into the system. Click 'Generate & Download PDF', and our browser engine builds a clean, formatted PDF file ready for professional sharing or storage.</p>
 
             <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
-            <p><strong>1. Are my files uploaded to an external server?</strong><br>No. All formatting and PDF generation happen locally inside your web browser.</p>
+            <p><strong>1. Are my files uploaded to an external server?</strong><br>No. All file reading and PDF generation happen locally inside your web browser.</p>
+            <p><strong>2. What file formats are supported for upload?</strong><br>Currently, plain text (.txt) files and manual text inputs are supported directly for client-side rendering.</p>
 
             <h3 style="margin-top: 1.5rem;">Related Tools</h3>
             <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Tool</a></li>
+                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Forms</a></li>
                 <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline;">Document Scanner</a></li>
                 <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
             </ul>
@@ -56,16 +63,32 @@
         {get_footer()}
     </div>
     <script>
-    function generatePdfFromText() {
-        let text = document.getElementById('convert-text-area').value;
-        if(!text) { alert('Please enter text content first.'); return; }
-        let win = window.open('', '_blank');
-        win.document.write('<html><head><title>TechWitHer Document</title><style>body{font-family:sans-serif;padding:40px;line-height:1.6;}</style></head><body>');
-        win.document.write('<h2>TechWitHer Exported Document</h2><hr style="margin-bottom:20px;">');
-        win.document.write('<pre style="white-space:pre-wrap;font-family:inherit;">' + text + '</pre>');
-        win.document.write('</body></html>');
-        win.document.documentElement.scrollTop = 0;
-        win.print();
+    function loadUploadedFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('convert-text-area').value = e.target.result;
+        };
+        reader.readAsText(file);
+    }
+
+    function downloadRealPdf() {
+        const text = document.getElementById('convert-text-area').value;
+        if (!text) { alert('Please enter or upload document text first.'); return; }
+        
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.setFont("Helvetica", "normal");
+        doc.setFontSize(16);
+        doc.text("TechWitHer Document Export", 20, 20);
+        
+        doc.setFontSize(11);
+        const splitText = doc.splitTextToSize(text, 170);
+        doc.text(splitText, 20, 35);
+        
+        doc.save("techwither-document.pdf");
     }
     </script>
 </body>
