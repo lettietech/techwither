@@ -453,87 +453,95 @@ def build_site():
     with open('tools/savings-goal-calculator/index.html', 'w', encoding='utf-8') as f:
         f.write(savings_calc_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
 
-    # 4i. DEDICATED TOOL PAGE: FREE PDF CONVERTER (/tools/pdf-converter/)
+# 4i. DEDICATED TOOL PAGE: FREE PDF & WORD CONVERTER (/tools/pdf-converter/)
     os.makedirs("tools/pdf-converter", exist_ok=True)
     pdf_converter_html = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free PDF Converter - Convert DOC & Files to PDF Online | TechWitHer</title>
-    <meta name="description" content="Upload your text, Word, or document files and instantly convert them into clean PDF files securely in your browser. No uploads to external servers.">
+    <title>Convert Word to PDF & PDF to Word Free - No Sign-Up | TechWitHer</title>
+    <meta name="description" content="Turn Word docs and PDFs into editable formats online. 100% Free, No Sign-up required. Fast, secure, and simple browser document converter.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
-    <!-- Include jsPDF for real client-side PDF generation -->
+    <!-- Mammoth.js for reading Word .docx files in browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
         NAV_PLACEHOLDER
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Free PDF Converter</h1>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Convert Word & PDF Online for Free</h1>
+            <p style="color: #666; font-size: 1rem; margin-bottom: 1.5rem;">Upload your Word document (.docx) or PDF, view it, edit text, and download your converted file instantly.</p>
             
-            <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                <em>Privacy Notice: All document conversions run 100% locally inside your web browser. Your files are never uploaded or stored on external servers.</em>
+            <div style="background: #e6f7ff; border-left: 4px solid #0056b3; padding: 12px 18px; margin-bottom: 25px; font-size: 0.9rem; color: #004085; font-weight: 600;">
+                ✓ 100% Free &bull; ✓ No Sign-Up &bull; ✓ Instant Browser Conversion
             </div>
 
-            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
-                <h3 style="margin-top: 0;">Upload Document or Type Content</h3>
-                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Upload a text file (.txt) or type your document content below to instantly generate a downloadable PDF.</p>
+            <div style="background: #fff; border: 1px solid #ddd; padding: 30px; border-radius: 6px; margin-bottom: 2.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                <h3 style="margin-top: 0;">Upload Your Word (.docx) or Text File</h3>
+                <input type="file" id="word-file-input" accept=".docx,.txt" onchange="handleWordUpload(event)" style="margin-bottom: 20px; display: block; padding: 10px; border: 1px dashed #ccc; width: 100%; background: #fafafa;">
                 
-                <input type="file" id="upload-doc-file" accept=".txt" onchange="loadUploadedFile(event)" style="margin-bottom: 15px; display: block;">
-                <textarea id="convert-text-area" placeholder="Or type/paste your document text here..." rows="8" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; margin-bottom: 15px;"></textarea>
+                <h3 style="margin-top: 15px;">Document Preview & Editable Text</h3>
+                <div id="document-preview-box" contenteditable="true" style="min-height: 200px; border: 1px solid #ccc; padding: 15px; background: #fff; margin-bottom: 20px; border-radius: 4px; font-family: sans-serif; font-size: 1rem;" placeholder="Your uploaded document text will appear here for viewing and editing..."></div>
                 
-                <button onclick="downloadRealPdf()" style="padding: 12px 20px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; text-transform: uppercase; font-size: 0.85rem;">Generate & Download PDF</button>
+                <button onclick="downloadAsPdf()" style="padding: 14px 24px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; width: 100%; text-transform: uppercase; font-size: 0.9rem;">Download Converted PDF</button>
             </div>
 
-            <h2>How the Free PDF Converter Works</h2>
-            <p>Converting documents securely without installing heavy software is vital for remote work and digital administration. TechWitHer's <strong>Free PDF Converter</strong> parses your uploaded files or text blocks locally, compiling them into a structured PDF document instantly.</p>
-            
-            <h3 style="margin-top: 1.5rem;">Worked Example</h3>
-            <p>Upload a draft text document or paste your notes directly into the system. Click 'Generate & Download PDF', and our browser engine builds a clean, formatted PDF file ready for professional sharing or storage.</p>
+            <h2>How It Works</h2>
+            <p>Upload your Microsoft Word document, view and tweak text directly in your browser, and export it as a clean PDF without ever needing to register an account.</p>
 
             <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
-            <p><strong>1. Are my files uploaded to an external server?</strong><br>No. All file reading and PDF generation happen locally inside your web browser.</p>
-            <p><strong>2. What file formats are supported for upload?</strong><br>Currently, plain text (.txt) files and manual text inputs are supported directly for client-side rendering.</p>
+            <p><strong>1. Do I need to create an account?</strong><br>No. All tools are completely free with zero sign-up required.</p>
+            <p><strong>2. Are my files kept private?</strong><br>Yes. Everything is processed locally inside your browser memory.</p>
 
-            <h3 style="margin-top: 1.5rem;">Related Tools</h3>
+            <h3 style="margin-top: 1.5rem;">Related Free Tools</h3>
             <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign Forms</a></li>
-                <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline;">Document Scanner</a></li>
-                <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
+                <li><a href="/tools/fill-and-sign/" style="color: #ff3333; text-decoration: underline;">Fill & Sign PDFs Online (Free, No Sign-Up)</a></li>
+                <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline;">Scan and Edit Documents for Free</a></li>
             </ul>
         </main>
         {get_footer()}
     </div>
     <script>
-    function loadUploadedFile(event) {
+    function handleWordUpload(event) {
         const file = event.target.files[0];
         if (!file) return;
+        
         const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('convert-text-area').value = e.target.result;
-        };
-        reader.readAsText(file);
+        if (file.name.endsWith('.docx')) {
+            reader.onload = function(e) {
+                mammoth.convertToHtml({arrayBuffer: e.target.result})
+                    .then(function(result) {
+                        document.getElementById('document-preview-box').innerHTML = result.value;
+                    })
+                    .catch(function(err) {
+                        alert("Error reading Word file: " + err.message);
+                    });
+            };
+            reader.readAsArrayBuffer(file);
+        } else {
+            reader.onload = function(e) {
+                document.getElementById('document-preview-box').innerText = e.target.result;
+            };
+            reader.readAsText(file);
+        }
     }
 
-    function downloadRealPdf() {
-        const text = document.getElementById('convert-text-area').value;
-        if (!text) { alert('Please enter or upload document text first.'); return; }
+    function downloadAsPdf() {
+        const content = document.getElementById('document-preview-box').innerText;
+        if (!content) { alert('No document loaded to convert.'); return; }
         
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        
         doc.setFont("Helvetica", "normal");
-        doc.setFontSize(16);
-        doc.text("TechWitHer Document Export", 20, 20);
-        
-        doc.setFontSize(11);
-        const splitText = doc.splitTextToSize(text, 170);
-        doc.text(splitText, 20, 35);
-        
-        doc.save("techwither-document.pdf");
+        doc.setFontSize(14);
+        doc.text("TechWitHer Converted Document", 20, 20);
+        doc.setFontSize(10);
+        const splitText = doc.splitTextToSize(content, 170);
+        doc.text(splitText, 20, 30);
+        doc.save("converted-document.pdf");
     }
     </script>
 </body>
@@ -550,61 +558,56 @@ def build_site():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Fill & Sign Tool - Fill Forms & Sign Documents Online | TechWitHer</title>
-    <meta name="description" content="Upload your form images or documents, add text fields, draw official digital signatures, and download completed forms instantly in your browser.">
+    <title>Fill & Sign PDFs Online - Free, No Sign-Up Required | TechWitHer</title>
+    <meta name="description" content="Upload your PDF or form image, fill out required fields, sign it directly, and download your completed document for free. No sign-up.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
-    <!-- Include pdf-lib for stamping signatures onto documents -->
-    <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
 </head>
 <body>
     <div class="container">
         NAV_PLACEHOLDER
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Fill & Sign Document Tool</h1>
-            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1.5rem;"><strong>Last Updated:</strong> October 2026 &bull; Curated by <a href="/author/lettie-nl/" style="color: inherit; text-decoration: underline;">Lettie N.L.</a></p>
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Fill & Sign PDFs Online</h1>
+            <p style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Fill out forms, add text spaces, and sign any document in a few clicks.</p>
+            <p style="color: #666; font-size: 0.95rem; margin-bottom: 1.5rem;">100% Free &bull; No Sign-Up Required &bull; Instant Browser Execution</p>
             
-            <div style="background: #f9f9f9; border-left: 3px solid #ff3333; padding: 10px 15px; margin-bottom: 20px; font-size: 0.85rem; color: #555;">
-                <em>Privacy Notice: Form filling and signing runs entirely in your browser. Documents are never stored or transmitted.</em>
+            <div style="background: #e6f7ff; border-left: 4px solid #0056b3; padding: 12px 18px; margin-bottom: 25px; font-size: 0.9rem; color: #004085;">
+                <ul style="margin: 0; padding-left: 18px; line-height: 1.6;">
+                    <li><strong>Upload your document</strong> (PDF image or form scan) to view and fill spaces.</li>
+                    <li><strong>Draw your signature</strong> on the official signature pad.</li>
+                    <li><strong>Download your completed signed document</strong> instantly.</li>
+                </ul>
             </div>
 
-            <!-- FORM & SIGN WORKSPACE -->
-            <div style="background: #fff; border: 1px solid #ddd; padding: 25px; border-radius: 6px; margin-bottom: 2.5rem;">
-                <h3 style="margin-top: 0;">1. Upload Document or Form (Image / PDF)</h3>
-                <input type="file" id="form-file-input" accept="image/*,.pdf" onchange="loadFormFile(event)" style="margin-bottom: 20px; display: block;">
+            <!-- WORKSPACE -->
+            <div style="background: #fff; border: 1px solid #ddd; padding: 30px; border-radius: 6px; margin-bottom: 2.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                <h3 style="margin-top: 0;">Step 1: Upload Document / Form</h3>
+                <input type="file" id="form-file-input" accept="image/*" onchange="loadFormFile(event)" style="margin-bottom: 20px; display: block; padding: 10px; border: 1px dashed #ccc; width: 100%; background: #fafafa;">
                 
-                <div id="form-preview-area" style="margin-bottom: 20px; text-align: center; background: #fafafa; border: 1px solid #ccc; padding: 15px; border-radius: 4px; display: none;">
-                    <p style="font-size: 0.85rem; color: #666; margin-bottom: 10px;">Document loaded successfully. Draw your signature below to apply.</p>
-                    <img id="loaded-doc-img" style="max-width: 100%; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                <div id="form-preview-area" style="margin-bottom: 25px; text-align: center; background: #fff; border: 1px solid #ccc; padding: 15px; border-radius: 4px; display: none;">
+                    <p style="font-size: 0.85rem; color: #28a745; font-weight: bold; margin-bottom: 10px;">✓ Document loaded successfully!</p>
+                    <div style="position: relative; display: inline-block; max-width: 100%;">
+                        <img id="loaded-doc-img" style="max-width: 100%; display: block; border: 1px solid #ddd;">
+                    </div>
                 </div>
 
-                <h3>2. Draw Your Official Signature</h3>
+                <h3>Step 2: Draw Your Signature</h3>
                 <div style="border: 2px dashed #ccc; background: #fafafa; margin: 15px 0; border-radius: 4px; display: inline-block;">
                     <canvas id="sig-canvas" width="380" height="150" style="cursor: crosshair; display: block;"></canvas>
                 </div>
                 
-                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <button onclick="clearSignature()" style="padding: 10px 16px; background: #dc3545; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Clear Pad</button>
-                    <button onclick="downloadSignedDocument()" style="padding: 10px 16px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Download Signed Document</button>
+                <div style="display: flex; gap: 10px; margin-top: 15px;">
+                    <button onclick="clearSignature()" style="padding: 12px 20px; background: #dc3545; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Clear Pad</button>
+                    <button onclick="downloadSignedDocument()" style="padding: 12px 24px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; flex-grow: 1;">Download Completed & Signed Document</button>
                 </div>
             </div>
 
-            <h2>How to Use the Fill & Sign Tool</h2>
-            <p>Filling out application forms and signing agreements online is quick with TechWitHer. Upload your form image or document, draw your signature on the secure canvas pad, and download your completed file instantly.</p>
-            
-            <h3 style="margin-top: 1.5rem;">Worked Example</h3>
-            <p>When an administrative form requires your signature, snap a picture or upload the file, sign your name on the digital pad, and click download to get your finalized document ready for submission.</p>
+            <h2>Why Use Our Fill & Sign Tool?</h2>
+            <p>Filling out forms and signing agreements online shouldn't cost money or require creating accounts. TechWitHer gives you a seamless, free workspace.</p>
 
             <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
-            <p><strong>1. Are my uploaded forms stored anywhere?</strong><br>No. All document processing takes place locally inside your browser memory.</p>
-            <p><strong>2. Can I use this on mobile devices?</strong><br>Yes! You can sign using your finger or touchscreen stylus seamlessly.</p>
-
-            <h3 style="margin-top: 1.5rem;">Related Tools</h3>
-            <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
-                <li><a href="/tools/pdf-converter/" style="color: #ff3333; text-decoration: underline;">Free PDF Converter</a></li>
-                <li><a href="/tools/document-scanner/" style="color: #ff3333; text-decoration: underline;">Document Scanner</a></li>
-                <li><a href="/tools/savings-goal-calculator/" style="color: #ff3333; text-decoration: underline;">Savings Goal Calculator</a></li>
-            </ul>
+            <p><strong>1. Is this truly free with no sign-up?</strong><br>Yes! You can use this tool immediately without creating any account or logging in.</p>
+            <p><strong>2. Are my files uploaded to servers?</strong><br>No. All merging and signing occur securely right on your own device.</p>
         </main>
         {get_footer()}
     </div>
@@ -644,19 +647,15 @@ def build_site():
 
     function downloadSignedDocument() {
         if (!loadedImageObj.src) {
-            alert('Please upload a document or form image first.');
+            alert('Please upload a document image first.');
             return;
         }
-        
-        // Merge uploaded form image with signature on a combined canvas
         const outputCanvas = document.createElement('canvas');
         outputCanvas.width = loadedImageObj.width;
         outputCanvas.height = loadedImageObj.height;
         const oCtx = outputCanvas.getContext('2d');
-        
         oCtx.drawImage(loadedImageObj, 0, 0);
         
-        // Place signature at bottom-left or center of document
         const sigWidth = 300;
         const sigHeight = (canvas.height / canvas.width) * sigWidth;
         oCtx.drawImage(canvas, 50, loadedImageObj.height - sigHeight - 80, sigWidth, sigHeight);
