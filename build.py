@@ -550,7 +550,6 @@ def build_site():
     with open('tools/pdf-converter/index.html', 'w', encoding='utf-8') as f:
         f.write(pdf_converter_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
 
-
     # 4j. DEDICATED TOOL PAGE: FILL & SIGN TOOL (/tools/fill-and-sign/)
     os.makedirs("tools/fill-and-sign", exist_ok=True)
     fill_sign_html = '''<!DOCTYPE html>
@@ -559,70 +558,74 @@ def build_site():
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fill & Sign PDFs Online - Free, No Sign-Up Required | TechWitHer</title>
-    <meta name="description" content="Upload your PDF or form image, fill out required fields, sign it directly, and download your completed document for free. No sign-up.">
+    <meta name="description" content="Upload any PDF document, fill out form spaces, add your signature, and download the completed file instantly. 100% Free, No Sign-up required.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+    <!-- pdf-lib for editing and signing actual PDF files in browser -->
+    <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
 </head>
 <body>
     <div class="container">
         NAV_PLACEHOLDER
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
             <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Fill & Sign PDFs Online</h1>
-            <p style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Fill out forms, add text spaces, and sign any document in a few clicks.</p>
-            <p style="color: #666; font-size: 0.95rem; margin-bottom: 1.5rem;">100% Free &bull; No Sign-Up Required &bull; Instant Browser Execution</p>
+            <p style="color: #333; font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem;">Fill out form spaces and add your signature to any PDF in a few clicks.</p>
+            <p style="color: #666; font-size: 0.95rem; margin-bottom: 1.5rem;">100% Free &bull; No Sign-Up Required &bull; Instant Browser PDF Editing</p>
             
             <div style="background: #e6f7ff; border-left: 4px solid #0056b3; padding: 12px 18px; margin-bottom: 25px; font-size: 0.9rem; color: #004085;">
                 <ul style="margin: 0; padding-left: 18px; line-height: 1.6;">
-                    <li><strong>Upload your document</strong> (PDF image or form scan) to view and fill spaces.</li>
-                    <li><strong>Draw your signature</strong> on the official signature pad.</li>
-                    <li><strong>Download your completed signed document</strong> instantly.</li>
+                    <li><strong>Upload your PDF document</strong> and start filling out required text spaces instantly.</li>
+                    <li><strong>Draw your official signature</strong> to place it onto the PDF layout.</li>
+                    <li><strong>Download your signed PDF</strong> right away with zero fees or registration.</li>
                 </ul>
             </div>
 
             <!-- WORKSPACE -->
             <div style="background: #fff; border: 1px solid #ddd; padding: 30px; border-radius: 6px; margin-bottom: 2.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
-                <h3 style="margin-top: 0;">Step 1: Upload Document / Form</h3>
-                <input type="file" id="form-file-input" accept="image/*" onchange="loadFormFile(event)" style="margin-bottom: 20px; display: block; padding: 10px; border: 1px dashed #ccc; width: 100%; background: #fafafa;">
+                <h3 style="margin-top: 0;">Step 1: Upload Your PDF Document</h3>
+                <input type="file" id="pdf-file-input" accept=".pdf" onchange="loadPdfFile(event)" style="margin-bottom: 20px; display: block; padding: 10px; border: 1px dashed #ccc; width: 100%; background: #fafafa;">
                 
-                <div id="form-preview-area" style="margin-bottom: 25px; text-align: center; background: #fff; border: 1px solid #ccc; padding: 15px; border-radius: 4px; display: none;">
-                    <p style="font-size: 0.85rem; color: #28a745; font-weight: bold; margin-bottom: 10px;">✓ Document loaded successfully!</p>
-                    <div style="position: relative; display: inline-block; max-width: 100%;">
-                        <img id="loaded-doc-img" style="max-width: 100%; display: block; border: 1px solid #ddd;">
-                    </div>
+                <div id="pdf-status-box" style="margin-bottom: 20px; padding: 12px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 4px; display: none; font-size: 0.9rem; color: #28a745; font-weight: bold;">
+                    ✓ PDF loaded successfully! Ready for text entry and signing.
                 </div>
 
-                <h3>Step 2: Draw Your Signature</h3>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">Step 2: Type Text to Add onto the PDF</label>
+                    <input type="text" id="pdf-custom-text" placeholder="Type text to stamp onto document (e.g. Your Name, Date, Answers)..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+
+                <h3>Step 3: Draw Your Signature</h3>
                 <div style="border: 2px dashed #ccc; background: #fafafa; margin: 15px 0; border-radius: 4px; display: inline-block;">
                     <canvas id="sig-canvas" width="380" height="150" style="cursor: crosshair; display: block;"></canvas>
                 </div>
                 
                 <div style="display: flex; gap: 10px; margin-top: 15px;">
                     <button onclick="clearSignature()" style="padding: 12px 20px; background: #dc3545; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Clear Pad</button>
-                    <button onclick="downloadSignedDocument()" style="padding: 12px 24px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; flex-grow: 1;">Download Completed & Signed Document</button>
+                    <button onclick="signAndDownloadPdf()" style="padding: 12px 24px; background: #28a745; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; flex-grow: 1;">Download Signed PDF</button>
                 </div>
             </div>
 
             <h2>Why Use Our Fill & Sign Tool?</h2>
-            <p>Filling out forms and signing agreements online shouldn't cost money or require creating accounts. TechWitHer gives you a seamless, free workspace.</p>
+            <p>Filling out PDF forms and signing official paperwork shouldn't require paid subscriptions or accounts. TechWitHer lets you upload, fill, and sign PDFs directly in your browser for free.</p>
 
             <h3 style="margin-top: 1.5rem;">Frequently Asked Questions (FAQs)</h3>
             <p><strong>1. Is this truly free with no sign-up?</strong><br>Yes! You can use this tool immediately without creating any account or logging in.</p>
-            <p><strong>2. Are my files uploaded to servers?</strong><br>No. All merging and signing occur securely right on your own device.</p>
+            <p><strong>2. Are my documents safe?</strong><br>Yes. All PDF editing and signing happen 100% locally on your device.</p>
         </main>
         {get_footer()}
     </div>
     <script>
-    let loadedImageObj = new Image();
-    function loadFormFile(event) {
+    let uploadedPdfBytes = null;
+
+    function loadPdfFile(event) {
         const file = event.target.files[0];
         if (!file) return;
         const reader = new FileReader();
         reader.onload = function(e) {
-            loadedImageObj.src = e.target.result;
-            document.getElementById('loaded-doc-img').src = e.target.result;
-            document.getElementById('form-preview-area').style.display = 'block';
+            uploadedPdfBytes = e.target.result;
+            document.getElementById('pdf-status-box').style.display = 'block';
         };
-        reader.readAsDataURL(file);
+        reader.readAsArrayBuffer(file);
     }
 
     const canvas = document.getElementById('sig-canvas');
@@ -645,25 +648,53 @@ def build_site():
     }
     function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
 
-    function downloadSignedDocument() {
-        if (!loadedImageObj.src) {
-            alert('Please upload a document image first.');
+    async function signAndDownloadPdf() {
+        if (!uploadedPdfBytes) {
+            alert('Please upload a PDF document first.');
             return;
         }
-        const outputCanvas = document.createElement('canvas');
-        outputCanvas.width = loadedImageObj.width;
-        outputCanvas.height = loadedImageObj.height;
-        const oCtx = outputCanvas.getContext('2d');
-        oCtx.drawImage(loadedImageObj, 0, 0);
-        
-        const sigWidth = 300;
-        const sigHeight = (canvas.height / canvas.width) * sigWidth;
-        oCtx.drawImage(canvas, 50, loadedImageObj.height - sigHeight - 80, sigWidth, sigHeight);
-        
-        let link = document.createElement('a');
-        link.download = 'signed-document.png';
-        link.href = outputCanvas.toDataURL('image/png');
-        link.click();
+
+        try {
+            const { PDFDocument, rgb } = PDFLib;
+            const pdfDoc = await PDFDocument.load(uploadedPdfBytes);
+            
+            // Get the first page of the PDF
+            const pages = pdfDoc.getPages();
+            const firstPage = pages[0];
+            const { width, height } = firstPage.getSize();
+
+            // Add custom typed text if entered
+            const customText = document.getElementById('pdf-custom-text').value;
+            if (customText) {
+                firstPage.drawText(customText, {
+                    x: 50,
+                    y: height - 100,
+                    size: 12,
+                    rgb: rgb(0, 0, 0),
+                });
+            }
+
+            // Embed signature image into PDF
+            const sigImageBytes = canvas.toDataURL('image/png');
+            const embeddedImage = await pdfDoc.embedPng(sigImageBytes);
+            
+            firstPage.drawImage(embeddedImage, {
+                x: 50,
+                y: 50,
+                width: 150,
+                height: 60,
+            });
+
+            // Save and trigger download
+            const modifiedPdfBytes = await pdfDoc.save();
+            const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'signed-document.pdf';
+            link.click();
+        } catch (err) {
+            alert("Error processing PDF: " + err.message);
+        }
     }
     </script>
 </body>
