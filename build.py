@@ -12,6 +12,14 @@ def build_site():
         print("articles.json not found. Creating a blank list.")
         articles = []
 
+    # Load the standalone AI prompt generator component HTML if available
+    prompt_widget_html = ""
+    try:
+        with open('prompt_generator_component.html', 'r', encoding='utf-8') as f:
+            prompt_widget_html = f.read()
+    except FileNotFoundError:
+        print("prompt_generator_component.html not found. Skipping prompt widget injection.")
+
     # Use UTC explicitly so GitHub Actions cloud runners and local machines always agree on "today"
     today_str = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     articles = [a for a in articles if a.get('date', '2026-01-01') <= today_str]
@@ -453,7 +461,7 @@ def build_site():
     with open('tools/savings-goal-calculator/index.html', 'w', encoding='utf-8') as f:
         f.write(savings_calc_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
 
-# 4i. DEDICATED TOOL PAGE: FREE PDF & WORD CONVERTER (/tools/pdf-converter/)
+    # 4i. DEDICATED TOOL PAGE: FREE PDF & WORD CONVERTER (/tools/pdf-converter/)
     os.makedirs("tools/pdf-converter", exist_ok=True)
     pdf_converter_html = '''<!DOCTYPE html>
 <html lang="en">
@@ -658,12 +666,10 @@ def build_site():
             const { PDFDocument, rgb } = PDFLib;
             const pdfDoc = await PDFDocument.load(uploadedPdfBytes);
             
-            // Get the first page of the PDF
             const pages = pdfDoc.getPages();
             const firstPage = pages[0];
             const { width, height } = firstPage.getSize();
 
-            // Add custom typed text if entered
             const customText = document.getElementById('pdf-custom-text').value;
             if (customText) {
                 firstPage.drawText(customText, {
@@ -674,7 +680,6 @@ def build_site():
                 });
             }
 
-            // Embed signature image into PDF
             const sigImageBytes = canvas.toDataURL('image/png');
             const embeddedImage = await pdfDoc.embedPng(sigImageBytes);
             
@@ -685,7 +690,6 @@ def build_site():
                 height: 60,
             });
 
-            // Save and trigger download
             const modifiedPdfBytes = await pdfDoc.save();
             const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
             const link = document.createElement('a');
@@ -702,7 +706,94 @@ def build_site():
 '''
     with open('tools/fill-and-sign/index.html', 'w', encoding='utf-8') as f:
         f.write(fill_sign_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
-    
+
+    # 4k. DEDICATED TOOL PAGE: DOCUMENT SCANNER & ENHANCER (/tools/document-scanner/)
+    os.makedirs("tools/document-scanner", exist_ok=True)
+    document_scanner_html = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Document Scanner & Photo Enhancer - TechWitHer</title>
+    <meta name="description" content="Convert phone photos into crisp B&W document scans instantly in your browser. 100% Free, No Sign-up required.">
+    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        NAV_PLACEHOLDER
+        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Document Scanner & Enhancer</h1>
+            <p style="color: #666; font-size: 1rem; margin-bottom: 1.5rem;">Upload a photo of any document or receipt, enhance it into high-contrast B&W, and download it instantly as a PDF.</p>
+            
+            <div style="background: #e6f7ff; border-left: 4px solid #0056b3; padding: 12px 18px; margin-bottom: 25px; font-size: 0.9rem; color: #004085;">
+                ✓ 100% Free &bull; ✓ No Sign-Up &bull; ✓ Instant Browser Processing
+            </div>
+
+            <div style="background: #fff; border: 1px solid #ddd; padding: 30px; border-radius: 6px; margin-bottom: 2.5rem; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                <h3 style="margin-top: 0;">Upload Document Photo</h3>
+                <input type="file" id="scanner-file-input" accept="image/*" onchange="handleImageUpload(event)" style="margin-bottom: 20px; display: block; padding: 10px; border: 1px dashed #ccc; width: 100%; background: #fafafa;">
+                
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <canvas id="scanner-canvas" style="max-width: 100%; border: 1px solid #ddd; border-radius: 4px; display: none;"></canvas>
+                </div>
+
+                <button onclick="downloadScannedPdf()" id="scanner-download-btn" style="padding: 14px 24px; background: #111; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; width: 100%; text-transform: uppercase; font-size: 0.9rem; display: none;">Download Enhanced Scan as PDF</button>
+            </div>
+        </main>
+        {get_footer()}
+    </div>
+    <script>
+    let processedImageUri = null;
+
+    function handleImageUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.getElementById('scanner-canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+
+                // Convert to high-contrast B&W (Document scan effect)
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imgData.data;
+                for (let i = 0; i < data.length; i += 4) {
+                    let avg = (data[i] * 0.3 + data[i+1] * 0.59 + data[i+2] * 0.11);
+                    let threshold = 140;
+                    let val = avg > threshold ? 255 : 0;
+                    data[i] = val; data[i+1] = val; data[i+2] = val;
+                }
+                ctx.putImageData(imgData, 0, 0);
+                processedImageUri = canvas.toDataURL('image/jpeg', 0.9);
+                
+                canvas.style.display = 'block';
+                document.getElementById('scanner-download-btn').style.display = 'block';
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function downloadScannedPdf() {
+        if (!processedImageUri) return;
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.addImage(processedImageUri, 'JPEG', 15, 15, 180, 240);
+        doc.save("scanned-document.pdf");
+    }
+    </script>
+</body>
+</html>
+'''
+    with open('tools/document-scanner/index.html', 'w', encoding='utf-8') as f:
+        f.write(document_scanner_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
+
     # 5. Build Individual Article Pages & Category Archives
     if articles:
         for article in articles:
@@ -753,6 +844,9 @@ def build_site():
                 {disclosure_notice}
                 {in_article_ad}
                 {article_content_html}
+                
+                <!-- Injected AI Prompt Template Generator / Optimizer Widget -->
+                {prompt_widget_html}
             </article>
         </main>
         {get_footer()}
@@ -842,7 +936,7 @@ def build_site():
     with open("sitemap.xml", "w", encoding="utf-8") as f:
         f.write(xml_content)
 
-    print("Successfully built site with robust trust pages, Disclaimer page, author profile, clean folder URLs, dedicated tools, and sitemap.xml!")
+    print("Successfully built site with robust trust pages, Disclaimer page, author profile, clean folder URLs, dedicated tools, sitemap.xml, and the AI prompt generator widget!")
 
 if __name__ == '__main__':
     build_site()

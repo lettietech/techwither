@@ -116,12 +116,10 @@
             const { PDFDocument, rgb } = PDFLib;
             const pdfDoc = await PDFDocument.load(uploadedPdfBytes);
             
-            // Get the first page of the PDF
             const pages = pdfDoc.getPages();
             const firstPage = pages[0];
             const { width, height } = firstPage.getSize();
 
-            // Add custom typed text if entered
             const customText = document.getElementById('pdf-custom-text').value;
             if (customText) {
                 firstPage.drawText(customText, {
@@ -132,7 +130,6 @@
                 });
             }
 
-            // Embed signature image into PDF
             const sigImageBytes = canvas.toDataURL('image/png');
             const embeddedImage = await pdfDoc.embedPng(sigImageBytes);
             
@@ -143,7 +140,6 @@
                 height: 60,
             });
 
-            // Save and trigger download
             const modifiedPdfBytes = await pdfDoc.save();
             const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
             const link = document.createElement('a');
