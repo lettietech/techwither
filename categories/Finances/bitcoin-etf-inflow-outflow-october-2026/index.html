@@ -267,87 +267,83 @@
 <p><strong>Why are institutional investors important for Bitcoin?</strong><br>Large institutions manage significant amounts of capital. Their buying and selling activity can influence both market sentiment and liquidity.</p>
                 
                 <!-- Injected AI Prompt Template Generator / Optimizer Widget -->
-                <div id="techwither-prompt-generator" style="font-family: Arial, sans-serif; background: #fff; border: 2px solid #111; padding: 25px; border-radius: 6px; margin: 2.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                <div id="techwither-ai-widget" style="font-family: Arial, sans-serif; background: #fff; border: 2px solid #111; padding: 25px; border-radius: 6px; margin: 2.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
     <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #111; padding-bottom: 12px; margin-bottom: 20px;">
         <h3 style="margin: 0; font-size: 1.4rem; font-weight: 900; color: #111; font-family: Arial, sans-serif;">
-            ⚡ AI Prompt Template Generator & Optimizer
+            ⚡ TechWitHer Live AI Assistant
         </h3>
-        <span style="background: #ff3333; color: #fff; font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: 3px; text-transform: uppercase; font-family: Arial, sans-serif;">TechWitHer Pro</span>
+        <span style="background: #ff3333; color: #fff; font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: 3px; text-transform: uppercase; font-family: Arial, sans-serif;">Live Chat</span>
     </div>
 
     <div style="margin-bottom: 15px;">
-        <label style="display: block; font-size: 0.9rem; font-weight: 700; color: #111; margin-bottom: 6px; font-family: Arial, sans-serif;">Your Core Task or Goal:</label>
-        <textarea id="pg-user-goal" rows="3" placeholder="e.g., Provide an in-depth breakdown of the latest trends in decentralized finance (DeFi)..." style="width: 100%; padding: 12px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.95rem; box-sizing: border-box; background: #fafafa;"></textarea>
+        <label style="display: block; font-size: 0.9rem; font-weight: 700; color: #111; margin-bottom: 6px; font-family: Arial, sans-serif;">Ask your question:</label>
+        <textarea id="ai-user-query" rows="3" placeholder="e.g., Can you tell me the latest crypto market news?" style="width: 100%; padding: 12px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.95rem; box-sizing: border-box; background: #fafafa;"></textarea>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-        <div>
-            <label style="display: block; font-size: 0.9rem; font-weight: 700; color: #111; margin-bottom: 6px; font-family: Arial, sans-serif;">Task Domain:</label>
-            <select id="pg-domain" style="width: 100%; padding: 10px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.9rem; background: #fff;">
-                <option value="Financial & Market Research">Financial & Market Research</option>
-                <option value="Artificial Intelligence & Practical Automation">Artificial Intelligence & Practical Automation</option>
-                <option value="Consumer Tech & Hardware Reviews">Consumer Tech & Hardware Reviews</option>
-                <option value="Software, Apps & Digital Tools">Software, Apps & Digital Tools</option>
-            </select>
-        </div>
-        <div>
-            <label style="display: block; font-size: 0.9rem; font-weight: 700; color: #111; margin-bottom: 6px; font-family: Arial, sans-serif;">Desired Tone:</label>
-            <select id="pg-tone" style="width: 100%; padding: 10px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.9rem; background: #fff;">
-                <option value="Professional, Authoritative & Analytical">Professional, Authoritative & Analytical</option>
-                <option value="Objective, Engaging & Tech-Forward">Objective, Engaging & Tech-Forward</option>
-                <option value="Direct, Concise & Action-Oriented">Direct, Concise & Action-Oriented</option>
-            </select>
-        </div>
-    </div>
-
-    <button onclick="generateOptimizedPrompt()" style="background: #ff3333; color: #fff; border: none; padding: 12px 20px; font-weight: bold; font-size: 0.95rem; border-radius: 4px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; font-family: Arial, sans-serif; width: 100%;">
-        Optimize Prompt Package
+    <button onclick="askLiveAI()" id="ai-submit-btn" style="background: #ff3333; color: #fff; border: none; padding: 12px 20px; font-weight: bold; font-size: 0.95rem; border-radius: 4px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; font-family: Arial, sans-serif; width: 100%;">
+        Ask AI Assistant
     </button>
 
     <div style="margin-top: 20px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-            <label style="font-size: 0.9rem; font-weight: 700; color: #111; font-family: Arial, sans-serif;">Generated Prompt Output (Ready to Copy):</label>
-            <button onclick="copyOptimizedPrompt()" style="background: #111; color: #fff; border: none; padding: 4px 10px; font-size: 0.8rem; border-radius: 3px; cursor: pointer; font-family: Arial, sans-serif;">Copy Prompt</button>
+            <label style="font-size: 0.9rem; font-weight: 700; color: #111; font-family: Arial, sans-serif;">Live Response:</label>
+            <button onclick="copyAIResponse()" style="background: #111; color: #fff; border: none; padding: 4px 10px; font-size: 0.8rem; border-radius: 3px; cursor: pointer; font-family: Arial, sans-serif;">Copy Response</button>
         </div>
-        <textarea id="pg-output-box" readonly rows="9" style="width: 100%; padding: 12px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.9rem; background: #f9f9f9; box-sizing: border-box; color: #111;"></textarea>
+        <div id="ai-response-box" style="width: 100%; min-height: 120px; max-height: 350px; overflow-y: auto; padding: 12px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.9rem; background: #f9f9f9; box-sizing: border-box; color: #111; line-height: 1.6;">
+            <em>Your live AI answer will stream right here...</em>
+        </div>
     </div>
 </div>
 
 <script>
-function generateOptimizedPrompt() {
-    const goal = document.getElementById('pg-user-goal').value.trim() || "Provide professional market analysis.";
-    const domain = document.getElementById('pg-domain').value;
-    const tone = document.getElementById('pg-tone').value;
+async function askLiveAI() {
+    const query = document.getElementById('ai-user-query').value.trim();
+    const responseBox = document.getElementById('ai-response-box');
+    const submitBtn = document.getElementById('ai-submit-btn');
 
-    const optimizedTemplate = `### ROLE & SYSTEM CONTEXT
-You are an elite expert AI collaborator specializing in ${domain}. Your outputs must be meticulously researched, structurally sound, and tailored for professional execution.
+    if (!query) {
+        alert('Please type a question first!');
+        return;
+    }
 
-### OBJECTIVE / INQUIRY
-${goal}
+    // Update UI to show loading state
+    submitBtn.innerText = "Thinking...";
+    submitBtn.style.background = "#555";
+    responseBox.innerHTML = "<em>Querying backend server and fetching real-time AI response...</em>";
 
-### OPERATIONAL CONSTRAINTS & GUIDELINES
-- Tone & Style: ${tone}
-- Accuracy: Prioritize factual precision, logical consistency, and industry-standard best practices.
-- Formatting: Use clean Markdown headers, structured bullet points, and data blocks where applicable. Avoid generic filler text.
+    try {
+        // Client-side JavaScript Fetch API: sending data to our backend /api/chat route
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt: query })
+        });
 
-### EXPECTED OUTPUT
-Provide a comprehensive, authoritative breakdown answering the objective above based on current verified data.`;
+        const data = await response.json();
 
-    document.getElementById('pg-output-box').value = optimizedTemplate;
+        if (data.error) {
+            throw new Error(data.error);
+        }
+
+        // Print the real AI response nicely onto the web page DOM
+        responseBox.innerHTML = data.answer.replace(/\n/g, '<br>');
+
+    } catch (err) {
+        responseBox.innerHTML = `<span style="color: #ff3333;"><strong>Error:</strong> ${err.message}</span>`;
+    } finally {
+        submitBtn.innerText = "Ask AI Assistant";
+        submitBtn.style.background = "#ff3333";
+    }
 }
 
-function copyOptimizedPrompt() {
-    const outputBox = document.getElementById('pg-output-box');
-    outputBox.select();
-    document.execCommand('copy');
-    alert('Optimized prompt template copied to clipboard!');
+function copyAIResponse() {
+    const responseText = document.getElementById('ai-response-box').innerText;
+    navigator.clipboard.writeText(responseText).then(() => {
+        alert('Live response copied to clipboard!');
+    });
 }
-
-// Generate default placeholder on load
-window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('pg-user-goal').value = "Provide an analysis of recent market movements and key regulatory updates in crypto.";
-    generateOptimizedPrompt();
-});
 </script>
             </article>
         </main>
