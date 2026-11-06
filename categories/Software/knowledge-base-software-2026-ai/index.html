@@ -153,84 +153,87 @@
 </ul>
                 
                 <!-- Injected AI Prompt Template Generator / Optimizer Widget -->
-                <div class="prompt-generator-box" style="background: #f9fafb; border: 1px solid #e5e7eb; padding: 24px; border-radius: 12px; margin: 30px 0; font-family: inherit;">
-  <h3 style="margin-top: 0; color: #111827;">TechWitHer AI Prompt Optimizer</h3>
-  <p style="color: #4b5563; font-size: 14px;">Turn a basic idea into a structured, production-ready AI prompt built for advanced models like Claude, Gemini, or GPT.</p>
-  
-  <div style="margin-bottom: 15px;">
-    <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 5px; color: #374151;">Your Core Task or Goal:</label>
-    <textarea id="basePromptInput" placeholder="e.g., write an analysis of crypto market trends or debug Python script" rows="3" style="width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; box-sizing: border-box;"></textarea>
-  </div>
-
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-    <div>
-      <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 5px; color: #374151;">Task Domain:</label>
-      <select id="promptDomain" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #d1d5db; background: #fff; font-size: 14px;">
-        <option value="General Technical & Coding">Software & Code Development</option>
-        <option value="Financial & Market Research">Finance, Crypto & Markets</option>
-        <option value="Content Creation & Editorial">Tech & Finance Editorial</option>
-        <option value="Practical Workflow Automation">Practical Automation & Scripts</option>
-      </select>
+                <div id="techwither-prompt-generator" style="font-family: Arial, sans-serif; background: #fff; border: 2px solid #111; padding: 25px; border-radius: 6px; margin: 2.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+    <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #111; padding-bottom: 12px; margin-bottom: 20px;">
+        <h3 style="margin: 0; font-size: 1.4rem; font-weight: 900; color: #111; font-family: Arial, sans-serif;">
+            ⚡ AI Prompt Template Generator & Optimizer
+        </h3>
+        <span style="background: #ff3333; color: #fff; font-size: 0.75rem; font-weight: bold; padding: 4px 10px; border-radius: 3px; text-transform: uppercase; font-family: Arial, sans-serif;">TechWitHer Pro</span>
     </div>
-    <div>
-      <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 5px; color: #374151;">Desired Tone:</label>
-      <select id="toneModifier" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid #d1d5db; background: #fff; font-size: 14px;">
-        <option value="Professional, Authoritative & Analytical">Professional & Analytical</option>
-        <option value="Clear, Concise & Direct">Clear & Direct</option>
-        <option value="Engaging & Audience-Focused">Engaging & Editorial</option>
-        <option value="Rigorous & Technical">Technical & Precise</option>
-      </select>
-    </div>
-  </div>
 
-  <button onclick="generateOptimizedPrompt()" style="background: #2563eb; color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 14px;">Optimize Prompt Package</button>
-
-  <div style="margin-top: 20px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-      <label style="font-weight: 600; font-size: 13px; color: #374151;">Generated Prompt Output:</label>
-      <button onclick="copyOptimizedPrompt()" style="background: transparent; border: 1px solid #d1d5db; padding: 4px 10px; border-radius: 4px; font-size: 12px; cursor: pointer; color: #4b5563;">Copy Prompt</button>
+    <div style="margin-bottom: 15px;">
+        <label style="display: block; font-size: 0.9rem; font-weight: 700; color: #111; margin-bottom: 6px; font-family: Arial, sans-serif;">Your Core Task or Goal:</label>
+        <textarea id="pg-user-goal" rows="3" placeholder="e.g., Provide an in-depth breakdown of the latest trends in decentralized finance (DeFi)..." style="width: 100%; padding: 12px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.95rem; box-sizing: border-box; background: #fafafa;"></textarea>
     </div>
-    <textarea id="optimizedPromptOutput" readonly rows="8" style="width: 100%; padding: 12px; background: #ffffff; border: 1px solid #d1d5db; border-radius: 6px; font-family: monospace; font-size: 13px; box-sizing: border-box;" placeholder="Your optimized prompt will appear here..."></textarea>
-  </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+        <div>
+            <label style="display: block; font-size: 0.9rem; font-weight: 700; color: #111; margin-bottom: 6px; font-family: Arial, sans-serif;">Task Domain:</label>
+            <select id="pg-domain" style="width: 100%; padding: 10px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.9rem; background: #fff;">
+                <option value="Financial & Market Research">Financial & Market Research</option>
+                <option value="Artificial Intelligence & Practical Automation">Artificial Intelligence & Practical Automation</option>
+                <option value="Consumer Tech & Hardware Reviews">Consumer Tech & Hardware Reviews</option>
+                <option value="Software, Apps & Digital Tools">Software, Apps & Digital Tools</option>
+            </select>
+        </div>
+        <div>
+            <label style="display: block; font-size: 0.9rem; font-weight: 700; color: #111; margin-bottom: 6px; font-family: Arial, sans-serif;">Desired Tone:</label>
+            <select id="pg-tone" style="width: 100%; padding: 10px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.9rem; background: #fff;">
+                <option value="Professional, Authoritative & Analytical">Professional, Authoritative & Analytical</option>
+                <option value="Objective, Engaging & Tech-Forward">Objective, Engaging & Tech-Forward</option>
+                <option value="Direct, Concise & Action-Oriented">Direct, Concise & Action-Oriented</option>
+            </select>
+        </div>
+    </div>
+
+    <button onclick="generateOptimizedPrompt()" style="background: #ff3333; color: #fff; border: none; padding: 12px 20px; font-weight: bold; font-size: 0.95rem; border-radius: 4px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; font-family: Arial, sans-serif; width: 100%;">
+        Optimize Prompt Package
+    </button>
+
+    <div style="margin-top: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <label style="font-size: 0.9rem; font-weight: 700; color: #111; font-family: Arial, sans-serif;">Generated Prompt Output (Ready to Copy):</label>
+            <button onclick="copyOptimizedPrompt()" style="background: #111; color: #fff; border: none; padding: 4px 10px; font-size: 0.8rem; border-radius: 3px; cursor: pointer; font-family: Arial, sans-serif;">Copy Prompt</button>
+        </div>
+        <textarea id="pg-output-box" readonly rows="9" style="width: 100%; padding: 12px; border: 1px solid #111; border-radius: 4px; font-family: Arial, sans-serif; font-size: 0.9rem; background: #f9f9f9; box-sizing: border-box; color: #111;"></textarea>
+    </div>
 </div>
 
 <script>
-  function generateOptimizedPrompt() {
-    const rawInput = document.getElementById('basePromptInput').value.trim();
-    const domain = document.getElementById('promptDomain').value;
-    const tone = document.getElementById('toneModifier').value;
-    
-    if (!rawInput) {
-      alert("Please enter a basic prompt or task description first!");
-      return;
-    }
+function generateOptimizedPrompt() {
+    const goal = document.getElementById('pg-user-goal').value.trim() || "Provide professional market analysis.";
+    const domain = document.getElementById('pg-domain').value;
+    const tone = document.getElementById('pg-tone').value;
 
-    const optimized = `### ROLE & SYSTEM CONTEXT
-You are an elite expert AI collaborator specializing in ${domain}. Your outputs are meticulously researched, structurally sound, and tailored for professional execution.
+    const optimizedTemplate = `### ROLE & SYSTEM CONTEXT
+You are an elite expert AI collaborator specializing in ${domain}. Your outputs must be meticulously researched, structurally sound, and tailored for professional execution.
 
-### PRIMARY OBJECTIVE
-${rawInput}
+### OBJECTIVE / INQUIRY
+${goal}
 
 ### OPERATIONAL CONSTRAINTS & GUIDELINES
 - Tone & Style: ${tone}
 - Accuracy: Prioritize factual precision, logical consistency, and industry-standard best practices.
-- Formatting: Use clean Markdown headers, structured bullet points, and code or data blocks where applicable. Avoid generic fluff or conversational fillers.
+- Formatting: Use clean Markdown headers, structured bullet points, and data blocks where applicable. Avoid generic filler text.
 
-### EXECUTION INSTRUCTIONS
-Begin processing immediately based on the core objective above. Deliver a comprehensive, production-ready result.`;
+### EXPECTED OUTPUT
+Provide a comprehensive, authoritative breakdown answering the objective above based on current verified data.`;
 
-    document.getElementById('optimizedPromptOutput').value = optimized;
-  }
+    document.getElementById('pg-output-box').value = optimizedTemplate;
+}
 
-  function copyOptimizedPrompt() {
-    const outputBox = document.getElementById('optimizedPromptOutput');
-    if (!outputBox.value) {
-      alert("Generate a prompt first before copying!");
-      return;
-    }
-    navigator.clipboard.writeText(outputBox.value);
-    alert("Optimized prompt copied to clipboard!");
-  }
+function copyOptimizedPrompt() {
+    const outputBox = document.getElementById('pg-output-box');
+    outputBox.select();
+    document.execCommand('copy');
+    alert('Optimized prompt template copied to clipboard!');
+}
+
+// Generate default placeholder on load
+window.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('pg-user-goal').value = "Provide an analysis of recent market movements and key regulatory updates in crypto.";
+    generateOptimizedPrompt();
+});
 </script>
             </article>
         </main>
