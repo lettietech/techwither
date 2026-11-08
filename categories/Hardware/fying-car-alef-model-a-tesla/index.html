@@ -163,8 +163,8 @@ async function askLiveAI() {
     responseBox.innerHTML = "<em>Querying backend server and fetching real-time AI response...</em>";
 
     try {
-        // Client-side JavaScript Fetch API: sending data to our backend /api/chat route
-        const response = await fetch('/api/chat', {
+        // Client-side JavaScript Fetch API: sending data to our Netlify serverless function
+        const response = await fetch('/.netlify/functions/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
