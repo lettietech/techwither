@@ -143,14 +143,13 @@ def build_site():
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(index_content)
 
-    # 4. Build Dedicated Trust & Compliance Pages
-    os.makedirs("author/lettie-nl", exist_ok=True)
-    author_content = f'''<!DOCTYPE html>
+    # 4. Build Unified About & Author Profile Page
+    profile_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lettie N.L. - Author Profile - TechWitHer</title>
+    <title>About &amp; Author - Lettie N.L. | TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -158,42 +157,38 @@ def build_site():
     <div class="container">
         {get_nav('none')}
         <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem; font-weight: 900;">Lettie N.L.</h1>
-            <p style="color: #666; font-weight: 700; margin-bottom: 1.5rem;">Curator, Lead Researcher & Founder, TechWitHer</p>
-            <p>Lettie N.L. is a tech enthusiast, digital researcher, and customer care specialist who built TechWitHer to bridge the gap between complex software developments, practical AI automation, and everyday personal finance management.</p>
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.3rem; font-weight: 900;">Ntombzodwa Lettie Mahlangu (Lettie N.L.)</h1>
+            <p style="font-size: 1.1rem; color: #666; font-weight: 700; margin-bottom: 2rem;">Junior AI &amp; Full-Stack Developer &bull; Builder of TechWitHer</p>
+
+            <!-- Author Portrait -->
+            <div style="margin-bottom: 2rem;">
+                <img src="/lettie.jpeg" alt="Lettie N.L. - Junior AI &amp; Full-Stack Developer" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 3px solid #ff3333; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            </div>
+
+            <p>I am a Junior AI and Full-Stack Developer building web applications, interactive browser tools, and automated workflows on <strong>TechWitHer</strong>. My work focuses on turning practical ideas into shipped code using Python, HTML, CSS, JavaScript, GitHub Actions, and LLM APIs[cite: 1].</p>
+
+            <h2 style="font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; font-weight: 800;">What I Build &amp; Ship</h2>
+
+            <p>Through TechWitHer, I design and maintain automated static-site pipelines alongside interactive browser-based utilities—including a Savings Goal Calculator, PDF Converter, Fill &amp; Sign Signature Pad, and Document Scanner &amp; Enhancer[cite: 1]. In 2026, I completed WeThinkCode's GenAI Course for Software Engineers and Anthropic's <em>Building with the Claude API</em> training, applying prompt engineering, API integration, and structured automation to real projects[cite: 1, 2].</p>
+
+            <h2 style="font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; font-weight: 800;">Background in Quality, Operations &amp; Finance</h2>
+
+            <p>Before leaning fully into AI and full-stack development, I built hands-on experience across quality auditing, customer solutions, and financial administration—including data and file auditing at Oigetit, client and order operations with Working Solutions / Zar Foods, and ledger and reconciliation work at Quality Meats[cite: 1, 2]. Those roles trained me to spot edge cases, verify data accuracy, and keep workflows reliable[cite: 1, 2].</p>
+
+            <p>I hold a BTh in Counselling and Linguistics from North-West University (2023), which strengthened my analytical reading, communication, and structured problem-solving, and I have also studied Financial Accounting (BCompt) through UNISA[cite: 1, 2]. I am actively looking for <strong>Junior AI Developer</strong> or <strong>Junior Full-Stack Developer</strong> roles where I can learn fast under senior engineers and ship dependable software[cite: 1].</p>
         </main>
         {get_footer()}
     </div>
 </body>
-</html>
-'''
+</html>'''
+
+    os.makedirs("author/lettie-nl", exist_ok=True)
     with open('author/lettie-nl/index.html', 'w', encoding='utf-8') as f:
-        f.write(author_content)
+        f.write(profile_content)
 
     os.makedirs("about", exist_ok=True)
-    about_content = f'''<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - TechWitHer</title>
-    <link rel="icon" type="image/svg+xml" href="/techwither.svg">
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-    <div class="container">
-        {get_nav('none')}
-        <main style="max-width: 800px; margin: 0 auto; line-height: 1.7; padding: 2rem 0;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 1.5rem; font-weight: 900;">About TechWitHer</h1>
-            <p>Welcome to <strong>TechWitHer</strong>, an independent digital magazine focusing on artificial intelligence, software tools, consumer technology, and modern financial markets.</p>
-        </main>
-        {get_footer()}
-    </div>
-</body>
-</html>
-'''
     with open('about/index.html', 'w', encoding='utf-8') as f:
-        f.write(about_content)
+        f.write(profile_content)
 
     os.makedirs("privacy", exist_ok=True)
     privacy_content = f'''<!DOCTYPE html>
