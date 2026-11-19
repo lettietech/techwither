@@ -165,17 +165,17 @@ def build_site():
                 <img src="/lettie.jpeg" alt="Lettie N.L. - Junior AI &amp; Full-Stack Developer" style="width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 3px solid #ff3333; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
             </div>
 
-            <p>I am a Junior AI and Full-Stack Developer building web applications, interactive browser tools, and automated workflows on <strong>TechWitHer</strong>. My work focuses on turning practical ideas into shipped code using Python, HTML, CSS, JavaScript, GitHub Actions, and LLM APIs[cite: 1].</p>
+            <p>I am a Junior AI and Full-Stack Developer building web applications, interactive browser tools, and automated workflows on <strong>TechWitHer</strong>. My work focuses on turning practical ideas into shipped code using Python, HTML, CSS, JavaScript, GitHub Actions, and LLM APIs.</p>
 
             <h2 style="font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; font-weight: 800;">What I Build &amp; Ship</h2>
 
-            <p>Through TechWitHer, I design and maintain automated static-site pipelines alongside interactive browser-based utilities—including a Savings Goal Calculator, PDF Converter, Fill &amp; Sign Signature Pad, and Document Scanner &amp; Enhancer[cite: 1]. In 2026, I completed WeThinkCode's GenAI Course for Software Engineers and Anthropic's <em>Building with the Claude API</em> training, applying prompt engineering, API integration, and structured automation to real projects[cite: 1, 2].</p>
+            <p>Through TechWitHer, I design and maintain automated static-site pipelines alongside interactive browser-based utilities—including a Savings Goal Calculator, PDF Converter, Fill &amp; Sign Signature Pad, and Document Scanner &amp; Enhancer. In 2026, I completed WeThinkCode's GenAI Course for Software Engineers and Anthropic's <em>Building with the Claude API</em> training, applying prompt engineering, API integration, and structured automation to real projects.</p>
 
             <h2 style="font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1rem; font-weight: 800;">Background in Quality, Operations &amp; Finance</h2>
 
-            <p>Before leaning fully into AI and full-stack development, I built hands-on experience across quality auditing, customer solutions, and financial administration—including data and file auditing at Oigetit, client and order operations with Working Solutions / Zar Foods, and ledger and reconciliation work at Quality Meats[cite: 1, 2]. Those roles trained me to spot edge cases, verify data accuracy, and keep workflows reliable[cite: 1, 2].</p>
+            <p>Before leaning fully into AI and full-stack development, I built hands-on experience across quality auditing, customer solutions, and financial administration—including data and file auditing at Oigetit, client and order operations with Working Solutions / Zar Foods, and ledger and reconciliation work at Quality Meats. Those roles trained me to spot edge cases, verify data accuracy, and keep workflows reliable.</p>
 
-            <p>I hold a BTh in Counselling and Linguistics from North-West University (2023), which strengthened my analytical reading, communication, and structured problem-solving, and I have also studied Financial Accounting (BCompt) through UNISA[cite: 1, 2]. I am actively looking for <strong>Junior AI Developer</strong> or <strong>Junior Full-Stack Developer</strong> roles where I can learn fast under senior engineers and ship dependable software[cite: 1].</p>
+            <p>I hold a BTh in Counselling and Linguistics from North-West University (2023), which strengthened my analytical reading, communication, and structured problem-solving, and I have also studied Financial Accounting (BCompt) through UNISA. I am actively looking for <strong>Junior AI Developer</strong> or <strong>Junior Full-Stack Developer</strong> roles where I can learn fast under senior engineers and ship dependable software.</p>
         </main>
         {get_footer()}
     </div>
