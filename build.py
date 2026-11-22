@@ -83,6 +83,15 @@ def build_site():
             </header>
         '''
 
+    # Shared Open Graph meta tags for LinkedIn & social link previews
+    def get_og_tags(title, description, url, image="https://techwither.com/techwither-logo.jpg", og_type="website"):
+        return f'''    <meta property="og:type" content="{og_type}">
+    <meta property="og:site_name" content="TechWitHer">
+    <meta property="og:title" content="{title}">
+    <meta property="og:description" content="{description}">
+    <meta property="og:url" content="{url}">
+    <meta property="og:image" content="{image}">'''
+
     # Shared Footer with Compliance Links
     def get_footer():
         return '''
@@ -125,6 +134,7 @@ def build_site():
     <title>TechWitHer - The Digital Tech & Finance Magazine</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags("TechWitHer - The Digital Tech & Finance Magazine", "Practical AI workflows, software guides, and free browser-based tools built by Lettie N.L.", "https://techwither.com/")}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -143,7 +153,7 @@ def build_site():
     with open('index.html', 'w', encoding='utf-8') as f:
         f.write(index_content)
 
-   # 4. Build Unified About & Author Profile Page
+    # 4. Build Unified About & Author Profile Page
     profile_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -152,6 +162,7 @@ def build_site():
     <title>About &amp; Author - Lettie N.L. | TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags("About & Author - Lettie N.L. | TechWitHer", "Junior AI & Full-Stack Developer building web applications, interactive browser tools, and automated workflows on TechWitHer.", "https://techwither.com/about/", og_type="profile")}
 </head>
 <body>
     <div class="container">
@@ -199,6 +210,7 @@ def build_site():
     <title>Privacy Policy - TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags("Privacy Policy - TechWitHer", "How TechWitHer handles privacy and browser-based tools.", "https://techwither.com/privacy/")}
 </head>
 <body>
     <div class="container">
@@ -225,6 +237,7 @@ def build_site():
     <title>Affiliate Disclosure - TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags("Affiliate Disclosure - TechWitHer", "Affiliate and advertising disclosure for TechWitHer.", "https://techwither.com/disclosure/")}
 </head>
 <body>
     <div class="container">
@@ -250,6 +263,7 @@ def build_site():
     <title>Disclaimer - TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags("Disclaimer - TechWitHer", "General and financial disclaimer for TechWitHer.", "https://techwither.com/disclaimer/")}
 </head>
 <body>
     <div class="container">
@@ -275,6 +289,7 @@ def build_site():
     <title>Contact Us - TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags("Contact Us - TechWitHer", "Get in touch with TechWitHer.", "https://techwither.com/contact/")}
 </head>
 <body>
     <div class="container">
@@ -307,7 +322,7 @@ def build_site():
 
     # 4g. TOOLS HUB PAGE (/tools/)
     os.makedirs("tools", exist_ok=True)
-    tools_page_content = '''<!DOCTYPE html>
+    tools_page_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -315,6 +330,7 @@ def build_site():
     <title>Free Online Utilities, PDF Tools & Calculators - TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags("Free Online Utilities, PDF Tools & Calculators - TechWitHer", "Explore our free browser-based tools: PDF Converter, Fill & Sign Signature Pad, Document Scanner, and Savings Calculator.", "https://techwither.com/tools/")}
 </head>
 <body>
     <div class="container">
@@ -368,6 +384,7 @@ def build_site():
     <meta name="description" content="Use TechWitHer's free Savings Goal Calculator to find out how long it takes to reach your financial target. Free, fast, and secure.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+OG_PLACEHOLDER
 </head>
 <body>
     <div class="container">
@@ -453,8 +470,13 @@ def build_site():
 </body>
 </html>
 '''
+    savings_og = get_og_tags(
+        "Savings Goal Calculator - How Much to Save Each Month | TechWitHer",
+        "Use TechWitHer's free Savings Goal Calculator to find out how long it takes to reach your financial target. Free, fast, and secure.",
+        "https://techwither.com/tools/savings-goal-calculator/"
+    )
     with open('tools/savings-goal-calculator/index.html', 'w', encoding='utf-8') as f:
-        f.write(savings_calc_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
+        f.write(savings_calc_html.replace("NAV_PLACEHOLDER", get_nav('tools')).replace("OG_PLACEHOLDER", savings_og))
 
     # 4i. DEDICATED TOOL PAGE: FREE PDF & WORD CONVERTER (/tools/pdf-converter/)
     os.makedirs("tools/pdf-converter", exist_ok=True)
@@ -467,6 +489,7 @@ def build_site():
     <meta name="description" content="Turn Word docs and PDFs into editable formats online. 100% Free, No Sign-up required. Fast, secure, and simple browser document converter.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+OG_PLACEHOLDER
     <!-- Mammoth.js for reading Word .docx files in browser -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -550,8 +573,13 @@ def build_site():
 </body>
 </html>
 '''
+    pdf_og = get_og_tags(
+        "Convert Word to PDF & PDF to Word Free - No Sign-Up | TechWitHer",
+        "Turn Word docs and PDFs into editable formats online. 100% Free, No Sign-up required. Fast, secure, and simple browser document converter.",
+        "https://techwither.com/tools/pdf-converter/"
+    )
     with open('tools/pdf-converter/index.html', 'w', encoding='utf-8') as f:
-        f.write(pdf_converter_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
+        f.write(pdf_converter_html.replace("NAV_PLACEHOLDER", get_nav('tools')).replace("OG_PLACEHOLDER", pdf_og))
 
     # 4j. DEDICATED TOOL PAGE: FILL & SIGN TOOL (/tools/fill-and-sign/)
     os.makedirs("tools/fill-and-sign", exist_ok=True)
@@ -564,6 +592,7 @@ def build_site():
     <meta name="description" content="Upload any PDF document, fill out form spaces, add your signature, and download the completed file instantly. 100% Free, No Sign-up required.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+OG_PLACEHOLDER
     <!-- pdf-lib for editing and signing actual PDF files in browser -->
     <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
 </head>
@@ -699,8 +728,13 @@ def build_site():
 </body>
 </html>
 '''
+    fill_sign_og = get_og_tags(
+        "Fill & Sign PDFs Online - Free, No Sign-Up Required | TechWitHer",
+        "Upload any PDF document, fill out form spaces, add your signature, and download the completed file instantly. 100% Free, No Sign-up required.",
+        "https://techwither.com/tools/fill-and-sign/"
+    )
     with open('tools/fill-and-sign/index.html', 'w', encoding='utf-8') as f:
-        f.write(fill_sign_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
+        f.write(fill_sign_html.replace("NAV_PLACEHOLDER", get_nav('tools')).replace("OG_PLACEHOLDER", fill_sign_og))
 
     # 4k. DEDICATED TOOL PAGE: DOCUMENT SCANNER & ENHANCER (/tools/document-scanner/)
     os.makedirs("tools/document-scanner", exist_ok=True)
@@ -713,6 +747,7 @@ def build_site():
     <meta name="description" content="Convert phone photos into crisp B&W document scans instantly in your browser. 100% Free, No Sign-up required.">
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+OG_PLACEHOLDER
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
@@ -786,8 +821,13 @@ def build_site():
 </body>
 </html>
 '''
+    scanner_og = get_og_tags(
+        "Free Document Scanner & Photo Enhancer - TechWitHer",
+        "Convert phone photos into crisp B&W document scans instantly in your browser. 100% Free, No Sign-up required.",
+        "https://techwither.com/tools/document-scanner/"
+    )
     with open('tools/document-scanner/index.html', 'w', encoding='utf-8') as f:
-        f.write(document_scanner_html.replace("NAV_PLACEHOLDER", get_nav('tools')))
+        f.write(document_scanner_html.replace("NAV_PLACEHOLDER", get_nav('tools')).replace("OG_PLACEHOLDER", scanner_og))
 
     # 5. Build Individual Article Pages & Category Archives
     if articles:
@@ -827,6 +867,7 @@ def build_site():
     <title>{article['title']} - TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags(article['title'], article['excerpt'], f"https://techwither.com/categories/{folder}/{article['slug']}/", og_type="article")}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -873,6 +914,7 @@ def build_site():
     <title>{cat_name} - TechWitHer</title>
     <link rel="icon" type="image/svg+xml" href="/techwither.svg">
     <link rel="stylesheet" href="/style.css">
+{get_og_tags(f"{cat_name} - TechWitHer", f"Explore {cat_name} articles and guides on TechWitHer.", f"https://techwither.com/categories/{folder}/")}
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3209789109672774" crossorigin="anonymous"></script>
 </head>
 <body>
